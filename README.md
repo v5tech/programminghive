@@ -20,7 +20,7 @@ $ npm install gitbook -g
 
 注意```-g```选项。将```gitbook```安装为全局。
 
-* 切换到ProgrammingHive到上级目录
+* 切换到ProgrammingHive的上级目录
 
 ```
 $ cd ../ProgrammingHive
@@ -60,7 +60,7 @@ Mail:sxyx2008@163.com
 
 Weibo:[http://weibo.com/qq184675420](http://weibo.com/qq184675420)
 
-WebSite:[aimeizi.net](aimeizi.net)
+WebSite:[aimeizi.net](http://aimeizi.net)
 
 GitHub:[https://github.com/sxyx2008](https://github.com/sxyx2008)
 
