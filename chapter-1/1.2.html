@@ -46,7 +46,7 @@
 
 
         
-    <div class="book" data-github="sxyx2008/ProgrammingHive" data-level="2.2" data-basepath=".." data-revision="1401206822478">
+    <div class="book" data-github="sxyx2008/ProgrammingHive" data-level="2.2" data-basepath=".." data-revision="1401214361974">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -3264,9 +3264,25 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_10">
+                    <section class="normal" id="section-gitbook_8">
                     
                         <h2 id="1-2-hadoop-hive">1.2 Hadoop生态系统中的Hive</h2>
+<p><img src="../images/1-2.jpg" alt=""></p>
+<p>Hive发行版中附带的模块有:</p>
+<ul>
+<li><p>CLI Hive命令行接口</p>
+</li>
+<li><p>HWI 简单网页界面</p>
+</li>
+<li><p>JDBC、ODBC</p>
+</li>
+<li><p>Thrift</p>
+</li>
+</ul>
+<p>所有的命令和查询都会进入到Driver(驱动模块),通过该模块对输入进行解析编译,对需求计算进行优化,然后按指定步骤执行(通常是启动多个MapReduce任务)。当需要启动MapReduce任务时,Hive自身不会生成Java MapReduce算法程序。而是使用一个表示&quot;job执行计划&quot;的XML文件驱动执行内置的、原生的Mapper和Reducer模块。通俗讲,该驱动的&quot;语言&quot;是以XML形式编码的。</p>
+<p>Hive使用jobtrack通信来初始化MapReduce任务。不必部署在jobtrack所在的管理节点上。</p>
+<p>Metastore(元数据存储)是一个独立的关系型数据库(通常是一个MySQL实例),Hive在其中保存表模式和其他系统元数据。</p>
+<p>Hive最适合用来做数据仓库,对于数据仓库程序不需要实时响应查询,不需要记录级别的插入、更新和删除。</p>
 
                     
                     </section>

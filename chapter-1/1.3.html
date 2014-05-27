@@ -46,7 +46,7 @@
 
 
         
-    <div class="book" data-github="sxyx2008/ProgrammingHive" data-level="2.3" data-basepath=".." data-revision="1401206822478">
+    <div class="book" data-github="sxyx2008/ProgrammingHive" data-level="2.3" data-basepath=".." data-revision="1401214361974">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -3264,9 +3264,81 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_12">
+                    <section class="normal" id="section-gitbook_7">
                     
                         <h2 id="1-3-java-hive-">1.3 Java和Hive词频统计算法</h2>
+<ul>
+<li>java版WordCount </li>
+</ul>
+<pre><code class="lang-java">package org.myorg;
+import java.io.IOException;
+import java.util.*;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.conf.*;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapreduce.*;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+
+public class WordCount {
+
+public static class Map extends Mapper&lt;LongWritable, Text, Text, IntWritable&gt; {
+
+    private final static IntWritable one = new IntWritable(1);
+    private Text word = new Text();
+
+    public void map(LongWritable key, Text value, Context context) 
+      throws IOException, InterruptedException {
+        String line = value.toString();
+        StringTokenizer tokenizer = new StringTokenizer(line);
+        while (tokenizer.hasMoreTokens()) {
+            word.set(tokenizer.nextToken());
+            context.write(word, one);
+        }
+    }
+
+}
+
+public static class Reduce extends Reducer&lt;Text, IntWritable, Text, IntWritable&gt; {
+
+    public void reduce(Text key, Iterable&lt;IntWritable&gt; values, Context context) 
+      throws IOException, InterruptedException {
+        int sum = 0;
+        for (IntWritable val : values) {
+            sum += val.get();
+        }
+        context.write(key, new IntWritable(sum));
+    }
+}
+
+public static void main(String[] args) throws Exception {
+    Configuration conf = new Configuration();
+    Job job = new Job(conf, "wordcount");
+    job.setOutputKeyClass(Text.class);
+    job.setOutputValueClass(IntWritable.class);
+    job.setMapperClass(Map.class);
+    job.setReducerClass(Reduce.class);
+    job.setInputFormatClass(TextInputFormat.class);
+    job.setOutputFormatClass(TextOutputFormat.class);
+    FileInputFormat.addInputPath(job, new Path(args[0]));
+    FileOutputFormat.setOutputPath(job, new Path(args[1]));
+    job.waitForCompletion(true);
+}
+
+}
+</code></pre>
+<ul>
+<li>hive版WordCount </li>
+</ul>
+<pre><code class="lang-sql"><span class="hljs-operator"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> docs (line STRING);</span>
+<span class="hljs-operator"><span class="hljs-keyword">LOAD</span> DATA INPATH <span class="hljs-string">'docs'</span> OVERWRITE <span class="hljs-keyword">INTO</span> <span class="hljs-keyword">TABLE</span> docs;</span>
+<span class="hljs-operator"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> word_counts <span class="hljs-keyword">AS</span>
+<span class="hljs-keyword">SELECT</span> word, <span class="hljs-aggregate">count</span>(<span class="hljs-number">1</span>) <span class="hljs-keyword">AS</span> <span class="hljs-aggregate">count</span> <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> explode(split(line, <span class="hljs-string">'\s'</span>)) <span class="hljs-keyword">AS</span> word <span class="hljs-keyword">FROM</span> docs) w
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> word
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> word;</span>
+</code></pre>
 
                     
                     </section>
