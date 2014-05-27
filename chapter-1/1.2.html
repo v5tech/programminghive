@@ -1,0 +1,3321 @@
+<!DOCTYPE HTML>
+<html lang="en-US" >
+    
+    <head prefix="og: http://ogp.me/ns# book: http://ogp.me/ns/book#">
+        
+        
+        <meta charset="UTF-8">
+        <title>Hadoop生态系统中的Hive | Programming Hive 读书笔记</title>
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="robots" content="index, follow">
+        <meta name="author" content="sxyx2008">
+        <meta name="description" content="Book generated using GitBook">
+        <meta name="keywords" content="gitbook,github" >
+        <meta name="generator" content="www.gitbook.io">
+
+        
+        <link rel="next" href="../chapter-1/1.2.1.html" />
+        
+        
+        <link rel="prev" href="../chapter-1/1.1.html" />
+        
+
+        <meta property="og:title" content="Hadoop生态系统中的Hive | Programming Hive 读书笔记">
+        <meta property="og:site_name" content="Programming Hive 读书笔记">
+        <meta property="og:type" content="book">
+        <meta property="og:locale" content="en_US">
+
+        <meta property="book:author" content="https://github.com/sxyx2008">
+        <meta property="book:tag" content="GitBook">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <link rel="shortcut icon" href="..\gitbook/images/favicon.ico" type="image/x-icon">
+        
+        
+    </head>
+    <body>
+        
+        
+
+        <link rel="stylesheet" href="..\gitbook/style.css">
+        
+
+
+        
+    <div class="book" data-github="sxyx2008/ProgrammingHive" data-level="2.2" data-basepath=".." data-revision="1401206822478">
+    <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
+    
+    <a href="https://github.com/sxyx2008/ProgrammingHive" target="_blank" class="btn pull-left home-bookmark" aria-label="GitHub home"><i class="fa fa-bookmark-o"></i></a>
+    
+    <a href="#" class="btn pull-left toggle-search" aria-label="Toggle search"><i class="fa fa-search"></i></a>
+    <span id="font-settings-wrapper">
+        <a href="#" class="btn pull-left toggle-font-settings" aria-label="Toggle font settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="btn-group btn-block">
+        <button id="reduce-font-size" class="btn btn-default">A</button>
+        <button id="enlarge-font-size" class="btn btn-default">A</button>
+    </div>
+
+    <ul class="list-group font-family-list">
+        <li class="list-group-item" data-font="0">Serif</li>
+        <li class="list-group-item" data-font="1">Sans</li>
+    </ul>
+
+    <div class="btn-group btn-group-xs btn-block color-theme-list">
+        <button type="button" class="btn btn-default" id="color-theme-preview-0" data-theme="0">White</button>
+        <button type="button" class="btn btn-default" id="color-theme-preview-1" data-theme="1">Sepia</button>
+        <button type="button" class="btn btn-default" id="color-theme-preview-2" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </span>
+
+    <!-- Actions Right -->
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Share on Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Share on Twitter"><i class="fa fa-twitter"></i></a>
+    
+
+    
+    <a href="https://github.com/sxyx2008/ProgrammingHive/stargazers" target="_blank" class="btn pull-right count-star hidden-xs"><i class="fa fa-star-o"></i> Star (<span>-</span>)</a>
+    <a href="https://github.com/sxyx2008/ProgrammingHive/watchers" target="_blank" class="btn pull-right count-watch hidden-xs"><i class="fa fa-eye"></i> Watch (<span>-</span>)</a>
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-spinner fa-spin"></i>
+        <a href="../" >Programming Hive 读书笔记</a>
+    </h1>
+</div>
+
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+        
+        
+        <li>
+            <a href="https://github.com/sxyx2008" target="blank" class="author-link">About the author</a>
+        </li>
+        
+
+        
+        
+        <li>
+            <a href="https://github.com/sxyx2008/ProgrammingHive/issues" target="blank"class="issues-link">Questions and Issues</a>
+        </li>
+        
+
+        
+        
+        <li>
+            <a href="https://github.com/sxyx2008/ProgrammingHive/edit/master/chapter-1/1.2.md" target="blank" class="contribute-link">Edit and Contribute</a>
+        </li>
+        
+
+        
+        <li class="divider"></li>
+        
+
+        <li data-level="0" data-path="index.html">
+            <a href="../"><i class="fa fa-check"></i> Introduction</a>
+        </li>
+        
+    
+        <li class="chapter " data-level="1" data-path="index.html">
+            
+            <a href="../index.html">
+                <i class="fa fa-check"></i> <b>1.</b> README
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="chapter-1/0.html">
+            
+            <a href="../chapter-1/0.html">
+                <i class="fa fa-check"></i> <b>2.</b> 第一章 基础知识
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="chapter-1/1.1.html">
+            
+            <a href="../chapter-1/1.1.html">
+                <i class="fa fa-check"></i> <b>2.1.</b> Hadoop和MapReduce综述
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="chapter-1/1.2.html">
+            
+            <a href="../chapter-1/1.2.html">
+                <i class="fa fa-check"></i> <b>2.2.</b> Hadoop生态系统中的Hive
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="chapter-1/1.2.1.html">
+            
+            <a href="../chapter-1/1.2.1.html">
+                <i class="fa fa-check"></i> <b>2.2.1.</b> Pig
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.2" data-path="chapter-1/1.2.2.html">
+            
+            <a href="../chapter-1/1.2.2.html">
+                <i class="fa fa-check"></i> <b>2.2.2.</b> Hbase
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.3" data-path="chapter-1/1.2.3.html">
+            
+            <a href="../chapter-1/1.2.3.html">
+                <i class="fa fa-check"></i> <b>2.2.3.</b> Cascading、Crunch及其他
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="chapter-1/1.3.html">
+            
+            <a href="../chapter-1/1.3.html">
+                <i class="fa fa-check"></i> <b>2.3.</b> Java和Hive词频统计算法
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="chapter-1/1.4.html">
+            
+            <a href="../chapter-1/1.4.html">
+                <i class="fa fa-check"></i> <b>2.4.</b> 后续事情
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="chapter-2/0.html">
+            
+            <a href="../chapter-2/0.html">
+                <i class="fa fa-check"></i> <b>3.</b> 第二章 基础操作
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1" data-path="chapter-2/2.1.html">
+            
+            <a href="../chapter-2/2.1.html">
+                <i class="fa fa-check"></i> <b>3.1.</b> 安装预先配置好的虚拟机
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="chapter-2/2.2.html">
+            
+            <a href="../chapter-2/2.2.html">
+                <i class="fa fa-check"></i> <b>3.2.</b> 安装详细步骤
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.2.1" data-path="chapter-2/2.2.1.html">
+            
+            <a href="../chapter-2/2.2.1.html">
+                <i class="fa fa-check"></i> <b>3.2.1.</b> 安装Java
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.2" data-path="chapter-2/2.2.2.html">
+            
+            <a href="../chapter-2/2.2.2.html">
+                <i class="fa fa-check"></i> <b>3.2.2.</b> 安装Hadoop
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.3" data-path="chapter-2/2.2.3.html">
+            
+            <a href="../chapter-2/2.2.3.html">
+                <i class="fa fa-check"></i> <b>3.2.3.</b> 本地模式、伪分布式模式和分布式模式
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.4" data-path="chapter-2/2.2.4.html">
+            
+            <a href="../chapter-2/2.2.4.html">
+                <i class="fa fa-check"></i> <b>3.2.4.</b> 测试Hadoop
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2.5" data-path="chapter-2/2.2.5.html">
+            
+            <a href="../chapter-2/2.2.5.html">
+                <i class="fa fa-check"></i> <b>3.2.5.</b> 安装Hive
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="chapter-2/2.3.html">
+            
+            <a href="../chapter-2/2.3.html">
+                <i class="fa fa-check"></i> <b>3.3.</b> Hive内部是什么
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="chapter-2/2.4.html">
+            
+            <a href="../chapter-2/2.4.html">
+                <i class="fa fa-check"></i> <b>3.4.</b> 启动Hive
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="chapter-2/2.5.html">
+            
+            <a href="../chapter-2/2.5.html">
+                <i class="fa fa-check"></i> <b>3.5.</b> 配置Hadoop环境
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.5.1" data-path="chapter-2/2.5.1.html">
+            
+            <a href="../chapter-2/2.5.1.html">
+                <i class="fa fa-check"></i> <b>3.5.1.</b> 本地模式配置
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.2" data-path="chapter-2/2.5.2.html">
+            
+            <a href="../chapter-2/2.5.2.html">
+                <i class="fa fa-check"></i> <b>3.5.2.</b> 分布式模式和伪分布式模式配置
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.3" data-path="chapter-2/2.5.3.html">
+            
+            <a href="../chapter-2/2.5.3.html">
+                <i class="fa fa-check"></i> <b>3.5.3.</b> 使用JDBC连接元数据
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="chapter-2/2.6.html">
+            
+            <a href="../chapter-2/2.6.html">
+                <i class="fa fa-check"></i> <b>3.6.</b> Hive命令
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7" data-path="chapter-2/2.7.html">
+            
+            <a href="../chapter-2/2.7.html">
+                <i class="fa fa-check"></i> <b>3.7.</b> Hive命令行界面
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.7.1" data-path="chapter-2/2.7.1.html">
+            
+            <a href="../chapter-2/2.7.1.html">
+                <i class="fa fa-check"></i> <b>3.7.1.</b> CLI选项
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7.2" data-path="chapter-2/2.7.2.html">
+            
+            <a href="../chapter-2/2.7.2.html">
+                <i class="fa fa-check"></i> <b>3.7.2.</b> 变量和属性
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7.3" data-path="chapter-2/2.7.3.html">
+            
+            <a href="../chapter-2/2.7.3.html">
+                <i class="fa fa-check"></i> <b>3.7.3.</b> Hive中“一次使用”命令
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7.4" data-path="chapter-2/2.7.4.html">
+            
+            <a href="../chapter-2/2.7.4.html">
+                <i class="fa fa-check"></i> <b>3.7.4.</b> 从文件中执行Hive查询
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7.5" data-path="chapter-2/2.7.5.html">
+            
+            <a href="../chapter-2/2.7.5.html">
+                <i class="fa fa-check"></i> <b>3.7.5.</b> hiverc文件
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7.6" data-path="chapter-2/2.7.6.html">
+            
+            <a href="../chapter-2/2.7.6.html">
+                <i class="fa fa-check"></i> <b>3.7.6.</b> 使用Hive CLI的更多介绍
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7.7" data-path="chapter-2/2.7.7.html">
+            
+            <a href="../chapter-2/2.7.7.html">
+                <i class="fa fa-check"></i> <b>3.7.7.</b> 查看操作命令历史
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7.8" data-path="chapter-2/2.7.8.html">
+            
+            <a href="../chapter-2/2.7.8.html">
+                <i class="fa fa-check"></i> <b>3.7.8.</b> 执行shell命令
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7.9" data-path="chapter-2/2.7.9.html">
+            
+            <a href="../chapter-2/2.7.9.html">
+                <i class="fa fa-check"></i> <b>3.7.9.</b> 在Hive内部使用Hadoop的dfs命令
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7.10" data-path="chapter-2/2.7.10.html">
+            
+            <a href="../chapter-2/2.7.10.html">
+                <i class="fa fa-check"></i> <b>3.7.10.</b> Hive脚本中注释
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3.7.11" data-path="chapter-2/2.7.11.html">
+            
+            <a href="../chapter-2/2.7.11.html">
+                <i class="fa fa-check"></i> <b>3.7.11.</b> 显示字段名称
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="chapter-3/0.html">
+            
+            <a href="../chapter-3/0.html">
+                <i class="fa fa-check"></i> <b>4.</b> 第三章 数据类型和文件格式
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1" data-path="chapter-3/1.1.html">
+            
+            <a href="../chapter-3/1.1.html">
+                <i class="fa fa-check"></i> <b>4.1.</b> 基本数据类型
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="chapter-3/3.2.html">
+            
+            <a href="../chapter-3/3.2.html">
+                <i class="fa fa-check"></i> <b>4.2.</b> 集合数据类型
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="chapter-3/3.3.html">
+            
+            <a href="../chapter-3/3.3.html">
+                <i class="fa fa-check"></i> <b>4.3.</b> 文本文件数据编码
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="chapter-3/3.4.html">
+            
+            <a href="../chapter-3/3.4.html">
+                <i class="fa fa-check"></i> <b>4.4.</b> 读时模式
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5" data-path="chapter-4/0.html">
+            
+            <a href="../chapter-4/0.html">
+                <i class="fa fa-check"></i> <b>5.</b> 第四章 HiveQL:数据定义
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1" data-path="chapter-4/4.1.html">
+            
+            <a href="../chapter-4/4.1.html">
+                <i class="fa fa-check"></i> <b>5.1.</b> Hive中的数据库
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="chapter-4/4.2.html">
+            
+            <a href="../chapter-4/4.2.html">
+                <i class="fa fa-check"></i> <b>5.2.</b> 修改数据库
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="chapter-4/4.3.html">
+            
+            <a href="../chapter-4/4.3.html">
+                <i class="fa fa-check"></i> <b>5.3.</b> 创建表
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.3.1" data-path="chapter-4/4.3.1.html">
+            
+            <a href="../chapter-4/4.3.1.html">
+                <i class="fa fa-check"></i> <b>5.3.1.</b> 管理表
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3.2" data-path="chapter-4/4.3.2.html">
+            
+            <a href="../chapter-4/4.3.2.html">
+                <i class="fa fa-check"></i> <b>5.3.2.</b> 外部表
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="chapter-4/4.4.html">
+            
+            <a href="../chapter-4/4.4.html">
+                <i class="fa fa-check"></i> <b>5.4.</b> 分区表、管理表
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.4.1" data-path="chapter-4/4.4.1.html">
+            
+            <a href="../chapter-4/4.4.1.html">
+                <i class="fa fa-check"></i> <b>5.4.1.</b> 外部分区表
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4.2" data-path="chapter-4/4.4.2.html">
+            
+            <a href="../chapter-4/4.4.2.html">
+                <i class="fa fa-check"></i> <b>5.4.2.</b> 自定义表的存储格式
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="chapter-4/4.5.html">
+            
+            <a href="../chapter-4/4.5.html">
+                <i class="fa fa-check"></i> <b>5.5.</b> 删除表
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6" data-path="chapter-4/4.6.html">
+            
+            <a href="../chapter-4/4.6.html">
+                <i class="fa fa-check"></i> <b>5.6.</b> 修改表
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.6.1" data-path="chapter-4/4.6.1.html">
+            
+            <a href="../chapter-4/4.6.1.html">
+                <i class="fa fa-check"></i> <b>5.6.1.</b> 表重命名
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6.2" data-path="chapter-4/4.6.2.html">
+            
+            <a href="../chapter-4/4.6.2.html">
+                <i class="fa fa-check"></i> <b>5.6.2.</b> 增加、修改和删除表分区
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6.3" data-path="chapter-4/4.6.3.html">
+            
+            <a href="../chapter-4/4.6.3.html">
+                <i class="fa fa-check"></i> <b>5.6.3.</b> 修改列信息
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6.4" data-path="chapter-4/4.6.4.html">
+            
+            <a href="../chapter-4/4.6.4.html">
+                <i class="fa fa-check"></i> <b>5.6.4.</b> 增加列
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6.5" data-path="chapter-4/4.6.5.html">
+            
+            <a href="../chapter-4/4.6.5.html">
+                <i class="fa fa-check"></i> <b>5.6.5.</b> 删除或者替换列
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6.6" data-path="chapter-4/4.6.6.html">
+            
+            <a href="../chapter-4/4.6.6.html">
+                <i class="fa fa-check"></i> <b>5.6.6.</b> 修改表属性
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6.7" data-path="chapter-4/4.6.7.html">
+            
+            <a href="../chapter-4/4.6.7.html">
+                <i class="fa fa-check"></i> <b>5.6.7.</b> 修改存储属性
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6.8" data-path="chapter-4/4.6.8.html">
+            
+            <a href="../chapter-4/4.6.8.html">
+                <i class="fa fa-check"></i> <b>5.6.8.</b> 众多的修改表语句
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="chapter-5/0.html">
+            
+            <a href="../chapter-5/0.html">
+                <i class="fa fa-check"></i> <b>6.</b> 第五章 HiveQL:数据操作
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1" data-path="chapter-5/5.1.html">
+            
+            <a href="../chapter-5/5.1.html">
+                <i class="fa fa-check"></i> <b>6.1.</b> 向管理表中装载数据
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="chapter-5/5.2.html">
+            
+            <a href="../chapter-5/5.2.html">
+                <i class="fa fa-check"></i> <b>6.2.</b> 通过查询语句向表中插入数据
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="chapter-5/5.3.html">
+            
+            <a href="../chapter-5/5.3.html">
+                <i class="fa fa-check"></i> <b>6.3.</b> 单个查询语句中创建表并加载数据
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="chapter-5/5.4.html">
+            
+            <a href="../chapter-5/5.4.html">
+                <i class="fa fa-check"></i> <b>6.4.</b> 导出数据
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="chapter-6/0.html">
+            
+            <a href="../chapter-6/0.html">
+                <i class="fa fa-check"></i> <b>7.</b> 第六章 HiveQL:查询
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1" data-path="chapter-6/6.1.html">
+            
+            <a href="../chapter-6/6.1.html">
+                <i class="fa fa-check"></i> <b>7.1.</b> select…from语句
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="chapter-6/6.1.1.html">
+            
+            <a href="../chapter-6/6.1.1.html">
+                <i class="fa fa-check"></i> <b>7.1.1.</b> 使用正则表达式来指定列
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.2" data-path="chapter-6/6.1.2.html">
+            
+            <a href="../chapter-6/6.1.2.html">
+                <i class="fa fa-check"></i> <b>7.1.2.</b> 使用列值进行计算
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.3" data-path="chapter-6/6.1.3.html">
+            
+            <a href="../chapter-6/6.1.3.html">
+                <i class="fa fa-check"></i> <b>7.1.3.</b> 算术运算符
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.4" data-path="chapter-6/6.1.4.html">
+            
+            <a href="../chapter-6/6.1.4.html">
+                <i class="fa fa-check"></i> <b>7.1.4.</b> 使用函数
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.5" data-path="chapter-6/6.1.5.html">
+            
+            <a href="../chapter-6/6.1.5.html">
+                <i class="fa fa-check"></i> <b>7.1.5.</b> limit语句
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.6" data-path="chapter-6/6.1.6.html">
+            
+            <a href="../chapter-6/6.1.6.html">
+                <i class="fa fa-check"></i> <b>7.1.6.</b> 列别名
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.7" data-path="chapter-6/6.1.7.html">
+            
+            <a href="../chapter-6/6.1.7.html">
+                <i class="fa fa-check"></i> <b>7.1.7.</b> 嵌套select语句
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.8" data-path="chapter-6/6.1.8.html">
+            
+            <a href="../chapter-6/6.1.8.html">
+                <i class="fa fa-check"></i> <b>7.1.8.</b> case…when…then句式
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.9" data-path="chapter-6/6.1.9.html">
+            
+            <a href="../chapter-6/6.1.9.html">
+                <i class="fa fa-check"></i> <b>7.1.9.</b> 什么情况下hive可以避免进行mapreduce
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="chapter-6/6.2.html">
+            
+            <a href="../chapter-6/6.2.html">
+                <i class="fa fa-check"></i> <b>7.2.</b> where语句
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.2.1" data-path="chapter-6/6.2.1.html">
+            
+            <a href="../chapter-6/6.2.1.html">
+                <i class="fa fa-check"></i> <b>7.2.1.</b> 谓词操作符
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2.2" data-path="chapter-6/6.2.2.html">
+            
+            <a href="../chapter-6/6.2.2.html">
+                <i class="fa fa-check"></i> <b>7.2.2.</b> 关于浮点数比较
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2.3" data-path="chapter-6/6.2.3.html">
+            
+            <a href="../chapter-6/6.2.3.html">
+                <i class="fa fa-check"></i> <b>7.2.3.</b> like和rlike
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="chapter-6/6.3.html">
+            
+            <a href="../chapter-6/6.3.html">
+                <i class="fa fa-check"></i> <b>7.3.</b> group by 语句
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="chapter-6/6.4.html">
+            
+            <a href="../chapter-6/6.4.html">
+                <i class="fa fa-check"></i> <b>7.4.</b> join语句
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.4.1" data-path="chapter-6/6.4.1.html">
+            
+            <a href="../chapter-6/6.4.1.html">
+                <i class="fa fa-check"></i> <b>7.4.1.</b> inner join
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4.2" data-path="chapter-6/6.4.2.html">
+            
+            <a href="../chapter-6/6.4.2.html">
+                <i class="fa fa-check"></i> <b>7.4.2.</b> join优化
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4.3" data-path="chapter-6/6.4.3.html">
+            
+            <a href="../chapter-6/6.4.3.html">
+                <i class="fa fa-check"></i> <b>7.4.3.</b> left outer join
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4.4" data-path="chapter-6/6.4.4.html">
+            
+            <a href="../chapter-6/6.4.4.html">
+                <i class="fa fa-check"></i> <b>7.4.4.</b> outer join
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4.5" data-path="chapter-6/6.4.5.html">
+            
+            <a href="../chapter-6/6.4.5.html">
+                <i class="fa fa-check"></i> <b>7.4.5.</b> right outer join
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4.6" data-path="chapter-6/6.4.6.html">
+            
+            <a href="../chapter-6/6.4.6.html">
+                <i class="fa fa-check"></i> <b>7.4.6.</b> full outer join
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4.7" data-path="chapter-6/6.4.7.html">
+            
+            <a href="../chapter-6/6.4.7.html">
+                <i class="fa fa-check"></i> <b>7.4.7.</b> left semi-join
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4.8" data-path="chapter-6/6.4.8.html">
+            
+            <a href="../chapter-6/6.4.8.html">
+                <i class="fa fa-check"></i> <b>7.4.8.</b> 笛卡尔积join
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4.9" data-path="chapter-6/6.4.9.html">
+            
+            <a href="../chapter-6/6.4.9.html">
+                <i class="fa fa-check"></i> <b>7.4.9.</b> map-side join
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="chapter-6/6.5.html">
+            
+            <a href="../chapter-6/6.5.html">
+                <i class="fa fa-check"></i> <b>7.5.</b> order by和sort by
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.6" data-path="chapter-6/6.6.html">
+            
+            <a href="../chapter-6/6.6.html">
+                <i class="fa fa-check"></i> <b>7.6.</b> 含有sort by 的distribute by
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.7" data-path="chapter-6/6.7.html">
+            
+            <a href="../chapter-6/6.7.html">
+                <i class="fa fa-check"></i> <b>7.7.</b> cluster by
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.8" data-path="chapter-6/6.8.html">
+            
+            <a href="../chapter-6/6.8.html">
+                <i class="fa fa-check"></i> <b>7.8.</b> 类型转换
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.9" data-path="chapter-6/6.9.html">
+            
+            <a href="../chapter-6/6.9.html">
+                <i class="fa fa-check"></i> <b>7.9.</b> 抽样查询
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.9.1" data-path="chapter-6/6.9.1.html">
+            
+            <a href="../chapter-6/6.9.1.html">
+                <i class="fa fa-check"></i> <b>7.9.1.</b> 数据块抽样
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7.9.2" data-path="chapter-6/6.9.2.html">
+            
+            <a href="../chapter-6/6.9.2.html">
+                <i class="fa fa-check"></i> <b>7.9.2.</b> 分桶表的输入裁剪
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7.10" data-path="chapter-6/6.10.html">
+            
+            <a href="../chapter-6/6.10.html">
+                <i class="fa fa-check"></i> <b>7.10.</b> union all
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="chapter-7/0.html">
+            
+            <a href="../chapter-7/0.html">
+                <i class="fa fa-check"></i> <b>8.</b> 第七章 HiveQL:视图
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1" data-path="chapter-7/7.1.html">
+            
+            <a href="../chapter-7/7.1.html">
+                <i class="fa fa-check"></i> <b>8.1.</b> 使用视图来降低查询复杂度
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="chapter-7/7.2.html">
+            
+            <a href="../chapter-7/7.2.html">
+                <i class="fa fa-check"></i> <b>8.2.</b> 使用视图来限制基于条件过滤的数据
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="chapter-7/7.3.html">
+            
+            <a href="../chapter-7/7.3.html">
+                <i class="fa fa-check"></i> <b>8.3.</b> 动态分区中的视图和map类型
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="chapter-7/7.4.html">
+            
+            <a href="../chapter-7/7.4.html">
+                <i class="fa fa-check"></i> <b>8.4.</b> 视图零零碎碎相关的事情
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9" data-path="chapter-8/0.html">
+            
+            <a href="../chapter-8/0.html">
+                <i class="fa fa-check"></i> <b>9.</b> 第八章 HiveQL:索引
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1" data-path="chapter-8/8.1.html">
+            
+            <a href="../chapter-8/8.1.html">
+                <i class="fa fa-check"></i> <b>9.1.</b> 创建索引
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="chapter-8/8.2.html">
+            
+            <a href="../chapter-8/8.2.html">
+                <i class="fa fa-check"></i> <b>9.2.</b> 重建索引
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="chapter-8/8.3.html">
+            
+            <a href="../chapter-8/8.3.html">
+                <i class="fa fa-check"></i> <b>9.3.</b> 显示索引
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.4" data-path="chapter-8/8.4.html">
+            
+            <a href="../chapter-8/8.4.html">
+                <i class="fa fa-check"></i> <b>9.4.</b> 删除索引
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="9.5" data-path="chapter-8/8.5.html">
+            
+            <a href="../chapter-8/8.5.html">
+                <i class="fa fa-check"></i> <b>9.5.</b> 实现一个定制化的索引处理器
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="10" data-path="chapter-9/0.html">
+            
+            <a href="../chapter-9/0.html">
+                <i class="fa fa-check"></i> <b>10.</b> 第九章 模式设计
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.1" data-path="chapter-9/9.1.html">
+            
+            <a href="../chapter-9/9.1.html">
+                <i class="fa fa-check"></i> <b>10.1.</b> 按天划分的表
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2" data-path="chapter-9/9.2.html">
+            
+            <a href="../chapter-9/9.2.html">
+                <i class="fa fa-check"></i> <b>10.2.</b> 关于分区
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.3" data-path="chapter-9/9.3.html">
+            
+            <a href="../chapter-9/9.3.html">
+                <i class="fa fa-check"></i> <b>10.3.</b> 唯一键和标准化
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.4" data-path="chapter-9/9.4.html">
+            
+            <a href="../chapter-9/9.4.html">
+                <i class="fa fa-check"></i> <b>10.4.</b> 同一份数据多种处理
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.5" data-path="chapter-9/9.5.html">
+            
+            <a href="../chapter-9/9.5.html">
+                <i class="fa fa-check"></i> <b>10.5.</b> 对于每个表的分区
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.6" data-path="chapter-9/9.6.html">
+            
+            <a href="../chapter-9/9.6.html">
+                <i class="fa fa-check"></i> <b>10.6.</b> 分桶表数据存储
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.7" data-path="chapter-9/9.7.html">
+            
+            <a href="../chapter-9/9.7.html">
+                <i class="fa fa-check"></i> <b>10.7.</b> 为表增加列
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.8" data-path="chapter-9/9.8.html">
+            
+            <a href="../chapter-9/9.8.html">
+                <i class="fa fa-check"></i> <b>10.8.</b> 使用列存储表
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.8.1" data-path="chapter-9/9.8.1.html">
+            
+            <a href="../chapter-9/9.8.1.html">
+                <i class="fa fa-check"></i> <b>10.8.1.</b> 重复数据
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="10.8.2" data-path="chapter-9/9.8.2.html">
+            
+            <a href="../chapter-9/9.8.2.html">
+                <i class="fa fa-check"></i> <b>10.8.2.</b> 多列
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="10.9" data-path="chapter-9/9.9.html">
+            
+            <a href="../chapter-9/9.9.html">
+                <i class="fa fa-check"></i> <b>10.9.</b> (几乎)总是使用压缩
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="11" data-path="chapter-10/0.html">
+            
+            <a href="../chapter-10/0.html">
+                <i class="fa fa-check"></i> <b>11.</b> 第十章 调优
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="11.1" data-path="chapter-10/10.1.html">
+            
+            <a href="../chapter-10/10.1.html">
+                <i class="fa fa-check"></i> <b>11.1.</b> 使用explain
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.2" data-path="chapter-10/10.2.html">
+            
+            <a href="../chapter-10/10.2.html">
+                <i class="fa fa-check"></i> <b>11.2.</b> explain extended
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.3" data-path="chapter-10/10.3.html">
+            
+            <a href="../chapter-10/10.3.html">
+                <i class="fa fa-check"></i> <b>11.3.</b> 限制调整
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.4" data-path="chapter-10/10.4.html">
+            
+            <a href="../chapter-10/10.4.html">
+                <i class="fa fa-check"></i> <b>11.4.</b> join优化
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.5" data-path="chapter-10/10.5.html">
+            
+            <a href="../chapter-10/10.5.html">
+                <i class="fa fa-check"></i> <b>11.5.</b> 本地模式
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.6" data-path="chapter-10/10.6.html">
+            
+            <a href="../chapter-10/10.6.html">
+                <i class="fa fa-check"></i> <b>11.6.</b> 并行执行
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.7" data-path="chapter-10/10.7.html">
+            
+            <a href="../chapter-10/10.7.html">
+                <i class="fa fa-check"></i> <b>11.7.</b> 严格模式
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.8" data-path="chapter-10/10.8.html">
+            
+            <a href="../chapter-10/10.8.html">
+                <i class="fa fa-check"></i> <b>11.8.</b> 调整mapper和reducer个数
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.9" data-path="chapter-10/10.9.html">
+            
+            <a href="../chapter-10/10.9.html">
+                <i class="fa fa-check"></i> <b>11.9.</b> jvm重用
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.10" data-path="chapter-10/10.10.html">
+            
+            <a href="../chapter-10/10.10.html">
+                <i class="fa fa-check"></i> <b>11.10.</b> 索引
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.11" data-path="chapter-10/10.11.html">
+            
+            <a href="../chapter-10/10.11.html">
+                <i class="fa fa-check"></i> <b>11.11.</b> 动态分区调整
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.12" data-path="chapter-10/10.12.html">
+            
+            <a href="../chapter-10/10.12.html">
+                <i class="fa fa-check"></i> <b>11.12.</b> 推测执行
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.13" data-path="chapter-10/10.13.html">
+            
+            <a href="../chapter-10/10.13.html">
+                <i class="fa fa-check"></i> <b>11.13.</b> 单个mapreduce中多个group by
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="11.14" data-path="chapter-10/10.14.html">
+            
+            <a href="../chapter-10/10.14.html">
+                <i class="fa fa-check"></i> <b>11.14.</b> 虚拟列
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12" data-path="chapter-11/0.html">
+            
+            <a href="../chapter-11/0.html">
+                <i class="fa fa-check"></i> <b>12.</b> 第十一章 其他文件格式和压缩方法
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.1" data-path="chapter-11/11.1.html">
+            
+            <a href="../chapter-11/11.1.html">
+                <i class="fa fa-check"></i> <b>12.1.</b> 确定安装编解码器
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2" data-path="chapter-11/11.2.html">
+            
+            <a href="../chapter-11/11.2.html">
+                <i class="fa fa-check"></i> <b>12.2.</b> 选择一种压缩编/解码器
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3" data-path="chapter-11/11.3.html">
+            
+            <a href="../chapter-11/11.3.html">
+                <i class="fa fa-check"></i> <b>12.3.</b> 开启中间压缩
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4" data-path="chapter-11/11.4.html">
+            
+            <a href="../chapter-11/11.4.html">
+                <i class="fa fa-check"></i> <b>12.4.</b> 最终输出结果压缩
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.5" data-path="chapter-11/11.5.html">
+            
+            <a href="../chapter-11/11.5.html">
+                <i class="fa fa-check"></i> <b>12.5.</b> sequence file存储格式
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.6" data-path="chapter-11/11.6.html">
+            
+            <a href="../chapter-11/11.6.html">
+                <i class="fa fa-check"></i> <b>12.6.</b> 使用压缩实践
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.7" data-path="chapter-11/11.7.html">
+            
+            <a href="../chapter-11/11.7.html">
+                <i class="fa fa-check"></i> <b>12.7.</b> 存档分区
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="12.8" data-path="chapter-11/11.8.html">
+            
+            <a href="../chapter-11/11.8.html">
+                <i class="fa fa-check"></i> <b>12.8.</b> 压缩：包扎
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13" data-path="chapter-12/0.html">
+            
+            <a href="../chapter-12/0.html">
+                <i class="fa fa-check"></i> <b>13.</b> 第十二章 开发
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.1" data-path="chapter-12/12.1.html">
+            
+            <a href="../chapter-12/12.1.html">
+                <i class="fa fa-check"></i> <b>13.1.</b> 修改log4j属性
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2" data-path="chapter-12/12.2.html">
+            
+            <a href="../chapter-12/12.2.html">
+                <i class="fa fa-check"></i> <b>13.2.</b> 连接java调试器到hive
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.3" data-path="chapter-12/12.3.html">
+            
+            <a href="../chapter-12/12.3.html">
+                <i class="fa fa-check"></i> <b>13.3.</b> 从源码编译hive
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.3.1" data-path="chapter-12/12.3.1.html">
+            
+            <a href="../chapter-12/12.3.1.html">
+                <i class="fa fa-check"></i> <b>13.3.1.</b> 执行hive测试用例
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.3.2" data-path="chapter-12/12.3.2.html">
+            
+            <a href="../chapter-12/12.3.2.html">
+                <i class="fa fa-check"></i> <b>13.3.2.</b> 执行hook
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.4" data-path="chapter-12/12.4.html">
+            
+            <a href="../chapter-12/12.4.html">
+                <i class="fa fa-check"></i> <b>13.4.</b> 配置hive和eclipse
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.5" data-path="chapter-12/12.5.html">
+            
+            <a href="../chapter-12/12.5.html">
+                <i class="fa fa-check"></i> <b>13.5.</b> maven工程中使用hive
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.6" data-path="chapter-12/12.6.html">
+            
+            <a href="../chapter-12/12.6.html">
+                <i class="fa fa-check"></i> <b>13.6.</b> hive中使用hive_test进行单元测试
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="13.7" data-path="chapter-12/12.7.html">
+            
+            <a href="../chapter-12/12.7.html">
+                <i class="fa fa-check"></i> <b>13.7.</b> 新增的插件开发工具箱(pdk)
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="14" data-path="chapter-13/0.html">
+            
+            <a href="../chapter-13/0.html">
+                <i class="fa fa-check"></i> <b>14.</b> 第十三章 函数
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="14.1" data-path="chapter-13/13.1.html">
+            
+            <a href="../chapter-13/13.1.html">
+                <i class="fa fa-check"></i> <b>14.1.</b> 发现和描述函数
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.2" data-path="chapter-13/13.2.html">
+            
+            <a href="../chapter-13/13.2.html">
+                <i class="fa fa-check"></i> <b>14.2.</b> 调用函数
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.3" data-path="chapter-13/13.3.html">
+            
+            <a href="../chapter-13/13.3.html">
+                <i class="fa fa-check"></i> <b>14.3.</b> 标准函数
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.4" data-path="chapter-13/13.4.html">
+            
+            <a href="../chapter-13/13.4.html">
+                <i class="fa fa-check"></i> <b>14.4.</b> 聚合函数
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5" data-path="chapter-13/13.5.html">
+            
+            <a href="../chapter-13/13.5.html">
+                <i class="fa fa-check"></i> <b>14.5.</b> 表生成函数
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.6" data-path="chapter-13/13.6.html">
+            
+            <a href="../chapter-13/13.6.html">
+                <i class="fa fa-check"></i> <b>14.6.</b> 一个通过日期计算其星座的udf
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.7" data-path="chapter-13/13.7.html">
+            
+            <a href="../chapter-13/13.7.html">
+                <i class="fa fa-check"></i> <b>14.7.</b> udf与genericudf
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.8" data-path="chapter-13/13.8.html">
+            
+            <a href="../chapter-13/13.8.html">
+                <i class="fa fa-check"></i> <b>14.8.</b> 不变函数
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.9" data-path="chapter-13/13.9.html">
+            
+            <a href="../chapter-13/13.9.html">
+                <i class="fa fa-check"></i> <b>14.9.</b> 用户自定义聚合函数
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.10" data-path="chapter-13/13.10.html">
+            
+            <a href="../chapter-13/13.10.html">
+                <i class="fa fa-check"></i> <b>14.10.</b> 用户自定义表生成函数
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="14.10.1" data-path="chapter-13/13.10.1.html">
+            
+            <a href="../chapter-13/13.10.1.html">
+                <i class="fa fa-check"></i> <b>14.10.1.</b> 可以产生多行数据的udtf
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.10.2" data-path="chapter-13/13.10.2.html">
+            
+            <a href="../chapter-13/13.10.2.html">
+                <i class="fa fa-check"></i> <b>14.10.2.</b> 可以产生具有多个字段的单行数据的udtf
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.10.3" data-path="chapter-13/13.10.3.html">
+            
+            <a href="../chapter-13/13.10.3.html">
+                <i class="fa fa-check"></i> <b>14.10.3.</b> 可以模拟复杂数据类型的udtf
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="14.11" data-path="chapter-13/13.11.html">
+            
+            <a href="../chapter-13/13.11.html">
+                <i class="fa fa-check"></i> <b>14.11.</b> 在 udf中访问分布式缓存
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.12" data-path="chapter-13/13.12.html">
+            
+            <a href="../chapter-13/13.12.html">
+                <i class="fa fa-check"></i> <b>14.12.</b> 以函数的方式使用注解
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="14.12.1" data-path="chapter-13/13.12.1.html">
+            
+            <a href="../chapter-13/13.12.1.html">
+                <i class="fa fa-check"></i> <b>14.12.1.</b> 定数性(deterministic)标注
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.12.2" data-path="chapter-13/13.12.2.html">
+            
+            <a href="../chapter-13/13.12.2.html">
+                <i class="fa fa-check"></i> <b>14.12.2.</b> 状态性(stateful)标注
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="14.12.3" data-path="chapter-13/13.12.3.html">
+            
+            <a href="../chapter-13/13.12.3.html">
+                <i class="fa fa-check"></i> <b>14.12.3.</b> 唯一性
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="14.13" data-path="chapter-13/13.13.html">
+            
+            <a href="../chapter-13/13.13.html">
+                <i class="fa fa-check"></i> <b>14.13.</b> 宏命令
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="15" data-path="chapter-14/0.html">
+            
+            <a href="../chapter-14/0.html">
+                <i class="fa fa-check"></i> <b>15.</b> 第十四章 Streaming
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="15.1" data-path="chapter-14/14.1.html">
+            
+            <a href="../chapter-14/14.1.html">
+                <i class="fa fa-check"></i> <b>15.1.</b> 恒等变换
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.2" data-path="chapter-14/14.2.html">
+            
+            <a href="../chapter-14/14.2.html">
+                <i class="fa fa-check"></i> <b>15.2.</b> 改变类型
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.3" data-path="chapter-14/14.3.html">
+            
+            <a href="../chapter-14/14.3.html">
+                <i class="fa fa-check"></i> <b>15.3.</b> 投影变换
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.4" data-path="chapter-14/14.4.html">
+            
+            <a href="../chapter-14/14.4.html">
+                <i class="fa fa-check"></i> <b>15.4.</b> 操作转换
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.5" data-path="chapter-14/14.5.html">
+            
+            <a href="../chapter-14/14.5.html">
+                <i class="fa fa-check"></i> <b>15.5.</b> 使用分布式内存
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.6" data-path="chapter-14/14.6.html">
+            
+            <a href="../chapter-14/14.6.html">
+                <i class="fa fa-check"></i> <b>15.6.</b> 由一行产生多行
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.7" data-path="chapter-14/14.7.html">
+            
+            <a href="../chapter-14/14.7.html">
+                <i class="fa fa-check"></i> <b>15.7.</b> 使用streaming进行聚合计算
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.8" data-path="chapter-14/14.8.html">
+            
+            <a href="../chapter-14/14.8.html">
+                <i class="fa fa-check"></i> <b>15.8.</b> cluster by、distribute by、sort by
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.9" data-path="chapter-14/14.9.html">
+            
+            <a href="../chapter-14/14.9.html">
+                <i class="fa fa-check"></i> <b>15.9.</b> genericmr tools for streaming to java
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="15.10" data-path="chapter-14/14.10.html">
+            
+            <a href="../chapter-14/14.10.html">
+                <i class="fa fa-check"></i> <b>15.10.</b> 计算cogroup
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="16" data-path="chapter-15/0.html">
+            
+            <a href="../chapter-15/0.html">
+                <i class="fa fa-check"></i> <b>16.</b> 第十五章 自定义Hive文件和记录格式
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="16.1" data-path="chapter-15/15.1.html">
+            
+            <a href="../chapter-15/15.1.html">
+                <i class="fa fa-check"></i> <b>16.1.</b> 文件和记录格式
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.2" data-path="chapter-15/15.2.html">
+            
+            <a href="../chapter-15/15.2.html">
+                <i class="fa fa-check"></i> <b>16.2.</b> 阐明create table句式
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.3" data-path="chapter-15/15.3.html">
+            
+            <a href="../chapter-15/15.3.html">
+                <i class="fa fa-check"></i> <b>16.3.</b> 文件格式
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="16.3.1" data-path="chapter-15/15.3.1.html">
+            
+            <a href="../chapter-15/15.3.1.html">
+                <i class="fa fa-check"></i> <b>16.3.1.</b> sequencefile
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.3.2" data-path="chapter-15/15.3.2.html">
+            
+            <a href="../chapter-15/15.3.2.html">
+                <i class="fa fa-check"></i> <b>16.3.2.</b> rcfile
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.3.3" data-path="chapter-15/15.3.3.html">
+            
+            <a href="../chapter-15/15.3.3.html">
+                <i class="fa fa-check"></i> <b>16.3.3.</b> 示例自定义输入格式
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="16.4" data-path="chapter-15/15.4.html">
+            
+            <a href="../chapter-15/15.4.html">
+                <i class="fa fa-check"></i> <b>16.4.</b> 记录格式：serde
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.5" data-path="chapter-15/15.5.html">
+            
+            <a href="../chapter-15/15.5.html">
+                <i class="fa fa-check"></i> <b>16.5.</b> csv和tsv serde
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.6" data-path="chapter-15/15.6.html">
+            
+            <a href="../chapter-15/15.6.html">
+                <i class="fa fa-check"></i> <b>16.6.</b> objectinspector
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.7" data-path="chapter-15/15.7.html">
+            
+            <a href="../chapter-15/15.7.html">
+                <i class="fa fa-check"></i> <b>16.7.</b> thing big hive reflection objectinspector
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.8" data-path="chapter-15/15.8.html">
+            
+            <a href="../chapter-15/15.8.html">
+                <i class="fa fa-check"></i> <b>16.8.</b> xml udf
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.9" data-path="chapter-15/15.9.html">
+            
+            <a href="../chapter-15/15.9.html">
+                <i class="fa fa-check"></i> <b>16.9.</b> xpath相关的函数
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.10" data-path="chapter-15/15.10.html">
+            
+            <a href="../chapter-15/15.10.html">
+                <i class="fa fa-check"></i> <b>16.10.</b> json serde
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.11" data-path="chapter-15/15.11.html">
+            
+            <a href="../chapter-15/15.11.html">
+                <i class="fa fa-check"></i> <b>16.11.</b> avro hive serde
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="16.11.1" data-path="chapter-15/15.11.1.html">
+            
+            <a href="../chapter-15/15.11.1.html">
+                <i class="fa fa-check"></i> <b>16.11.1.</b> 使用表属性信息定义avro schema
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.11.2" data-path="chapter-15/15.11.2.html">
+            
+            <a href="../chapter-15/15.11.2.html">
+                <i class="fa fa-check"></i> <b>16.11.2.</b> 从指定url中定义schema
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="16.11.3" data-path="chapter-15/15.11.3.html">
+            
+            <a href="../chapter-15/15.11.3.html">
+                <i class="fa fa-check"></i> <b>16.11.3.</b> 进化的模式
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="16.12" data-path="chapter-15/15.12.html">
+            
+            <a href="../chapter-15/15.12.html">
+                <i class="fa fa-check"></i> <b>16.12.</b> 二进制输出
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="17" data-path="chapter-16/0.html">
+            
+            <a href="../chapter-16/0.html">
+                <i class="fa fa-check"></i> <b>17.</b> 第十六章 Hive的Thrift服务
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="17.1" data-path="chapter-16/16.1.html">
+            
+            <a href="../chapter-16/16.1.html">
+                <i class="fa fa-check"></i> <b>17.1.</b> 启动thrift server
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17.2" data-path="chapter-16/16.2.html">
+            
+            <a href="../chapter-16/16.2.html">
+                <i class="fa fa-check"></i> <b>17.2.</b> 配置groovy使用hiveserver
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17.3" data-path="chapter-16/16.3.html">
+            
+            <a href="../chapter-16/16.3.html">
+                <i class="fa fa-check"></i> <b>17.3.</b> 连接到hiveserver
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17.4" data-path="chapter-16/16.4.html">
+            
+            <a href="../chapter-16/16.4.html">
+                <i class="fa fa-check"></i> <b>17.4.</b> 获取集群状态信息
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17.5" data-path="chapter-16/16.5.html">
+            
+            <a href="../chapter-16/16.5.html">
+                <i class="fa fa-check"></i> <b>17.5.</b> 结果集模式
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17.6" data-path="chapter-16/16.6.html">
+            
+            <a href="../chapter-16/16.6.html">
+                <i class="fa fa-check"></i> <b>17.6.</b> 获取结果
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17.7" data-path="chapter-16/16.7.html">
+            
+            <a href="../chapter-16/16.7.html">
+                <i class="fa fa-check"></i> <b>17.7.</b> 获取执行计划
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17.8" data-path="chapter-16/16.8.html">
+            
+            <a href="../chapter-16/16.8.html">
+                <i class="fa fa-check"></i> <b>17.8.</b> 元数据存储方法
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17.9" data-path="chapter-16/16.9.html">
+            
+            <a href="../chapter-16/16.9.html">
+                <i class="fa fa-check"></i> <b>17.9.</b> 管理hiveserver
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="17.9.1" data-path="chapter-16/16.9.1.html">
+            
+            <a href="../chapter-16/16.9.1.html">
+                <i class="fa fa-check"></i> <b>17.9.1.</b> 生产环境使用hiveserver
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17.9.2" data-path="chapter-16/16.9.2.html">
+            
+            <a href="../chapter-16/16.9.2.html">
+                <i class="fa fa-check"></i> <b>17.9.2.</b> 清理
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="17.10" data-path="chapter-16/16.10.html">
+            
+            <a href="../chapter-16/16.10.html">
+                <i class="fa fa-check"></i> <b>17.10.</b> hive thriftmetastore
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="17.10.1" data-path="chapter-16/16.10.1.html">
+            
+            <a href="../chapter-16/16.10.1.html">
+                <i class="fa fa-check"></i> <b>17.10.1.</b> thriftmetastore 配置
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="17.10.2" data-path="chapter-16/16.10.2.html">
+            
+            <a href="../chapter-16/16.10.2.html">
+                <i class="fa fa-check"></i> <b>17.10.2.</b> 客户端配置
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="18" data-path="chapter-17/0.html">
+            
+            <a href="../chapter-17/0.html">
+                <i class="fa fa-check"></i> <b>18.</b> 第十七章 存储处理程序和NoSQL
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="18.1" data-path="chapter-17/17.1.html">
+            
+            <a href="../chapter-17/17.1.html">
+                <i class="fa fa-check"></i> <b>18.1.</b> storage handler background
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="18.2" data-path="chapter-17/17.2.html">
+            
+            <a href="../chapter-17/17.2.html">
+                <i class="fa fa-check"></i> <b>18.2.</b> hivestoragehandler
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="18.3" data-path="chapter-17/17.3.html">
+            
+            <a href="../chapter-17/17.3.html">
+                <i class="fa fa-check"></i> <b>18.3.</b> hbase
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="18.4" data-path="chapter-17/17.4.html">
+            
+            <a href="../chapter-17/17.4.html">
+                <i class="fa fa-check"></i> <b>18.4.</b> cassandra
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="18.4.1" data-path="chapter-17/17.4.1.html">
+            
+            <a href="../chapter-17/17.4.1.html">
+                <i class="fa fa-check"></i> <b>18.4.1.</b> 静态列映射(static column mapping)
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="18.4.2" data-path="chapter-17/17.4.2.html">
+            
+            <a href="../chapter-17/17.4.2.html">
+                <i class="fa fa-check"></i> <b>18.4.2.</b> 为动态列转置列映射
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="18.4.3" data-path="chapter-17/17.4.3.html">
+            
+            <a href="../chapter-17/17.4.3.html">
+                <i class="fa fa-check"></i> <b>18.4.3.</b> cassandra serde properties
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="18.5" data-path="chapter-17/17.5.html">
+            
+            <a href="../chapter-17/17.5.html">
+                <i class="fa fa-check"></i> <b>18.5.</b> dynamodb
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="19" data-path="chapter-18/0.html">
+            
+            <a href="../chapter-18/0.html">
+                <i class="fa fa-check"></i> <b>19.</b> 第十八章 安全
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="19.1" data-path="chapter-18/18.1.html">
+            
+            <a href="../chapter-18/18.1.html">
+                <i class="fa fa-check"></i> <b>19.1.</b> 和hadoop安全功能相结合
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="19.2" data-path="chapter-18/18.2.html">
+            
+            <a href="../chapter-18/18.2.html">
+                <i class="fa fa-check"></i> <b>19.2.</b> 使用hive进行验证
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="19.3" data-path="chapter-18/18.3.html">
+            
+            <a href="../chapter-18/18.3.html">
+                <i class="fa fa-check"></i> <b>19.3.</b> hive中的权限管理
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="19.3.1" data-path="chapter-18/18.3.1.html">
+            
+            <a href="../chapter-18/18.3.1.html">
+                <i class="fa fa-check"></i> <b>19.3.1.</b> 用户、组和角色
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="19.3.2" data-path="chapter-18/18.3.2.html">
+            
+            <a href="../chapter-18/18.3.2.html">
+                <i class="fa fa-check"></i> <b>19.3.2.</b> grant 和 revoke权限
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="19.4" data-path="chapter-18/18.4.html">
+            
+            <a href="../chapter-18/18.4.html">
+                <i class="fa fa-check"></i> <b>19.4.</b> 分区级别的权限
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="19.5" data-path="chapter-18/18.5.html">
+            
+            <a href="../chapter-18/18.5.html">
+                <i class="fa fa-check"></i> <b>19.5.</b> 自动授权
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="20" data-path="chapter-19/0.html">
+            
+            <a href="../chapter-19/0.html">
+                <i class="fa fa-check"></i> <b>20.</b> 第十九章 锁
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="20.1" data-path="chapter-19/19.1.html">
+            
+            <a href="../chapter-19/19.1.html">
+                <i class="fa fa-check"></i> <b>20.1.</b> hive结合zookeeper支持锁功能
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="20.2" data-path="chapter-19/19.2.html">
+            
+            <a href="../chapter-19/19.2.html">
+                <i class="fa fa-check"></i> <b>20.2.</b> 显式锁和独占锁
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="21" data-path="chapter-20/0.html">
+            
+            <a href="../chapter-20/0.html">
+                <i class="fa fa-check"></i> <b>21.</b> 第二十章 Hive和Oozie整合
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="21.1" data-path="chapter-20/20.1.html">
+            
+            <a href="../chapter-20/20.1.html">
+                <i class="fa fa-check"></i> <b>21.1.</b> oozie提供的多种动作(action)
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="21.2" data-path="chapter-20/20.2.html">
+            
+            <a href="../chapter-20/20.2.html">
+                <i class="fa fa-check"></i> <b>21.2.</b> 一个只包含两个查询过程的工作流示例
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="21.3" data-path="chapter-20/20.3.html">
+            
+            <a href="../chapter-20/20.3.html">
+                <i class="fa fa-check"></i> <b>21.3.</b> oozie 网页控制台
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="21.4" data-path="chapter-20/20.4.html">
+            
+            <a href="../chapter-20/20.4.html">
+                <i class="fa fa-check"></i> <b>21.4.</b> 工作流中的变量
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="21.5" data-path="chapter-20/20.5.html">
+            
+            <a href="../chapter-20/20.5.html">
+                <i class="fa fa-check"></i> <b>21.5.</b> 获取输出
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="21.6" data-path="chapter-20/20.6.html">
+            
+            <a href="../chapter-20/20.6.html">
+                <i class="fa fa-check"></i> <b>21.6.</b> 获取输出到变量
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="22" data-path="chapter-21/0.html">
+            
+            <a href="../chapter-21/0.html">
+                <i class="fa fa-check"></i> <b>22.</b> 第二十一章 Hive和亚马逊网络服务系统(AWS)
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="23" data-path="chapter-22/0.html">
+            
+            <a href="../chapter-22/0.html">
+                <i class="fa fa-check"></i> <b>23.</b> 第二十二章 HCatalog
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="23.1" data-path="chapter-22/22.1.html">
+            
+            <a href="../chapter-22/22.1.html">
+                <i class="fa fa-check"></i> <b>23.1.</b> 介绍
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="23.2" data-path="chapter-22/22.2.html">
+            
+            <a href="../chapter-22/22.2.html">
+                <i class="fa fa-check"></i> <b>23.2.</b> mapreduce
+            </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="23.2.1" data-path="chapter-22/22.2.1.html">
+            
+            <a href="../chapter-22/22.2.1.html">
+                <i class="fa fa-check"></i> <b>23.2.1.</b> 读数据
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="23.2.2" data-path="chapter-22/22.2.2.html">
+            
+            <a href="../chapter-22/22.2.2.html">
+                <i class="fa fa-check"></i> <b>23.2.2.</b> 写数据
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="23.3" data-path="chapter-22/22.3.html">
+            
+            <a href="../chapter-22/22.3.html">
+                <i class="fa fa-check"></i> <b>23.3.</b> 命令行
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="23.4" data-path="chapter-22/22.4.html">
+            
+            <a href="../chapter-22/22.4.html">
+                <i class="fa fa-check"></i> <b>23.4.</b> 安全模型
+            </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="23.5" data-path="chapter-22/22.5.html">
+            
+            <a href="../chapter-22/22.5.html">
+                <i class="fa fa-check"></i> <b>23.5.</b> 架构
+            </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="24" data-path="chapter-23/0.html">
+            
+            <a href="../chapter-23/0.html">
+                <i class="fa fa-check"></i> <b>24.</b> 第二十三章 案例研究
+            </a>
+            
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="http://www.gitbook.io/" target="blank" class="gitbook-link">Generated using GitBook</a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="page-wrapper" tabindex="-1">
+                <div class="book-progress">
+    <div class="bar">
+        <div class="inner" style="width: 1.1673151750972763%;min-width: 0.7782101167315175%;"></div>
+    </div>
+    <div class="chapters">
+    
+        <a href="../index.html" title="README" class="chapter done new-chapter" data-progress="1" style="left: 0%;"></a>
+    
+        <a href="../chapter-1/0.html" title="第一章 基础知识" class="chapter done new-chapter" data-progress="2" style="left: 0.38910505836575876%;"></a>
+    
+        <a href="../chapter-1/1.1.html" title="Hadoop和MapReduce综述" class="chapter done " data-progress="2.1" style="left: 0.7782101167315175%;"></a>
+    
+        <a href="../chapter-1/1.2.html" title="Hadoop生态系统中的Hive" class="chapter done " data-progress="2.2" style="left: 1.1673151750972763%;"></a>
+    
+        <a href="../chapter-1/1.2.1.html" title="Pig" class="chapter  " data-progress="2.2.1" style="left: 1.556420233463035%;"></a>
+    
+        <a href="../chapter-1/1.2.2.html" title="Hbase" class="chapter  " data-progress="2.2.2" style="left: 1.9455252918287937%;"></a>
+    
+        <a href="../chapter-1/1.2.3.html" title="Cascading、Crunch及其他" class="chapter  " data-progress="2.2.3" style="left: 2.3346303501945527%;"></a>
+    
+        <a href="../chapter-1/1.3.html" title="Java和Hive词频统计算法" class="chapter  " data-progress="2.3" style="left: 2.7237354085603114%;"></a>
+    
+        <a href="../chapter-1/1.4.html" title="后续事情" class="chapter  " data-progress="2.4" style="left: 3.11284046692607%;"></a>
+    
+        <a href="../chapter-2/0.html" title="第二章 基础操作" class="chapter  new-chapter" data-progress="3" style="left: 3.501945525291829%;"></a>
+    
+        <a href="../chapter-2/2.1.html" title="安装预先配置好的虚拟机" class="chapter  " data-progress="3.1" style="left: 3.8910505836575875%;"></a>
+    
+        <a href="../chapter-2/2.2.html" title="安装详细步骤" class="chapter  " data-progress="3.2" style="left: 4.280155642023346%;"></a>
+    
+        <a href="../chapter-2/2.2.1.html" title="安装Java" class="chapter  " data-progress="3.2.1" style="left: 4.669260700389105%;"></a>
+    
+        <a href="../chapter-2/2.2.2.html" title="安装Hadoop" class="chapter  " data-progress="3.2.2" style="left: 5.058365758754864%;"></a>
+    
+        <a href="../chapter-2/2.2.3.html" title="本地模式、伪分布式模式和分布式模式" class="chapter  " data-progress="3.2.3" style="left: 5.447470817120623%;"></a>
+    
+        <a href="../chapter-2/2.2.4.html" title="测试Hadoop" class="chapter  " data-progress="3.2.4" style="left: 5.836575875486381%;"></a>
+    
+        <a href="../chapter-2/2.2.5.html" title="安装Hive" class="chapter  " data-progress="3.2.5" style="left: 6.22568093385214%;"></a>
+    
+        <a href="../chapter-2/2.3.html" title="Hive内部是什么" class="chapter  " data-progress="3.3" style="left: 6.614785992217898%;"></a>
+    
+        <a href="../chapter-2/2.4.html" title="启动Hive" class="chapter  " data-progress="3.4" style="left: 7.003891050583658%;"></a>
+    
+        <a href="../chapter-2/2.5.html" title="配置Hadoop环境" class="chapter  " data-progress="3.5" style="left: 7.392996108949417%;"></a>
+    
+        <a href="../chapter-2/2.5.1.html" title="本地模式配置" class="chapter  " data-progress="3.5.1" style="left: 7.782101167315175%;"></a>
+    
+        <a href="../chapter-2/2.5.2.html" title="分布式模式和伪分布式模式配置" class="chapter  " data-progress="3.5.2" style="left: 8.171206225680933%;"></a>
+    
+        <a href="../chapter-2/2.5.3.html" title="使用JDBC连接元数据" class="chapter  " data-progress="3.5.3" style="left: 8.560311284046692%;"></a>
+    
+        <a href="../chapter-2/2.6.html" title="Hive命令" class="chapter  " data-progress="3.6" style="left: 8.949416342412452%;"></a>
+    
+        <a href="../chapter-2/2.7.html" title="Hive命令行界面" class="chapter  " data-progress="3.7" style="left: 9.33852140077821%;"></a>
+    
+        <a href="../chapter-2/2.7.1.html" title="CLI选项" class="chapter  " data-progress="3.7.1" style="left: 9.727626459143968%;"></a>
+    
+        <a href="../chapter-2/2.7.2.html" title="变量和属性" class="chapter  " data-progress="3.7.2" style="left: 10.116731517509727%;"></a>
+    
+        <a href="../chapter-2/2.7.3.html" title="Hive中“一次使用”命令" class="chapter  " data-progress="3.7.3" style="left: 10.505836575875486%;"></a>
+    
+        <a href="../chapter-2/2.7.4.html" title="从文件中执行Hive查询" class="chapter  " data-progress="3.7.4" style="left: 10.894941634241246%;"></a>
+    
+        <a href="../chapter-2/2.7.5.html" title="hiverc文件" class="chapter  " data-progress="3.7.5" style="left: 11.284046692607005%;"></a>
+    
+        <a href="../chapter-2/2.7.6.html" title="使用Hive CLI的更多介绍" class="chapter  " data-progress="3.7.6" style="left: 11.673151750972762%;"></a>
+    
+        <a href="../chapter-2/2.7.7.html" title="查看操作命令历史" class="chapter  " data-progress="3.7.7" style="left: 12.062256809338521%;"></a>
+    
+        <a href="../chapter-2/2.7.8.html" title="执行shell命令" class="chapter  " data-progress="3.7.8" style="left: 12.45136186770428%;"></a>
+    
+        <a href="../chapter-2/2.7.9.html" title="在Hive内部使用Hadoop的dfs命令" class="chapter  " data-progress="3.7.9" style="left: 12.84046692607004%;"></a>
+    
+        <a href="../chapter-2/2.7.10.html" title="Hive脚本中注释" class="chapter  " data-progress="3.7.10" style="left: 13.229571984435797%;"></a>
+    
+        <a href="../chapter-2/2.7.11.html" title="显示字段名称" class="chapter  " data-progress="3.7.11" style="left: 13.618677042801556%;"></a>
+    
+        <a href="../chapter-3/0.html" title="第三章 数据类型和文件格式" class="chapter  new-chapter" data-progress="4" style="left: 14.007782101167315%;"></a>
+    
+        <a href="../chapter-3/1.1.html" title="基本数据类型" class="chapter  " data-progress="4.1" style="left: 14.396887159533074%;"></a>
+    
+        <a href="../chapter-3/3.2.html" title="集合数据类型" class="chapter  " data-progress="4.2" style="left: 14.785992217898833%;"></a>
+    
+        <a href="../chapter-3/3.3.html" title="文本文件数据编码" class="chapter  " data-progress="4.3" style="left: 15.17509727626459%;"></a>
+    
+        <a href="../chapter-3/3.4.html" title="读时模式" class="chapter  " data-progress="4.4" style="left: 15.56420233463035%;"></a>
+    
+        <a href="../chapter-4/0.html" title="第四章 HiveQL:数据定义" class="chapter  new-chapter" data-progress="5" style="left: 15.95330739299611%;"></a>
+    
+        <a href="../chapter-4/4.1.html" title="Hive中的数据库" class="chapter  " data-progress="5.1" style="left: 16.342412451361866%;"></a>
+    
+        <a href="../chapter-4/4.2.html" title="修改数据库" class="chapter  " data-progress="5.2" style="left: 16.731517509727627%;"></a>
+    
+        <a href="../chapter-4/4.3.html" title="创建表" class="chapter  " data-progress="5.3" style="left: 17.120622568093385%;"></a>
+    
+        <a href="../chapter-4/4.3.1.html" title="管理表" class="chapter  " data-progress="5.3.1" style="left: 17.509727626459146%;"></a>
+    
+        <a href="../chapter-4/4.3.2.html" title="外部表" class="chapter  " data-progress="5.3.2" style="left: 17.898832684824903%;"></a>
+    
+        <a href="../chapter-4/4.4.html" title="分区表、管理表" class="chapter  " data-progress="5.4" style="left: 18.28793774319066%;"></a>
+    
+        <a href="../chapter-4/4.4.1.html" title="外部分区表" class="chapter  " data-progress="5.4.1" style="left: 18.67704280155642%;"></a>
+    
+        <a href="../chapter-4/4.4.2.html" title="自定义表的存储格式" class="chapter  " data-progress="5.4.2" style="left: 19.06614785992218%;"></a>
+    
+        <a href="../chapter-4/4.5.html" title="删除表" class="chapter  " data-progress="5.5" style="left: 19.455252918287936%;"></a>
+    
+        <a href="../chapter-4/4.6.html" title="修改表" class="chapter  " data-progress="5.6" style="left: 19.844357976653697%;"></a>
+    
+        <a href="../chapter-4/4.6.1.html" title="表重命名" class="chapter  " data-progress="5.6.1" style="left: 20.233463035019454%;"></a>
+    
+        <a href="../chapter-4/4.6.2.html" title="增加、修改和删除表分区" class="chapter  " data-progress="5.6.2" style="left: 20.622568093385215%;"></a>
+    
+        <a href="../chapter-4/4.6.3.html" title="修改列信息" class="chapter  " data-progress="5.6.3" style="left: 21.011673151750973%;"></a>
+    
+        <a href="../chapter-4/4.6.4.html" title="增加列" class="chapter  " data-progress="5.6.4" style="left: 21.40077821011673%;"></a>
+    
+        <a href="../chapter-4/4.6.5.html" title="删除或者替换列" class="chapter  " data-progress="5.6.5" style="left: 21.78988326848249%;"></a>
+    
+        <a href="../chapter-4/4.6.6.html" title="修改表属性" class="chapter  " data-progress="5.6.6" style="left: 22.17898832684825%;"></a>
+    
+        <a href="../chapter-4/4.6.7.html" title="修改存储属性" class="chapter  " data-progress="5.6.7" style="left: 22.56809338521401%;"></a>
+    
+        <a href="../chapter-4/4.6.8.html" title="众多的修改表语句" class="chapter  " data-progress="5.6.8" style="left: 22.957198443579767%;"></a>
+    
+        <a href="../chapter-5/0.html" title="第五章 HiveQL:数据操作" class="chapter  new-chapter" data-progress="6" style="left: 23.346303501945524%;"></a>
+    
+        <a href="../chapter-5/5.1.html" title="向管理表中装载数据" class="chapter  " data-progress="6.1" style="left: 23.735408560311285%;"></a>
+    
+        <a href="../chapter-5/5.2.html" title="通过查询语句向表中插入数据" class="chapter  " data-progress="6.2" style="left: 24.124513618677042%;"></a>
+    
+        <a href="../chapter-5/5.3.html" title="单个查询语句中创建表并加载数据" class="chapter  " data-progress="6.3" style="left: 24.513618677042803%;"></a>
+    
+        <a href="../chapter-5/5.4.html" title="导出数据" class="chapter  " data-progress="6.4" style="left: 24.90272373540856%;"></a>
+    
+        <a href="../chapter-6/0.html" title="第六章 HiveQL:查询" class="chapter  new-chapter" data-progress="7" style="left: 25.291828793774318%;"></a>
+    
+        <a href="../chapter-6/6.1.html" title="select…from语句" class="chapter  " data-progress="7.1" style="left: 25.68093385214008%;"></a>
+    
+        <a href="../chapter-6/6.1.1.html" title="使用正则表达式来指定列" class="chapter  " data-progress="7.1.1" style="left: 26.070038910505836%;"></a>
+    
+        <a href="../chapter-6/6.1.2.html" title="使用列值进行计算" class="chapter  " data-progress="7.1.2" style="left: 26.459143968871594%;"></a>
+    
+        <a href="../chapter-6/6.1.3.html" title="算术运算符" class="chapter  " data-progress="7.1.3" style="left: 26.848249027237355%;"></a>
+    
+        <a href="../chapter-6/6.1.4.html" title="使用函数" class="chapter  " data-progress="7.1.4" style="left: 27.237354085603112%;"></a>
+    
+        <a href="../chapter-6/6.1.5.html" title="limit语句" class="chapter  " data-progress="7.1.5" style="left: 27.626459143968873%;"></a>
+    
+        <a href="../chapter-6/6.1.6.html" title="列别名" class="chapter  " data-progress="7.1.6" style="left: 28.01556420233463%;"></a>
+    
+        <a href="../chapter-6/6.1.7.html" title="嵌套select语句" class="chapter  " data-progress="7.1.7" style="left: 28.404669260700388%;"></a>
+    
+        <a href="../chapter-6/6.1.8.html" title="case…when…then句式" class="chapter  " data-progress="7.1.8" style="left: 28.79377431906615%;"></a>
+    
+        <a href="../chapter-6/6.1.9.html" title="什么情况下hive可以避免进行mapreduce" class="chapter  " data-progress="7.1.9" style="left: 29.182879377431906%;"></a>
+    
+        <a href="../chapter-6/6.10.html" title="union all" class="chapter  " data-progress="7.10" style="left: 29.571984435797667%;"></a>
+    
+        <a href="../chapter-6/6.2.html" title="where语句" class="chapter  " data-progress="7.2" style="left: 29.961089494163424%;"></a>
+    
+        <a href="../chapter-6/6.2.1.html" title="谓词操作符" class="chapter  " data-progress="7.2.1" style="left: 30.35019455252918%;"></a>
+    
+        <a href="../chapter-6/6.2.2.html" title="关于浮点数比较" class="chapter  " data-progress="7.2.2" style="left: 30.739299610894943%;"></a>
+    
+        <a href="../chapter-6/6.2.3.html" title="like和rlike" class="chapter  " data-progress="7.2.3" style="left: 31.1284046692607%;"></a>
+    
+        <a href="../chapter-6/6.3.html" title="group by 语句" class="chapter  " data-progress="7.3" style="left: 31.51750972762646%;"></a>
+    
+        <a href="../chapter-6/6.4.html" title="join语句" class="chapter  " data-progress="7.4" style="left: 31.90661478599222%;"></a>
+    
+        <a href="../chapter-6/6.4.1.html" title="inner join" class="chapter  " data-progress="7.4.1" style="left: 32.295719844357976%;"></a>
+    
+        <a href="../chapter-6/6.4.2.html" title="join优化" class="chapter  " data-progress="7.4.2" style="left: 32.68482490272373%;"></a>
+    
+        <a href="../chapter-6/6.4.3.html" title="left outer join" class="chapter  " data-progress="7.4.3" style="left: 33.0739299610895%;"></a>
+    
+        <a href="../chapter-6/6.4.4.html" title="outer join" class="chapter  " data-progress="7.4.4" style="left: 33.463035019455255%;"></a>
+    
+        <a href="../chapter-6/6.4.5.html" title="right outer join" class="chapter  " data-progress="7.4.5" style="left: 33.85214007782101%;"></a>
+    
+        <a href="../chapter-6/6.4.6.html" title="full outer join" class="chapter  " data-progress="7.4.6" style="left: 34.24124513618677%;"></a>
+    
+        <a href="../chapter-6/6.4.7.html" title="left semi-join" class="chapter  " data-progress="7.4.7" style="left: 34.63035019455253%;"></a>
+    
+        <a href="../chapter-6/6.4.8.html" title="笛卡尔积join" class="chapter  " data-progress="7.4.8" style="left: 35.01945525291829%;"></a>
+    
+        <a href="../chapter-6/6.4.9.html" title="map-side join" class="chapter  " data-progress="7.4.9" style="left: 35.40856031128405%;"></a>
+    
+        <a href="../chapter-6/6.5.html" title="order by和sort by" class="chapter  " data-progress="7.5" style="left: 35.797665369649806%;"></a>
+    
+        <a href="../chapter-6/6.6.html" title="含有sort by 的distribute by" class="chapter  " data-progress="7.6" style="left: 36.18677042801556%;"></a>
+    
+        <a href="../chapter-6/6.7.html" title="cluster by" class="chapter  " data-progress="7.7" style="left: 36.57587548638132%;"></a>
+    
+        <a href="../chapter-6/6.8.html" title="类型转换" class="chapter  " data-progress="7.8" style="left: 36.96498054474708%;"></a>
+    
+        <a href="../chapter-6/6.9.html" title="抽样查询" class="chapter  " data-progress="7.9" style="left: 37.35408560311284%;"></a>
+    
+        <a href="../chapter-6/6.9.1.html" title="数据块抽样" class="chapter  " data-progress="7.9.1" style="left: 37.7431906614786%;"></a>
+    
+        <a href="../chapter-6/6.9.2.html" title="分桶表的输入裁剪" class="chapter  " data-progress="7.9.2" style="left: 38.13229571984436%;"></a>
+    
+        <a href="../chapter-7/0.html" title="第七章 HiveQL:视图" class="chapter  new-chapter" data-progress="8" style="left: 38.521400778210115%;"></a>
+    
+        <a href="../chapter-7/7.1.html" title="使用视图来降低查询复杂度" class="chapter  " data-progress="8.1" style="left: 38.91050583657587%;"></a>
+    
+        <a href="../chapter-7/7.2.html" title="使用视图来限制基于条件过滤的数据" class="chapter  " data-progress="8.2" style="left: 39.29961089494164%;"></a>
+    
+        <a href="../chapter-7/7.3.html" title="动态分区中的视图和map类型" class="chapter  " data-progress="8.3" style="left: 39.688715953307394%;"></a>
+    
+        <a href="../chapter-7/7.4.html" title="视图零零碎碎相关的事情" class="chapter  " data-progress="8.4" style="left: 40.07782101167315%;"></a>
+    
+        <a href="../chapter-8/0.html" title="第八章 HiveQL:索引" class="chapter  new-chapter" data-progress="9" style="left: 40.46692607003891%;"></a>
+    
+        <a href="../chapter-8/8.1.html" title="创建索引" class="chapter  " data-progress="9.1" style="left: 40.856031128404666%;"></a>
+    
+        <a href="../chapter-8/8.2.html" title="重建索引" class="chapter  " data-progress="9.2" style="left: 41.24513618677043%;"></a>
+    
+        <a href="../chapter-8/8.3.html" title="显示索引" class="chapter  " data-progress="9.3" style="left: 41.63424124513619%;"></a>
+    
+        <a href="../chapter-8/8.4.html" title="删除索引" class="chapter  " data-progress="9.4" style="left: 42.023346303501945%;"></a>
+    
+        <a href="../chapter-8/8.5.html" title="实现一个定制化的索引处理器" class="chapter  " data-progress="9.5" style="left: 42.4124513618677%;"></a>
+    
+        <a href="../chapter-9/0.html" title="第九章 模式设计" class="chapter  " data-progress="10" style="left: 42.80155642023346%;"></a>
+    
+        <a href="../chapter-9/9.1.html" title="按天划分的表" class="chapter  " data-progress="10.1" style="left: 43.190661478599225%;"></a>
+    
+        <a href="../chapter-9/9.2.html" title="关于分区" class="chapter  " data-progress="10.2" style="left: 43.57976653696498%;"></a>
+    
+        <a href="../chapter-9/9.3.html" title="唯一键和标准化" class="chapter  " data-progress="10.3" style="left: 43.96887159533074%;"></a>
+    
+        <a href="../chapter-9/9.4.html" title="同一份数据多种处理" class="chapter  " data-progress="10.4" style="left: 44.3579766536965%;"></a>
+    
+        <a href="../chapter-9/9.5.html" title="对于每个表的分区" class="chapter  " data-progress="10.5" style="left: 44.747081712062254%;"></a>
+    
+        <a href="../chapter-9/9.6.html" title="分桶表数据存储" class="chapter  " data-progress="10.6" style="left: 45.13618677042802%;"></a>
+    
+        <a href="../chapter-9/9.7.html" title="为表增加列" class="chapter  " data-progress="10.7" style="left: 45.525291828793776%;"></a>
+    
+        <a href="../chapter-9/9.8.html" title="使用列存储表" class="chapter  " data-progress="10.8" style="left: 45.91439688715953%;"></a>
+    
+        <a href="../chapter-9/9.8.1.html" title="重复数据" class="chapter  " data-progress="10.8.1" style="left: 46.30350194552529%;"></a>
+    
+        <a href="../chapter-9/9.8.2.html" title="多列" class="chapter  " data-progress="10.8.2" style="left: 46.69260700389105%;"></a>
+    
+        <a href="../chapter-9/9.9.html" title="(几乎)总是使用压缩" class="chapter  " data-progress="10.9" style="left: 47.08171206225681%;"></a>
+    
+        <a href="../chapter-10/0.html" title="第十章 调优" class="chapter  " data-progress="11" style="left: 47.47081712062257%;"></a>
+    
+        <a href="../chapter-10/10.1.html" title="使用explain" class="chapter  " data-progress="11.1" style="left: 47.85992217898833%;"></a>
+    
+        <a href="../chapter-10/10.10.html" title="索引" class="chapter  " data-progress="11.10" style="left: 48.249027237354085%;"></a>
+    
+        <a href="../chapter-10/10.11.html" title="动态分区调整" class="chapter  " data-progress="11.11" style="left: 48.63813229571984%;"></a>
+    
+        <a href="../chapter-10/10.12.html" title="推测执行" class="chapter  " data-progress="11.12" style="left: 49.02723735408561%;"></a>
+    
+        <a href="../chapter-10/10.13.html" title="单个mapreduce中多个group by" class="chapter  " data-progress="11.13" style="left: 49.416342412451364%;"></a>
+    
+        <a href="../chapter-10/10.14.html" title="虚拟列" class="chapter  " data-progress="11.14" style="left: 49.80544747081712%;"></a>
+    
+        <a href="../chapter-10/10.2.html" title="explain extended" class="chapter  " data-progress="11.2" style="left: 50.19455252918288%;"></a>
+    
+        <a href="../chapter-10/10.3.html" title="限制调整" class="chapter  " data-progress="11.3" style="left: 50.583657587548636%;"></a>
+    
+        <a href="../chapter-10/10.4.html" title="join优化" class="chapter  " data-progress="11.4" style="left: 50.97276264591439%;"></a>
+    
+        <a href="../chapter-10/10.5.html" title="本地模式" class="chapter  " data-progress="11.5" style="left: 51.36186770428016%;"></a>
+    
+        <a href="../chapter-10/10.6.html" title="并行执行" class="chapter  " data-progress="11.6" style="left: 51.750972762645915%;"></a>
+    
+        <a href="../chapter-10/10.7.html" title="严格模式" class="chapter  " data-progress="11.7" style="left: 52.14007782101167%;"></a>
+    
+        <a href="../chapter-10/10.8.html" title="调整mapper和reducer个数" class="chapter  " data-progress="11.8" style="left: 52.52918287937743%;"></a>
+    
+        <a href="../chapter-10/10.9.html" title="jvm重用" class="chapter  " data-progress="11.9" style="left: 52.91828793774319%;"></a>
+    
+        <a href="../chapter-11/0.html" title="第十一章 其他文件格式和压缩方法" class="chapter  " data-progress="12" style="left: 53.30739299610895%;"></a>
+    
+        <a href="../chapter-11/11.1.html" title="确定安装编解码器" class="chapter  " data-progress="12.1" style="left: 53.69649805447471%;"></a>
+    
+        <a href="../chapter-11/11.2.html" title="选择一种压缩编/解码器" class="chapter  " data-progress="12.2" style="left: 54.08560311284047%;"></a>
+    
+        <a href="../chapter-11/11.3.html" title="开启中间压缩" class="chapter  " data-progress="12.3" style="left: 54.474708171206224%;"></a>
+    
+        <a href="../chapter-11/11.4.html" title="最终输出结果压缩" class="chapter  " data-progress="12.4" style="left: 54.86381322957198%;"></a>
+    
+        <a href="../chapter-11/11.5.html" title="sequence file存储格式" class="chapter  " data-progress="12.5" style="left: 55.252918287937746%;"></a>
+    
+        <a href="../chapter-11/11.6.html" title="使用压缩实践" class="chapter  " data-progress="12.6" style="left: 55.6420233463035%;"></a>
+    
+        <a href="../chapter-11/11.7.html" title="存档分区" class="chapter  " data-progress="12.7" style="left: 56.03112840466926%;"></a>
+    
+        <a href="../chapter-11/11.8.html" title="压缩：包扎" class="chapter  " data-progress="12.8" style="left: 56.42023346303502%;"></a>
+    
+        <a href="../chapter-12/0.html" title="第十二章 开发" class="chapter  " data-progress="13" style="left: 56.809338521400775%;"></a>
+    
+        <a href="../chapter-12/12.1.html" title="修改log4j属性" class="chapter  " data-progress="13.1" style="left: 57.19844357976654%;"></a>
+    
+        <a href="../chapter-12/12.2.html" title="连接java调试器到hive" class="chapter  " data-progress="13.2" style="left: 57.5875486381323%;"></a>
+    
+        <a href="../chapter-12/12.3.html" title="从源码编译hive" class="chapter  " data-progress="13.3" style="left: 57.976653696498055%;"></a>
+    
+        <a href="../chapter-12/12.3.1.html" title="执行hive测试用例" class="chapter  " data-progress="13.3.1" style="left: 58.36575875486381%;"></a>
+    
+        <a href="../chapter-12/12.3.2.html" title="执行hook" class="chapter  " data-progress="13.3.2" style="left: 58.75486381322957%;"></a>
+    
+        <a href="../chapter-12/12.4.html" title="配置hive和eclipse" class="chapter  " data-progress="13.4" style="left: 59.143968871595334%;"></a>
+    
+        <a href="../chapter-12/12.5.html" title="maven工程中使用hive" class="chapter  " data-progress="13.5" style="left: 59.53307392996109%;"></a>
+    
+        <a href="../chapter-12/12.6.html" title="hive中使用hive_test进行单元测试" class="chapter  " data-progress="13.6" style="left: 59.92217898832685%;"></a>
+    
+        <a href="../chapter-12/12.7.html" title="新增的插件开发工具箱(pdk)" class="chapter  " data-progress="13.7" style="left: 60.311284046692606%;"></a>
+    
+        <a href="../chapter-13/0.html" title="第十三章 函数" class="chapter  " data-progress="14" style="left: 60.70038910505836%;"></a>
+    
+        <a href="../chapter-13/13.1.html" title="发现和描述函数" class="chapter  " data-progress="14.1" style="left: 61.08949416342413%;"></a>
+    
+        <a href="../chapter-13/13.10.html" title="用户自定义表生成函数" class="chapter  " data-progress="14.10" style="left: 61.478599221789885%;"></a>
+    
+        <a href="../chapter-13/13.10.1.html" title="可以产生多行数据的udtf" class="chapter  " data-progress="14.10.1" style="left: 61.86770428015564%;"></a>
+    
+        <a href="../chapter-13/13.10.2.html" title="可以产生具有多个字段的单行数据的udtf" class="chapter  " data-progress="14.10.2" style="left: 62.2568093385214%;"></a>
+    
+        <a href="../chapter-13/13.10.3.html" title="可以模拟复杂数据类型的udtf" class="chapter  " data-progress="14.10.3" style="left: 62.64591439688716%;"></a>
+    
+        <a href="../chapter-13/13.11.html" title="在 udf中访问分布式缓存" class="chapter  " data-progress="14.11" style="left: 63.03501945525292%;"></a>
+    
+        <a href="../chapter-13/13.12.html" title="以函数的方式使用注解" class="chapter  " data-progress="14.12" style="left: 63.42412451361868%;"></a>
+    
+        <a href="../chapter-13/13.12.1.html" title="定数性(deterministic)标注" class="chapter  " data-progress="14.12.1" style="left: 63.81322957198444%;"></a>
+    
+        <a href="../chapter-13/13.12.2.html" title="状态性(stateful)标注" class="chapter  " data-progress="14.12.2" style="left: 64.2023346303502%;"></a>
+    
+        <a href="../chapter-13/13.12.3.html" title="唯一性" class="chapter  " data-progress="14.12.3" style="left: 64.59143968871595%;"></a>
+    
+        <a href="../chapter-13/13.13.html" title="宏命令" class="chapter  " data-progress="14.13" style="left: 64.98054474708171%;"></a>
+    
+        <a href="../chapter-13/13.2.html" title="调用函数" class="chapter  " data-progress="14.2" style="left: 65.36964980544747%;"></a>
+    
+        <a href="../chapter-13/13.3.html" title="标准函数" class="chapter  " data-progress="14.3" style="left: 65.75875486381322%;"></a>
+    
+        <a href="../chapter-13/13.4.html" title="聚合函数" class="chapter  " data-progress="14.4" style="left: 66.147859922179%;"></a>
+    
+        <a href="../chapter-13/13.5.html" title="表生成函数" class="chapter  " data-progress="14.5" style="left: 66.53696498054475%;"></a>
+    
+        <a href="../chapter-13/13.6.html" title="一个通过日期计算其星座的udf" class="chapter  " data-progress="14.6" style="left: 66.92607003891051%;"></a>
+    
+        <a href="../chapter-13/13.7.html" title="udf与genericudf" class="chapter  " data-progress="14.7" style="left: 67.31517509727627%;"></a>
+    
+        <a href="../chapter-13/13.8.html" title="不变函数" class="chapter  " data-progress="14.8" style="left: 67.70428015564202%;"></a>
+    
+        <a href="../chapter-13/13.9.html" title="用户自定义聚合函数" class="chapter  " data-progress="14.9" style="left: 68.09338521400778%;"></a>
+    
+        <a href="../chapter-14/0.html" title="第十四章 Streaming" class="chapter  " data-progress="15" style="left: 68.48249027237354%;"></a>
+    
+        <a href="../chapter-14/14.1.html" title="恒等变换" class="chapter  " data-progress="15.1" style="left: 68.8715953307393%;"></a>
+    
+        <a href="../chapter-14/14.10.html" title="计算cogroup" class="chapter  " data-progress="15.10" style="left: 69.26070038910505%;"></a>
+    
+        <a href="../chapter-14/14.2.html" title="改变类型" class="chapter  " data-progress="15.2" style="left: 69.64980544747081%;"></a>
+    
+        <a href="../chapter-14/14.3.html" title="投影变换" class="chapter  " data-progress="15.3" style="left: 70.03891050583658%;"></a>
+    
+        <a href="../chapter-14/14.4.html" title="操作转换" class="chapter  " data-progress="15.4" style="left: 70.42801556420234%;"></a>
+    
+        <a href="../chapter-14/14.5.html" title="使用分布式内存" class="chapter  " data-progress="15.5" style="left: 70.8171206225681%;"></a>
+    
+        <a href="../chapter-14/14.6.html" title="由一行产生多行" class="chapter  " data-progress="15.6" style="left: 71.20622568093385%;"></a>
+    
+        <a href="../chapter-14/14.7.html" title="使用streaming进行聚合计算" class="chapter  " data-progress="15.7" style="left: 71.59533073929961%;"></a>
+    
+        <a href="../chapter-14/14.8.html" title="cluster by、distribute by、sort by" class="chapter  " data-progress="15.8" style="left: 71.98443579766537%;"></a>
+    
+        <a href="../chapter-14/14.9.html" title="genericmr tools for streaming to java" class="chapter  " data-progress="15.9" style="left: 72.37354085603113%;"></a>
+    
+        <a href="../chapter-15/0.html" title="第十五章 自定义Hive文件和记录格式" class="chapter  " data-progress="16" style="left: 72.76264591439688%;"></a>
+    
+        <a href="../chapter-15/15.1.html" title="文件和记录格式" class="chapter  " data-progress="16.1" style="left: 73.15175097276264%;"></a>
+    
+        <a href="../chapter-15/15.10.html" title="json serde" class="chapter  " data-progress="16.10" style="left: 73.5408560311284%;"></a>
+    
+        <a href="../chapter-15/15.11.html" title="avro hive serde" class="chapter  " data-progress="16.11" style="left: 73.92996108949416%;"></a>
+    
+        <a href="../chapter-15/15.11.1.html" title="使用表属性信息定义avro schema" class="chapter  " data-progress="16.11.1" style="left: 74.31906614785993%;"></a>
+    
+        <a href="../chapter-15/15.11.2.html" title="从指定url中定义schema" class="chapter  " data-progress="16.11.2" style="left: 74.70817120622569%;"></a>
+    
+        <a href="../chapter-15/15.11.3.html" title="进化的模式" class="chapter  " data-progress="16.11.3" style="left: 75.09727626459144%;"></a>
+    
+        <a href="../chapter-15/15.12.html" title="二进制输出" class="chapter  " data-progress="16.12" style="left: 75.4863813229572%;"></a>
+    
+        <a href="../chapter-15/15.2.html" title="阐明create table句式" class="chapter  " data-progress="16.2" style="left: 75.87548638132296%;"></a>
+    
+        <a href="../chapter-15/15.3.html" title="文件格式" class="chapter  " data-progress="16.3" style="left: 76.26459143968872%;"></a>
+    
+        <a href="../chapter-15/15.3.1.html" title="sequencefile" class="chapter  " data-progress="16.3.1" style="left: 76.65369649805447%;"></a>
+    
+        <a href="../chapter-15/15.3.2.html" title="rcfile" class="chapter  " data-progress="16.3.2" style="left: 77.04280155642023%;"></a>
+    
+        <a href="../chapter-15/15.3.3.html" title="示例自定义输入格式" class="chapter  " data-progress="16.3.3" style="left: 77.43190661478599%;"></a>
+    
+        <a href="../chapter-15/15.4.html" title="记录格式：serde" class="chapter  " data-progress="16.4" style="left: 77.82101167315174%;"></a>
+    
+        <a href="../chapter-15/15.5.html" title="csv和tsv serde" class="chapter  " data-progress="16.5" style="left: 78.21011673151752%;"></a>
+    
+        <a href="../chapter-15/15.6.html" title="objectinspector" class="chapter  " data-progress="16.6" style="left: 78.59922178988327%;"></a>
+    
+        <a href="../chapter-15/15.7.html" title="thing big hive reflection objectinspector" class="chapter  " data-progress="16.7" style="left: 78.98832684824903%;"></a>
+    
+        <a href="../chapter-15/15.8.html" title="xml udf" class="chapter  " data-progress="16.8" style="left: 79.37743190661479%;"></a>
+    
+        <a href="../chapter-15/15.9.html" title="xpath相关的函数" class="chapter  " data-progress="16.9" style="left: 79.76653696498055%;"></a>
+    
+        <a href="../chapter-16/0.html" title="第十六章 Hive的Thrift服务" class="chapter  " data-progress="17" style="left: 80.1556420233463%;"></a>
+    
+        <a href="../chapter-16/16.1.html" title="启动thrift server" class="chapter  " data-progress="17.1" style="left: 80.54474708171206%;"></a>
+    
+        <a href="../chapter-16/16.10.html" title="hive thriftmetastore" class="chapter  " data-progress="17.10" style="left: 80.93385214007782%;"></a>
+    
+        <a href="../chapter-16/16.10.1.html" title="thriftmetastore 配置" class="chapter  " data-progress="17.10.1" style="left: 81.32295719844358%;"></a>
+    
+        <a href="../chapter-16/16.10.2.html" title="客户端配置" class="chapter  " data-progress="17.10.2" style="left: 81.71206225680933%;"></a>
+    
+        <a href="../chapter-16/16.2.html" title="配置groovy使用hiveserver" class="chapter  " data-progress="17.2" style="left: 82.1011673151751%;"></a>
+    
+        <a href="../chapter-16/16.3.html" title="连接到hiveserver" class="chapter  " data-progress="17.3" style="left: 82.49027237354086%;"></a>
+    
+        <a href="../chapter-16/16.4.html" title="获取集群状态信息" class="chapter  " data-progress="17.4" style="left: 82.87937743190662%;"></a>
+    
+        <a href="../chapter-16/16.5.html" title="结果集模式" class="chapter  " data-progress="17.5" style="left: 83.26848249027238%;"></a>
+    
+        <a href="../chapter-16/16.6.html" title="获取结果" class="chapter  " data-progress="17.6" style="left: 83.65758754863813%;"></a>
+    
+        <a href="../chapter-16/16.7.html" title="获取执行计划" class="chapter  " data-progress="17.7" style="left: 84.04669260700389%;"></a>
+    
+        <a href="../chapter-16/16.8.html" title="元数据存储方法" class="chapter  " data-progress="17.8" style="left: 84.43579766536965%;"></a>
+    
+        <a href="../chapter-16/16.9.html" title="管理hiveserver" class="chapter  " data-progress="17.9" style="left: 84.8249027237354%;"></a>
+    
+        <a href="../chapter-16/16.9.1.html" title="生产环境使用hiveserver" class="chapter  " data-progress="17.9.1" style="left: 85.21400778210116%;"></a>
+    
+        <a href="../chapter-16/16.9.2.html" title="清理" class="chapter  " data-progress="17.9.2" style="left: 85.60311284046692%;"></a>
+    
+        <a href="../chapter-17/0.html" title="第十七章 存储处理程序和NoSQL" class="chapter  " data-progress="18" style="left: 85.99221789883268%;"></a>
+    
+        <a href="../chapter-17/17.1.html" title="storage handler background" class="chapter  " data-progress="18.1" style="left: 86.38132295719845%;"></a>
+    
+        <a href="../chapter-17/17.2.html" title="hivestoragehandler" class="chapter  " data-progress="18.2" style="left: 86.7704280155642%;"></a>
+    
+        <a href="../chapter-17/17.3.html" title="hbase" class="chapter  " data-progress="18.3" style="left: 87.15953307392996%;"></a>
+    
+        <a href="../chapter-17/17.4.html" title="cassandra" class="chapter  " data-progress="18.4" style="left: 87.54863813229572%;"></a>
+    
+        <a href="../chapter-17/17.4.1.html" title="静态列映射(static column mapping)" class="chapter  " data-progress="18.4.1" style="left: 87.93774319066148%;"></a>
+    
+        <a href="../chapter-17/17.4.2.html" title="为动态列转置列映射" class="chapter  " data-progress="18.4.2" style="left: 88.32684824902724%;"></a>
+    
+        <a href="../chapter-17/17.4.3.html" title="cassandra serde properties" class="chapter  " data-progress="18.4.3" style="left: 88.715953307393%;"></a>
+    
+        <a href="../chapter-17/17.5.html" title="dynamodb" class="chapter  " data-progress="18.5" style="left: 89.10505836575875%;"></a>
+    
+        <a href="../chapter-18/0.html" title="第十八章 安全" class="chapter  " data-progress="19" style="left: 89.49416342412451%;"></a>
+    
+        <a href="../chapter-18/18.1.html" title="和hadoop安全功能相结合" class="chapter  " data-progress="19.1" style="left: 89.88326848249027%;"></a>
+    
+        <a href="../chapter-18/18.2.html" title="使用hive进行验证" class="chapter  " data-progress="19.2" style="left: 90.27237354085604%;"></a>
+    
+        <a href="../chapter-18/18.3.html" title="hive中的权限管理" class="chapter  " data-progress="19.3" style="left: 90.6614785992218%;"></a>
+    
+        <a href="../chapter-18/18.3.1.html" title="用户、组和角色" class="chapter  " data-progress="19.3.1" style="left: 91.05058365758755%;"></a>
+    
+        <a href="../chapter-18/18.3.2.html" title="grant 和 revoke权限" class="chapter  " data-progress="19.3.2" style="left: 91.43968871595331%;"></a>
+    
+        <a href="../chapter-18/18.4.html" title="分区级别的权限" class="chapter  " data-progress="19.4" style="left: 91.82879377431907%;"></a>
+    
+        <a href="../chapter-18/18.5.html" title="自动授权" class="chapter  " data-progress="19.5" style="left: 92.21789883268482%;"></a>
+    
+        <a href="../chapter-19/0.html" title="第十九章 锁" class="chapter  " data-progress="20" style="left: 92.60700389105058%;"></a>
+    
+        <a href="../chapter-19/19.1.html" title="hive结合zookeeper支持锁功能" class="chapter  " data-progress="20.1" style="left: 92.99610894941634%;"></a>
+    
+        <a href="../chapter-19/19.2.html" title="显式锁和独占锁" class="chapter  " data-progress="20.2" style="left: 93.3852140077821%;"></a>
+    
+        <a href="../chapter-20/0.html" title="第二十章 Hive和Oozie整合" class="chapter  " data-progress="21" style="left: 93.77431906614785%;"></a>
+    
+        <a href="../chapter-20/20.1.html" title="oozie提供的多种动作(action)" class="chapter  " data-progress="21.1" style="left: 94.16342412451363%;"></a>
+    
+        <a href="../chapter-20/20.2.html" title="一个只包含两个查询过程的工作流示例" class="chapter  " data-progress="21.2" style="left: 94.55252918287938%;"></a>
+    
+        <a href="../chapter-20/20.3.html" title="oozie 网页控制台" class="chapter  " data-progress="21.3" style="left: 94.94163424124514%;"></a>
+    
+        <a href="../chapter-20/20.4.html" title="工作流中的变量" class="chapter  " data-progress="21.4" style="left: 95.3307392996109%;"></a>
+    
+        <a href="../chapter-20/20.5.html" title="获取输出" class="chapter  " data-progress="21.5" style="left: 95.71984435797665%;"></a>
+    
+        <a href="../chapter-20/20.6.html" title="获取输出到变量" class="chapter  " data-progress="21.6" style="left: 96.10894941634241%;"></a>
+    
+        <a href="../chapter-21/0.html" title="第二十一章 Hive和亚马逊网络服务系统(AWS)" class="chapter  " data-progress="22" style="left: 96.49805447470817%;"></a>
+    
+        <a href="../chapter-22/0.html" title="第二十二章 HCatalog" class="chapter  " data-progress="23" style="left: 96.88715953307393%;"></a>
+    
+        <a href="../chapter-22/22.1.html" title="介绍" class="chapter  " data-progress="23.1" style="left: 97.27626459143968%;"></a>
+    
+        <a href="../chapter-22/22.2.html" title="mapreduce" class="chapter  " data-progress="23.2" style="left: 97.66536964980544%;"></a>
+    
+        <a href="../chapter-22/22.2.1.html" title="读数据" class="chapter  " data-progress="23.2.1" style="left: 98.05447470817121%;"></a>
+    
+        <a href="../chapter-22/22.2.2.html" title="写数据" class="chapter  " data-progress="23.2.2" style="left: 98.44357976653697%;"></a>
+    
+        <a href="../chapter-22/22.3.html" title="命令行" class="chapter  " data-progress="23.3" style="left: 98.83268482490273%;"></a>
+    
+        <a href="../chapter-22/22.4.html" title="安全模型" class="chapter  " data-progress="23.4" style="left: 99.22178988326849%;"></a>
+    
+        <a href="../chapter-22/22.5.html" title="架构" class="chapter  " data-progress="23.5" style="left: 99.61089494163424%;"></a>
+    
+        <a href="../chapter-23/0.html" title="第二十三章 案例研究" class="chapter  " data-progress="24" style="left: 100%;"></a>
+    
+    </div>
+</div>
+
+                <div class="page-inner">
+                
+                    <section class="normal" id="section-gitbook_10">
+                    
+                        <h2 id="1-2-hadoop-hive">1.2 Hadoop生态系统中的Hive</h2>
+
+                    
+                    </section>
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../chapter-1/1.1.html" class="navigation navigation-prev " aria-label="Previous page: Hadoop和MapReduce综述"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../chapter-1/1.2.1.html" class="navigation navigation-next " aria-label="Next page: Pig"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/mode-javascript.js"></script>
+        <script src="..\gitbook/jsrepl/jsrepl.js" id="jsrepl-script"></script>
+        <script src="..\gitbook/app.js"></script>
+        
+
+    
+    <script src="..\gitbook/plugins/gitbook-plugin-mixpanel/plugin.js"></script>
+    
+
+    
+    <script src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+    
+    <script src="..\gitbook/plugins/gitbook-plugin-mathjax/plugin.js"></script>
+    
+
+    
+    <script src="..\gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
