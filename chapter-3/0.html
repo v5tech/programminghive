@@ -46,7 +46,7 @@
 
 
         
-    <div class="book" data-github="sxyx2008/programminghive" data-level="4" data-basepath=".." data-revision="1401253980833">
+    <div class="book" data-github="sxyx2008/programminghive" data-level="4" data-basepath=".." data-revision="1401257980614">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -432,9 +432,30 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_3">
+                    <section class="normal" id="section-gitbook_8">
                     
                         <h1 id="-">第三章 数据类型和文件格式</h1>
+<h2 id="3-1-">3.1 基本数据类型</h2>
+<pre><code>TINYINT
+SMALLINT
+INT
+BIGINT
+BOOLEAN
+FLOAT
+DOUBLE
+STRING
+TIMESTAMP 
+BINARY
+</code></pre><h2 id="3-2-">3.2 集合数据类型</h2>
+<pre><code>STRUCT
+MAP
+ARRAY
+</code></pre><h2 id="3-3-">3.3 文本数据编码</h2>
+<pre><code>\n  文本文件,分隔行
+^A (“control” A) 列分隔字符,用八进制\001表示
+^B 用于分隔```Array```或```Struct```中的元素或者```Map```中的键值对,用八进制\002表示
+^C 用于```Map```中键和值之间的分隔,用八进制\003表示
+</code></pre><h2 id="3-4-">3.4 读时模式</h2>
 
                     
                     </section>

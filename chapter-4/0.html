@@ -46,7 +46,7 @@
 
 
         
-    <div class="book" data-github="sxyx2008/programminghive" data-level="5" data-basepath=".." data-revision="1401253980833">
+    <div class="book" data-github="sxyx2008/programminghive" data-level="5" data-basepath=".." data-revision="1401257980614">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -432,10 +432,335 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_4">
+                    <section class="normal" id="section-gitbook_9">
                     
                         <h1 id="-hiveql-">第四章 HiveQL:数据定义</h1>
+<p>HiveQL是Hive查询语言,和关系型数据库所使用的SQL方言一样。但不完全遵守ANSI SQL标准。HiveQL和MySQL最接近。但还是有很大差异。Hive不支持行级别插入、更新和删除操作。也不支持事务。</p>
+<h2 id="4-1-hive-">4.1 Hive中的数据库</h2>
+<p>如果用户没有显式指定数据库,默认数据库是<code>default</code></p>
+<p>下面这个例子展示了如何创建数据库</p>
+<pre><code>CREATE DATABASE simple;
+</code></pre><p>若数据库<code>simple</code>已经存在的话,将会报错误消息。可以使用下面的语句避免错误信息</p>
+<pre><code>CREATE DATABASE IF NOT EXISTS simple;
+</code></pre><p>使用<code>SHOW DATABASES</code>命令查看hive中所包含的数据库</p>
+<pre><code>SHOW DATABASES;
+</code></pre><p>如果数据库比较多,可以使用正则表达式匹配筛选所需要的数据库名</p>
+<pre><code>SHOW DATABASES LIKE &#39;sim.*&#39;;
+</code></pre><p>Hive为每个数据库创建一个目录,数据库中的表将会以这个数据库目录的子目录形式存储。有一个例外就是<code>default</code>数据库中的表。因为这个数据库本身没有自己的目录。数据库所在的目录位于属性<code>hive.metastore.warehouse.dir</code>所指定的顶层目录之后。假若用户使用的这个配置项的默认配置,也就是<code>/user/hive/warehouse</code>,那么当我们创建数据库<code>simple</code>时,Hive将会对应地创建一个目录为<code>/user/hive/warehouse/simple.db</code>。这里请注意,数据库的文件目录名是以<code>.db</code>结尾的。</p>
+<p>可以通过如下的命令来修改这个默认的配置</p>
+<pre><code>hive &gt; CREATE DATABASE simple LOCATION &#39;/user/myname/directory&#39;;
+</code></pre><p>还可以为这个数据库增加一个描述信息。这样通过<code>DESCRIBE DATABASE databasename</code>命令就可以查看到该信息.</p>
+<pre><code>hive &gt; CREATE DATABASE simple COMMENT &#39;a simple database&#39;;
+</code></pre><p>使用<code>DESCRIBE DATABASE databasename</code>查看</p>
+<pre><code>hive &gt; DESCRIBE DATABASE simple;
+simple a simple database
+    hdfs://hostname/user/hive/warehouse/simple.db
+</code></pre><p>从上面的例子可以看出<code>DESCRIBE DATABASE</code>不仅会显示这个数据库的描述信息还会显示这个数据库所在文件的目录位置。若Hadoop是本地模式的话前面的前缀为<code>file:///</code>若是分布式模式则前缀为<code>hdfs://</code></p>
+<p>此外用户还可以为数据库增加一些和其他相关的键-值对属性信息。可以使用<code>DESCRIBE DATABASE EXTENDED databasename</code>语句显示这些信息,如：</p>
+<pre><code>hive &gt; CREATE DATABASE simple WITH DBPROERTIES (&#39;creator&#39;=&#39;scott&#39;,&#39;date&#39;=&#39;2014-05-05&#39;);
+hive &gt; DESCRIBE DATABASE simple;
+hive &gt; DESCRIBE DATABASE EXTENDED simple;
+</code></pre><p>命令<code>USE</code>用于将某个数据库设置为当前的工作数据库。如:</p>
+<pre><code>USE simple;
+</code></pre><p>此时可以用<code>SHOW TABLES</code>显示当前数据库下所有的表。不幸的是,没有那个命令让用户查看当前所在的库。幸运的是在Hive中可以重复使用<code>USE</code>,这是因为在Hive中没有嵌套数据库的概念。</p>
+<pre><code>hive &gt; set hive.cli.print.current.db=true;
+hive (simple) &gt; USE default;
+hive (default) &gt; set hive.cli.print.current.db=false;
+</code></pre><p>最后用户可以删除数据库</p>
+<pre><code>hive &gt; DROP DATABASE IF EXISTS simple;
+</code></pre><p><code>IF EXISTS</code>子句是可选的。可以避免因数据库不存在而抛出警告信息。默认情况下Hive是不允许用户删除一个包含有表的数据仓库。要么用户先删除库中的表,然后再删数据库。要么在删除命令的最后面加上关键字<code>CASCADE</code>，这样Hive先自行删除数据库中的表</p>
+<pre><code>hive &gt; DROP DATABASE IF EXISTS simple CASCADE;
+</code></pre><p>若使用的是<code>RESTRICT</code>这个关键字,而不是<code>CASCADE</code>这个关键字的话,那么就和默认情况一样。</p>
+<p>如果某个数据库被删除了,那么其对应的目录也同时会被删除。</p>
+<h2 id="4-2-">4.2 修改数据库</h2>
+<p>使用<code>ALTER DATABASE</code>命令为某个数据库的<code>DBPROPERTIES</code>设置键-值对属性值,来描述数据库的属性信息。数据库的其他元数据信息是不可更改的,包括数据库名和数据库所在的目录位置。</p>
+<pre><code>hive &gt; ALTER DATABASE simple SET DBPROPERTIES (&#39;edited-by&#39;=&#39;Join&#39;);
+</code></pre><p>没有办法删除或者&quot;重置&quot;数据库属性。</p>
+<h2 id="4-3-">4.3 创建表</h2>
+<pre><code>CREATE TABLE IF NOT EXISTS mydb.employees (
+name STRING COMMENT &#39;Employee name&#39;,
+salary FLOAT COMMENT &#39;Employee salary&#39;,
+subordinates ARRAY&lt;STRING&gt; COMMENT &#39;Names of subordinates&#39;,
+deductions MAP&lt;STRING, FLOAT&gt;
+COMMENT &#39;Keys are deductions names, values are percentages&#39;,
+address STRUCT&lt;street:STRING, city:STRING, state:STRING, zip:INT&gt;
+COMMENT &#39;Home address&#39;)
+COMMENT &#39;Description of the table&#39;
+TBLPROPERTIES (&#39;creator&#39;=&#39;me&#39;, &#39;created_at&#39;=&#39;2012-01-02 10:00:00&#39;)
+LOCATION &#39;/user/hive/warehouse/mydb.db/employees&#39;;
+</code></pre><p>首先,我们注意到,如果用户当前所处的数据库并非是目标数据库，那么用户是可以在表名前增加一个数据库名来进行指定的，也就是例子中的<code>mydb</code></p>
+<p>如果用户增加上选项<code>IF NOT EXISTS</code>，那么若表已经存在了，Hive就会忽略掉后面的执行语句。且不会有任何提示。用户可以在字段类型后使用<code>COMMENT</code>为每个字段增加一个注释。还可以指定一个或多个表属性。大多数情况下<code>TBLPROPERTIES</code>的主要作用是按键-值对的格式为表增加额外的文档说明。</p>
+<p>Hive会自动增加两个表属性:一个是<code>last_modified_by</code>，其保存着最后修改这个表的用户的用户名;另一个是<code>last_modified_time</code>其保存着最后一次修改这个表的新纪元时间秒。</p>
+<p>使用<code>SHOW TBLPROPERTIES table_name</code>列举出某个表的<code>TBLPROPERTIES</code>属性信息</p>
+<p>最后，可以看到我们根据情况为表中的数据指定一个存储路径。在这个例子中,我们使用Hive默认的路径<code>/user/hive/warehouse/mydb.db/employees</code>,其中,<code>/user/hive/warehouse</code>是默认的数据仓库路径,<code>mydb.db</code>是数据库目录,<code>employees</code>是表目录。</p>
+<p>默认情况下。Hive总是将创建的表的目录放置在这个表所属的数据库目录之下。不过,<code>default</code>数据库是个例外,其在<code>/user/hive/warehouse</code>下并没有对应一个数据库目录。因此<code>default</code>数据库中的表目录会直接位于<code>/user/hive/warehouse</code>目录下(用户明确指定除外).</p>
+<p>用户还可以拷贝一张已经存在的表的模式(无需拷贝数据):</p>
+<pre><code>CREATE TABLE IF NOT EXISTS mydb.employees2
+LIKE mydb.employees;
+</code></pre><p>该语句可以接受可选的<code>LOCATION</code>子句,但是注意其他的属性，包括模式都是不可能重新定义的。这些信息直接从原是表获得.</p>
+<p><code>SHOW TABLES</code>命令可以列举出所有的表,如果不增加其他参数,那么只会显示当前工作数据库下的表。假设不在那么数据库下，还是可以列出指定数据库下的表使用<code>SHOW TABLES IN dbname</code></p>
+<pre><code>hive &gt; USE default;
+hive &gt; SHOW TABLES IN mydb;
+employees
+department
+</code></pre><p>如果有很多的表，那么可以使用正则表达式来过滤出所需要的表名.</p>
+<pre><code>hive&gt; USE mydb;
+hive&gt; SHOW TABLES &#39;empl.*&#39;;
+employees
+</code></pre><p><em>注意:IN databasename和表名使用正则表达式过滤这个两个功能尚不支持同时使用.</em></p>
+<p>我们可以使用<code>DESCRIBE EXTENDED mydb.employees</code>命令来查看这个表的详细结构信息(如果当前所处的工作数据库就是<code>mydb</code>的话，可以不加<code>mydb</code>这个前缀).</p>
+<pre><code>hive&gt; DESCRIBE EXTENDED mydb.employees;
+name string Employee name
+salary float Employee salary
+subordinates array&lt;string&gt; Names of subordinates
+deductions map&lt;string,float&gt; Keys are deductions names, values are percentages
+address struct&lt;street:string,city:string,state:string,zip:int&gt; Home address
+Detailed Table Information Table(tableName:employees, dbName:mydb, owner:me,
+...
+location:hdfs://master-server/user/hive/warehouse/mydb.db/employees,
+parameters:{creator=me, created_at=&#39;2012-01-02 10:00:00&#39;,
+last_modified_user=me, last_modified_time=1337544510,
+comment:Description of the table, ...}, ...)
+</code></pre><p>使用<code>FORMATTED</code>关键字替代<code>EXTENDED</code>关键字的话,可以提供更加可读的输出信息。在应用中多使用<code>FORMATTED</code>关键字</p>
+<pre><code>DESCRIBE FORMATTED employees;
+</code></pre><p>如果用户只想查看某一个列的信息，那么只要在表名后面增加这个字段的名称即可.</p>
+<pre><code>hive&gt; DESCRIBE mydb.employees.salary;
+salary float Employee salary
+</code></pre><p><em>注:<code>last_modified_by</code>和<code>last_modified_time</code>两个表属性是自动创建的。如果用户没有定义任何的自定义表属性的话,那么这两个表属性也不会显示在表的详细信息中!</em></p>
+<h3 id="4-3-1-">4.3.1 管理表</h3>
+<p>我们目前所创建的表均属于管理表,有时也被称为内部表.因为这种表,Hive会或多或少的控制着数据项的生命周期.如:Hive默认情况下会将这些表的数据存储在由配置项<code>hive.metastore.warehouse.dir</code>(如<code>/user/hive/warehouse</code>)所定义的目录的子目录下.</p>
+<p>当我们删除一个管理表时,Hive也会删除这个表中的数据.管理表不方便和其他工作共享数据。</p>
+<h3 id="4-3-2-">4.3.2 外部表</h3>
+<pre><code>CREATE EXTERNAL TABLE IF NOT EXISTS stocks (
+exchange STRING,
+symbol STRING,
+ymd STRING,
+price_open FLOAT,
+price_high FLOAT,
+price_low FLOAT,
+price_close FLOAT,
+volume INT,
+price_adj_close FLOAT)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;,&#39;
+LOCATION &#39;/data/stocks&#39;;
+</code></pre><p>关键字<code>EXTERNAL</code>告诉Hive这个表是外部的。而后面的<code>LOCATION</code>子句告诉Hive数据位于那个路径下. 因为表是外部的,所以Hive并非认为其完全拥有这份数据，因此，删除该表并不会删除掉这份数据,不过描述表的元数据信息将会被删除掉.</p>
+<p>用户可以在<code>DESCRIBE EXTENDED tablename</code>语句的输出中查看到表是管理表还是外部表.在末尾的详细表信息输出中,对于管理表，用户可以看到如下信息:</p>
+<pre><code>tableType:MANAGED_TABLE
+</code></pre><p>对于外部表</p>
+<pre><code>tableType:EXTERNAL_TABLE
+</code></pre><p>对于管理表,用户可以对一张存在的表进行结构复制(不会复制数据)</p>
+<pre><code>CREATE EXTERNAL TABLE IF NOT EXISTS mydb.employees3
+LIKE mydb.employees
+LOCATION &#39;/path/to/data&#39;;
+</code></pre><p>若语句中省略掉<code>EXTERNAL</code>关键字,且源表是外部表的话,那么新生成的表也将是外部表;</p>
+<p>若语句中省略掉<code>EXTERNAL</code>关键字,且源表是管理表的话,那么新生成的表也将是管理表;</p>
+<p>若语句中含有EXTERNAL关键字,且源表是管理表的话，那么生成的新表将是外部表。即使在这种场景下,<code>LOCATION</code>子句同样是可选的。</p>
+<h2 id="4-4-">4.4 分区表、管理表</h2>
+<p>Hive中有分区表的概念。分区表将数据以一种符合逻辑的方式进行组织。比如分层存储。</p>
+<pre><code>CREATE TABLE employees (
+name STRING,
+salary FLOAT,
+subordinates ARRAY&lt;STRING&gt;,
+deductions MAP&lt;STRING, FLOAT&gt;,
+address STRUCT&lt;street:STRING, city:STRING, state:STRING, zip:INT&gt;
+)
+PARTITIONED BY (country STRING, state STRING);
+</code></pre><p>如果表中的数据以及分区个数非常大的话,执行一个包含所有分区的查询可能会触发一个巨大的<code>MapReduce</code>任务。建议的安全措施是将Hive设置为“strict”模式,这样对分区表查询WHERE子句没有加分区过滤的话,将会禁止提交这个任务.可以按照下面的语句将属性设置为<code>“nonstrict”</code>模式。</p>
+<pre><code>hive&gt; set hive.mapred.mode=strict;
 
+hive&gt; SELECT e.name, e.salary FROM employees e LIMIT 100;
+FAILED: Error in semantic analysis: No partition predicate found for
+Alias &quot;e&quot; Table &quot;employees&quot;
+
+hive&gt; set hive.mapred.mode=nonstrict;
+
+hive&gt; SELECT e.name, e.salary FROM employees e LIMIT 100;
+</code></pre><p>可以通过使用<code>SHOW PARTITIONS</code>命令查看表中存在的所有分区</p>
+<pre><code>hive&gt; SHOW PARTITIONS employees;
+...
+Country=CA/state=AB
+country=CA/state=BC
+...
+country=US/state=AL
+country=US/state=AK
+</code></pre><p>如果表中存在很多的分区，而只想查看是否存储某个特定分区键的分区的话。可以在这个命令上增加一个指定了一个或者多个特定分区字段值的<code>PARTITION</code>子句，进行过滤</p>
+<pre><code>hive&gt; SHOW PARTITIONS employees PARTITION(country=&#39;US&#39;);
+country=US/state=AL
+country=US/state=AK
+...
+hive&gt; SHOW PARTITIONS employees PARTITION(country=&#39;US&#39;, state=&#39;AK&#39;);
+country=US/state=AK
+</code></pre><p><code>DESCRIBE EXTENDED employees</code>命令也会显示出分区键</p>
+<pre><code>hive&gt; DESCRIBE EXTENDED employees;
+name string,
+salary float,
+...
+address struct&lt;...&gt;,
+country string,
+state string
+Detailed Table Information...
+partitionKeys:[FieldSchema(name:country, type:string, comment:null),
+FieldSchema(name:state, type:string, comment:null)],
+</code></pre><p>在管理表中用户可以通过载入数据的方式创建分区。下面的例子将从本地目录载入数据到表中的时候.将会创建一个US和CA分区.用户需要为每个分区字段指定一个值.注意在HiveQL中是如何引用<code>HOME</code>环境变量的:</p>
+<pre><code>LOAD DATA LOCAL INPATH &#39;${env:HOME}/california-employees&#39;
+INTO TABLE employees
+PARTITION (country = &#39;US&#39;, state = &#39;CA&#39;);
+</code></pre><p>Hive将会创建这个分区对应的目录<code>/employees/country=US/state=CA</code>且<code>$HOME/california-employees</code>目录下的文件将会被拷贝到上述分区目录下。</p>
+<h3 id="4-4-1-">4.4.1 外部分区表</h3>
+<pre><code>CREATE EXTERNAL TABLE IF NOT EXISTS log_messages (
+hms INT,
+severity STRING,
+server STRING,
+process_id INT,
+message STRING)
+PARTITIONED BY (year INT, month INT, day INT)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;\t&#39;;
+</code></pre><p>分区外部表对<code>LOCATION</code>没有要求,使用<code>ALTER TABLE</code>语句单独进行增加分区.这个语句需要为每一个分区键指定一个值。如:</p>
+<pre><code>ALTER TABLE log_messages ADD PARTITION(year = 2012, month = 1, day = 2)
+LOCATION &#39;hdfs://master_server/data/log_messages/2012/01/02&#39;;
+</code></pre><p>Hive并不控制这些数据,即使表被删除,数据也不会被删除.</p>
+<p>和分区管理表一样.通过<code>SHOW PARTITIONS</code>查看外部表的分区。如:</p>
+<pre><code>hive&gt; SHOW PARTITIONS log_messages;
+...
+year=2011/month=12/day=31
+year=2012/month=1/day=1
+year=2012/month=1/day=2
+...
+</code></pre><p>同样,<code>DESCRIBE EXTENDED log_messages</code>语句会将分区键作为表的模式一部分和<code>partitionKeys</code>列表的内容同时显示</p>
+<pre><code>hive&gt; DESCRIBE EXTENDED log_messages;
+...
+message string,
+year int,
+month int,
+day int
+Detailed Table Information...
+partitionKeys:[FieldSchema(name:year, type:int, comment:null),
+FieldSchema(name:month, type:int, comment:null),
+FieldSchema(name:day, type:int, comment:null)],
+...
+</code></pre><p>这个输出少了一个非常重要的信息.那就是分区数据实际存在的路径.</p>
+<p>通过以下方式查看分区数据所在路径</p>
+<pre><code>hive&gt; DESCRIBE EXTENDED log_messages PARTITION (year=2012, month=1, day=2);
+...
+location:s3n://ourbucket/logs/2011/01/02,
+...
+</code></pre><p>通常会使用分区外部表.</p>
+<h3 id="4-4-2-">4.4.2 自定义表的存储格式</h3>
+<p>Hive默认的存储格式是文本文件格式.可以通过可选的子句<code>STORED AS TEXTFILE</code>显式指定.同时用户可以在创建表的时指定各种各样的分隔符.</p>
+<pre><code>CREATE TABLE employees (
+name STRING,
+salary FLOAT,
+subordinates ARRAY&lt;STRING&gt;,
+deductions MAP&lt;STRING, FLOAT&gt;,
+address STRUCT&lt;street:STRING, city:STRING, state:STRING, zip:INT&gt;
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY &#39;\001&#39;
+COLLECTION ITEMS TERMINATED BY &#39;\002&#39;
+MAP KEYS TERMINATED BY &#39;\003&#39;
+LINES TERMINATED BY &#39;\n&#39;
+STORED AS TEXTFILE;
+</code></pre><p><em>注:<code>TEXTFILE</code>意味着所有字段都使用字母、数字、字符编码,包括那么国际字符集.Hive默认是使用不可见字符来作为分隔符的。使用<code>TEXTFILE</code>意味着，每一行被认为是一个单独的记录.可以使用<code>SEQUENCEFILE</code>和<code>RCFILE</code>两种文件格式来替换<code>TEXTFILE</code>.这两种文件格式都是使用二进制编码和压缩来优化磁盘空间及I/O带宽性能的。</em></p>
+<ul>
+<li><p>记录编码是通过一个<code>input format</code>对象来控制的。Hive使用了一个名为<code>org.apache.hadoop.mapred.TextInputFormat</code>的java类.</p>
+</li>
+<li><p>记录的解析是由序列化/反序列化(<code>SerDe</code>)来控制的，对于<code>TEXTFILEHive</code>所使用的<code>SerDe</code>是<code>org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe</code>java类.</p>
+</li>
+</ul>
+<p>Hive使用一个叫做<code>output format</code>的对象将查询输出写入到文件中或者输出到控制台.对于<code>TEXTFILEHive</code>所使用的输出类为<code>org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat</code></p>
+<p>可以使用第三方的输入输出格式及<code>SerDe</code>，允许用户自定义Hive本身不支持的其他文件格式</p>
+<pre><code>CREATE TABLE kst
+PARTITIONED BY (ds string)
+ROW FORMAT SERDE &#39;com.linkedin.haivvreo.AvroSerDe&#39;
+WITH SERDEPROPERTIES (&#39;schema.url&#39;=&#39;http://schema_provider/kst.avsc&#39;)
+STORED AS
+INPUTFORMAT &#39;com.linkedin.haivvreo.AvroContainerInputFormat&#39;
+OUTPUTFORMAT &#39;com.linkedin.haivvreo.AvroContainerOutputFormat&#39;;
+</code></pre><p><code>ROW FORMAT SERDE …</code>指定了使用的<code>SerDe</code>。Hive提供了<code>WITH SERDEPROPERTIES</code>功能，允许用户传递配置信息给<code>SerDe</code>。每个属性名称和值都应该是带引号的字符串.</p>
+<p><code>STORED AS INPUTFORMAT … OUTPUTFORMAT</code>分别定义了用于输入和输出格式的java类。如果要指定，必须对输入和输出格式都指定.</p>
+<p><code>DESCRIBE EXTENDED table</code>会列出输入和输出格式以及<code>SerDe</code>和<code>SerDe</code>所自带的属性信息。如:</p>
+<pre><code>hive&gt; DESCRIBE EXTENDED kst
+...
+inputFormat:com.linkedin.haivvreo.AvroContainerInputFormat,
+outputFormat:com.linkedin.haivvreo.AvroContainerOutputFormat,
+...
+serdeInfo:SerDeInfo(name:null,
+serializationLib:com.linkedin.haivvreo.AvroSerDe,
+parameters:{schema.url=http://schema_provider/kst.avsc})
+...
+</code></pre><h2 id="4-5-">4.5 删除表</h2>
+<pre><code>DROP TABLE IF EXISTS employees;
+</code></pre><p>对于管理表,表的元数据信息和表内的数据都被删除</p>
+<p>对于外部表,表的元数据信息会被删除,但是表中的数据不会被删除</p>
+<h2 id="4-6-">4.6 修改表</h2>
+<p>大多数的表属性可以通过使用<code>ALTER TABLE</code>语句来修改.该操作会修改元数据,但不会修改数据本身.用于修改表模式中的错误及分区路径.</p>
+<h3 id="4-6-1-">4.6.1 表重命名</h3>
+<pre><code>ALTER TABLE log_messages RENAME TO logmsgs;
+</code></pre><h3 id="4-6-2-">4.6.2 增加、修改和删除表分区</h3>
+<ul>
+<li>增加表分区</li>
+</ul>
+<pre><code>ALTER TABLE log_messages ADD IF NOT EXISTS
+PARTITION (year = 2011, month = 1, day = 1) LOCATION &#39;/logs/2011/01/01&#39;
+PARTITION (year = 2011, month = 1, day = 2) LOCATION &#39;/logs/2011/01/02&#39;
+PARTITION (year = 2011, month = 1, day = 3) LOCATION &#39;/logs/2011/01/03&#39;
+...;
+</code></pre><ul>
+<li>修改分区路径</li>
+</ul>
+<pre><code>ALTER TABLE log_messages PARTITION(year = 2011, month = 12, day = 2)
+SET LOCATION &#39;s3n://ourbucket/logs/2011/01/02&#39;;
+</code></pre><p>这个命令不会将数据从旧的路径移走，也不会删除旧的数据</p>
+<ul>
+<li>删除分区</li>
+</ul>
+<pre><code>ALTER TABLE log_messages DROP IF EXISTS PARTITION(year = 2011, month = 12, day = 2);
+</code></pre><p>对于管理表分区内的数据和元数据会一起被删除。对应外部表，分区内的数据不会被删除</p>
+<h3 id="4-6-3-">4.6.3 修改列信息</h3>
+<p>可以对字段重命名、修改其位置、类型或者注释:</p>
+<pre><code>ALTER TABLE log_messages
+CHANGE COLUMN hms hours_minutes_seconds INT
+COMMENT &#39;The hours, minutes, and seconds part of the timestamp&#39;
+AFTER severity;
+</code></pre><p>即使字段名和字段类型都没有改变，也需要完全指定旧的字段名。并给出新的字段名以及新的字段类型。若要将字段移动到第一个位置，只需要使用FIRST关键字替代AFTER other_column子句即可.</p>
+<p>这个操作，只会修改元数据信息。要注意数据与模式匹配.</p>
+<h3 id="4-6-4-">4.6.4 增加列</h3>
+<p>可以在分区字段前增加新的字段到已有字段之后</p>
+<pre><code>ALTER TABLE log_messages ADD COLUMNS (
+app_name STRING COMMENT &#39;Application name&#39;,
+session_id LONG COMMENT &#39;The current session id&#39;);
+</code></pre><h3 id="4-6-5-">4.6.5 删除或者替换列</h3>
+<pre><code>ALTER TABLE log_messages REPLACE COLUMNS (
+hours_mins_secs INT COMMENT &#39;hour, minute, seconds from timestamp&#39;,
+severity STRING COMMENT &#39;The message severity&#39;
+message STRING COMMENT &#39;The rest of the message&#39;);
+</code></pre><h3 id="4-6-6-">4.6.6 修改表属性</h3>
+<pre><code>ALTER TABLE log_messages SET TBLPROPERTIES (
+&#39;notes&#39; = &#39;The process id is no longer captured; this column is always NULL&#39;);
+</code></pre><p>可以增加附加的表属性或者修改已经存在的表属性。但是无法删除属性。</p>
+<h3 id="4-6-7-">4.6.7 修改存储属性</h3>
+<pre><code>ALTER TABLE log_messages
+PARTITION(year = 2012, month = 1, day = 1)
+SET FILEFORMAT SEQUENCEFILE;
+</code></pre><p>如果是分区表，需要使用<code>PARTITION</code>子句</p>
+<pre><code>ALTER TABLE table_using_JSON_storage
+SET SERDE &#39;com.example.JSONSerDe&#39;
+WITH SERDEPROPERTIES (
+&#39;prop1&#39; = &#39;value1&#39;,
+&#39;prop2&#39; = &#39;value2&#39;);
+</code></pre><h3 id="4-6-8-">4.6.8 众多的修改表语句</h3>
+<p><code>ALTER TABLE … TOUCH</code>语句用于触发钩子</p>
+<pre><code>ALTER TABLE log_messages TOUCH
+PARTITION(year = 2012, month = 1, day = 1);
+</code></pre><p><code>ALTER TABLE … ARCHIVE PARTITION</code>将分区内的文件打成一个Hadoop压缩包(HAR)文件.仅仅降低文件系统中的文件数和NameNode的压力，不会减少存储空间</p>
+<pre><code>ALTER TABLE log_messages ARCHIVE
+PARTITION(year = 2012, month = 1, day = 1);
+</code></pre><p>最后Hive提供了保护，下面的语句防止分区被删除和被查询</p>
+<pre><code>ALTER TABLE log_messages
+PARTITION(year = 2012, month = 1, day = 1) ENABLE NO_DROP;
+</code></pre><pre><code>ALTER TABLE log_messages
+PARTITION(year = 2012, month = 1, day = 1) ENABLE OFFLINE;
+</code></pre>
                     
                     </section>
                 
