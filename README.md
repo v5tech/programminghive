@@ -9,7 +9,7 @@
 * 克隆本项目到本地硬盘
 
 ```bash
-$ git clone https://github.com/sxyx2008/ProgrammingHive.git
+$ git clone https://github.com/sxyx2008/programminghive.git
 ```
 
 * 使用npm安装```gitbook```
@@ -20,22 +20,22 @@ $ npm install gitbook -g
 
 注意```-g```选项。将```gitbook```安装为全局。
 
-* 切换到ProgrammingHive的上级目录
+* 切换到programminghive的目录
 
 ```
-$ cd ../ProgrammingHive
+$ cd programminghive
 ```
 * 打开命令行或终端,执行下面的操作
 
 ```
-$ gitbook serve ./ProgrammingHive
+$ gitbook serve .
 
 ```
 
 如:
 
 ```bash
-$ gitbook serve ProgrammingHive
+$ gitbook serve .
 Press CTRL+C to quit ...
 
 Live reload server started on port: 35729
@@ -49,7 +49,7 @@ Serving book on http://localhost:4000
 接下来,你懂得。。。
 
 
-# [开始阅读](http://aimeizi.net/ProgrammingHive/)
+# [开始阅读](http://aimeizi.net/programminghive/)
 
 
 # 与我联系
@@ -64,4 +64,9 @@ WebSite:[aimeizi.net](http://aimeizi.net)
 
 GitHub:[https://github.com/sxyx2008](https://github.com/sxyx2008)
 
-# MIT
+
+# License
+
+MIT
+
+Copyright (c) 2014 雪山飞鹄
