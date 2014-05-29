@@ -5,7 +5,7 @@
         
         
         <meta charset="UTF-8">
-        <title>第三章 数据类型和文件格式 | Programming Hive 读书笔记</title>
+        <title>第十一章 其他文件格式和压缩方法 | Programming Hive 读书笔记</title>
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="robots" content="index, follow">
@@ -15,13 +15,13 @@
         <meta name="generator" content="www.gitbook.io">
 
         
-        <link rel="next" href="../chapter-4/0.html" />
+        <link rel="next" href="../chapter-12/0.html" />
         
         
-        <link rel="prev" href="../chapter-2/0.html" />
+        <link rel="prev" href="../chapter-10/0.html" />
         
 
-        <meta property="og:title" content="第三章 数据类型和文件格式 | Programming Hive 读书笔记">
+        <meta property="og:title" content="第十一章 其他文件格式和压缩方法 | Programming Hive 读书笔记">
         <meta property="og:site_name" content="Programming Hive 读书笔记">
         <meta property="og:type" content="book">
         <meta property="og:locale" content="en_US">
@@ -46,7 +46,7 @@
 
 
         
-    <div class="book" data-github="sxyx2008/programminghive" data-level="4" data-basepath=".." data-revision="1401350425248">
+    <div class="book" data-github="sxyx2008/programminghive" data-level="12" data-basepath=".." data-revision="1401350425248">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -130,7 +130,7 @@
         
         
         <li>
-            <a href="https://github.com/sxyx2008/programminghive/edit/master/chapter-3/0.md" target="blank" class="contribute-link">Edit and Contribute</a>
+            <a href="https://github.com/sxyx2008/programminghive/edit/master/chapter-11/0.md" target="blank" class="contribute-link">Edit and Contribute</a>
         </li>
         
 
@@ -375,7 +375,7 @@
             <div class="page-wrapper" tabindex="-1">
                 <div class="book-progress">
     <div class="bar">
-        <div class="inner" style="width: 13.043478260869565%;min-width: 8.695652173913043%;"></div>
+        <div class="inner" style="width: 47.82608695652174%;min-width: 43.47826086956522%;"></div>
     </div>
     <div class="chapters">
     
@@ -387,21 +387,21 @@
     
         <a href="../chapter-3/0.html" title="第三章 数据类型和文件格式" class="chapter done new-chapter" data-progress="4" style="left: 13.043478260869565%;"></a>
     
-        <a href="../chapter-4/0.html" title="第四章 HiveQL:数据定义" class="chapter  new-chapter" data-progress="5" style="left: 17.391304347826086%;"></a>
+        <a href="../chapter-4/0.html" title="第四章 HiveQL:数据定义" class="chapter done new-chapter" data-progress="5" style="left: 17.391304347826086%;"></a>
     
-        <a href="../chapter-5/0.html" title="第五章 HiveQL:数据操作" class="chapter  new-chapter" data-progress="6" style="left: 21.73913043478261%;"></a>
+        <a href="../chapter-5/0.html" title="第五章 HiveQL:数据操作" class="chapter done new-chapter" data-progress="6" style="left: 21.73913043478261%;"></a>
     
-        <a href="../chapter-6/0.html" title="第六章 HiveQL:查询" class="chapter  new-chapter" data-progress="7" style="left: 26.08695652173913%;"></a>
+        <a href="../chapter-6/0.html" title="第六章 HiveQL:查询" class="chapter done new-chapter" data-progress="7" style="left: 26.08695652173913%;"></a>
     
-        <a href="../chapter-7/0.html" title="第七章 HiveQL:视图" class="chapter  new-chapter" data-progress="8" style="left: 30.434782608695652%;"></a>
+        <a href="../chapter-7/0.html" title="第七章 HiveQL:视图" class="chapter done new-chapter" data-progress="8" style="left: 30.434782608695652%;"></a>
     
-        <a href="../chapter-8/0.html" title="第八章 HiveQL:索引" class="chapter  new-chapter" data-progress="9" style="left: 34.78260869565217%;"></a>
+        <a href="../chapter-8/0.html" title="第八章 HiveQL:索引" class="chapter done new-chapter" data-progress="9" style="left: 34.78260869565217%;"></a>
     
-        <a href="../chapter-9/0.html" title="第九章 模式设计" class="chapter  " data-progress="10" style="left: 39.130434782608695%;"></a>
+        <a href="../chapter-9/0.html" title="第九章 模式设计" class="chapter done " data-progress="10" style="left: 39.130434782608695%;"></a>
     
-        <a href="../chapter-10/0.html" title="第十章 调优" class="chapter  " data-progress="11" style="left: 43.47826086956522%;"></a>
+        <a href="../chapter-10/0.html" title="第十章 调优" class="chapter done " data-progress="11" style="left: 43.47826086956522%;"></a>
     
-        <a href="../chapter-11/0.html" title="第十一章 其他文件格式和压缩方法" class="chapter  " data-progress="12" style="left: 47.82608695652174%;"></a>
+        <a href="../chapter-11/0.html" title="第十一章 其他文件格式和压缩方法" class="chapter done " data-progress="12" style="left: 47.82608695652174%;"></a>
     
         <a href="../chapter-12/0.html" title="第十二章 开发" class="chapter  " data-progress="13" style="left: 52.17391304347826%;"></a>
     
@@ -432,30 +432,236 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_4">
+                    <section class="normal" id="section-gitbook_2">
                     
-                        <h1 id="-">第三章 数据类型和文件格式</h1>
-<h2 id="3-1-">3.1 基本数据类型</h2>
-<pre><code>TINYINT
-SMALLINT
-INT
-BIGINT
-BOOLEAN
-FLOAT
-DOUBLE
-STRING
-TIMESTAMP 
-BINARY
-</code></pre><h2 id="3-2-">3.2 集合数据类型</h2>
-<pre><code>STRUCT
-MAP
-ARRAY
-</code></pre><h2 id="3-3-">3.3 文本数据编码</h2>
-<pre><code>\n  文本文件,分隔行
-^A (“control” A) 列分隔字符,用八进制\001表示
-^B 用于分隔```Array```或```Struct```中的元素或者```Map```中的键值对,用八进制\002表示
-^C 用于```Map```中键和值之间的分隔,用八进制\003表示
-</code></pre><h2 id="3-4-">3.4 读时模式</h2>
+                        <h1 id="-">第十一章 其他文件格式和压缩方法</h1>
+<h2 id="11-1-">11.1 确定安装编解码器</h2>
+<pre><code># hive -e &quot;set io.compression.codecs&quot;
+io.compression.codecs=org.apache.hadoop.io.compress.GzipCodec,
+org.apache.hadoop.io.compress.DefaultCodec,
+org.apache.hadoop.io.compress.BZip2Codec,
+org.apache.hadoop.io.compress.SnappyCodec
+</code></pre><h2 id="11-2-">11.2 选择一种压缩编/解码器</h2>
+<h2 id="11-3-">11.3 开启中间压缩</h2>
+<p>若要开启中间压缩，需设置<code>hive.exec.compress.intermediate</code>值为<code>true</code>。默认为<code>false</code>。</p>
+<p>对Hadoop来说控制中间数据压缩属性是<code>mapred.compress.map.output</code>。</p>
+<pre><code>&lt;property&gt;
+&lt;name&gt;hive.exec.compress.intermediate&lt;/name&gt;
+&lt;value&gt;true&lt;/value&gt;
+&lt;description&gt; This controls whether intermediate files produced by Hive between
+multiple map-reduce jobs are compressed. The compression codec and other options
+are determined from hadoop config variables mapred.output.compress* &lt;/description&gt;
+&lt;/property&gt;
+</code></pre><p>Hadoop压缩默认的编/解码器是<code>DefaultCodec</code>，可以修改<code>mapred.map.output.compression.codec</code>。可以在<code>$HADOOP_HOME/conf/mapred-site.xml</code>或<code>$HADOOP_HOME/conf/hive-site.xml</code>文件中进行配置。</p>
+<pre><code>&lt;property&gt;
+&lt;name&gt;mapred.map.output.compression.codec&lt;/name&gt;
+&lt;value&gt;org.apache.hadoop.io.compress.SnappyCodec&lt;/value&gt;
+&lt;description&gt; This controls whether intermediate files produced by Hive
+between multiple map-reduce jobs are compressed. The compression codec
+and other options are determined from hadoop config variables
+mapred.output.compress* &lt;/description&gt;
+&lt;/property&gt;
+</code></pre><h2 id="11-4-">11.4 最终输出结果压缩</h2>
+<p>属性<code>hive.exec.compress.output</code>控制最终输出结果的压缩。默认为<code>false</code>。</p>
+<pre><code>&lt;property&gt;
+&lt;name&gt;hive.exec.compress.output&lt;/name&gt;
+&lt;value&gt;false&lt;/value&gt;
+&lt;description&gt; This controls whether the final outputs of a query
+(to a local/hdfs file or a Hive table) is compressed. The compression
+codec and other options are determined from hadoop config variables
+mapred.output.compress* &lt;/description&gt;
+&lt;/property&gt;
+</code></pre><p>Hadoop中使用属性<code>mapred.output.compress</code>来控制。</p>
+<p>当<code>hive.exec.compress.output</code>值为<code>true</code>时，需要指定一个编解码器。</p>
+<pre><code>&lt;property&gt;
+&lt;name&gt;mapred.output.compression.codec&lt;/name&gt;
+&lt;value&gt;org.apache.hadoop.io.compress.GzipCodec&lt;/value&gt;
+&lt;description&gt;If the job outputs are compressed, how should they be compressed?
+&lt;/description&gt;
+&lt;/property&gt;
+</code></pre><h2 id="11-5-sequence-">11.5 Sequence格式</h2>
+<p>在Hive中使用<code>sequence</code>需要在<code>CREATE TABLE</code>语句中使用<code>STORED AS SEQUENCEFILE</code>来指定。</p>
+<pre><code>CREATE TABLE a_sequence_file_table STORED AS SEQUENCEFILE;
+</code></pre><p><code>SEQUENCEFILE</code>提供了三种压缩方式。<code>NONE</code>, <code>RECORD</code>和<code>BLOCK</code>。默认<code>RECORD</code>，而通常<code>BLOCK</code>级别压缩性能是最好的。可以在Hadoop的<code>mapred-site.xml</code>文件或Hive的<code>hive-site.xml</code>文件中指定。</p>
+<pre><code>&lt;property&gt;
+&lt;name&gt;mapred.output.compression.type&lt;/name&gt;
+&lt;value&gt;BLOCK&lt;/value&gt;
+&lt;description&gt;If the job outputs are to compressed as SequenceFiles,
+how should they be compressed? Should be one of NONE, RECORD or BLOCK.
+&lt;/description&gt;
+&lt;/property&gt;
+</code></pre><h2 id="11-6-">11.6 使用压缩实践</h2>
+<p>原数据:</p>
+<pre><code>hive&gt; SELECT * FROM a;
+4 5
+3 2
+</code></pre><pre><code>hive&gt; DESCRIBE a;
+a int
+b int
+</code></pre><p>开启中间数据压缩</p>
+<pre><code>hive&gt; set hive.exec.compress.intermediate=true;
+hive&gt; CREATE TABLE intermediate_comp_on
+&gt; ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;\t&#39;
+&gt; AS SELECT * FROM a;
+Moving data to: file:/user/hive/warehouse/intermediate_comp_on
+Table default.intermediate_comp_on stats: [num_partitions: 0, num_files: 1,
+num_rows: 2, total_size: 8, raw_data_size: 6]
+</code></pre><p>和预期一样，中间数据压缩没有影响最终输出。最终的结果输出仍是非压缩的。</p>
+<pre><code>hive&gt; dfs -ls /user/hive/warehouse/intermediate_comp_on;
+Found 1 items
+/user/hive/warehouse/intermediate_comp_on/000000_0
+
+hive&gt; dfs -cat /user/hive/warehouse/intermediate_comp_on/000000_0;
+4 5
+3 2
+</code></pre><p>为中间数据压缩配置其编/解码器，而不使用默认的。选择<code>GZip</code>压缩。</p>
+<pre><code>hive&gt; set mapred.map.output.compression.codec
+=org.apache.hadoop.io.compress.GZipCodec;
+hive&gt; set hive.exec.compress.intermediate=true;
+
+hive&gt; CREATE TABLE intermediate_comp_on_gz
+&gt; ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;\t&#39;
+&gt; AS SELECT * FROM a;
+Moving data to: file:/user/hive/warehouse/intermediate_comp_on_gz
+Table default.intermediate_comp_on_gz stats:
+[num_partitions: 0, num_files: 1, num_rows: 2, total_size: 8, raw_data_size: 6]
+
+hive&gt; dfs -cat /user/hive/warehouse/intermediate_comp_on_gz/000000_0;
+4 5
+3 2
+</code></pre><p>开启输出结果压缩。</p>
+<pre><code>hive&gt; set hive.exec.compress.output=true;
+
+hive&gt; CREATE TABLE final_comp_on
+&gt; ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;\t&#39;
+&gt; AS SELECT * FROM a;
+Moving data to: file:/tmp/hive-edward/hive_2012-01-15_11-11-01_884_.../-ext-10001
+Moving data to: file:/user/hive/warehouse/final_comp_on
+Table default.final_comp_on stats:
+[num_partitions: 0, num_files: 1, num_rows: 2, total_size: 16, raw_data_size: 6]
+
+hive&gt; dfs -ls /user/hive/warehouse/final_comp_on;
+Found 1 items
+/user/hive/warehouse/final_comp_on/000000_0.deflate
+</code></pre><p>可以看到输出的文件后缀名是<code>.deflate</code>。</p>
+<pre><code>hive&gt; dfs -cat /user/hive/warehouse/final_comp_on/000000_0.deflate;
+... UGLYBINARYHERE ...
+
+hive&gt; SELECT * FROM final_comp_on;
+4    5
+3    2
+</code></pre><p>改变输出结果压缩使用的编解码器</p>
+<pre><code>hive&gt; set hive.exec.compress.output=true;
+
+hive&gt; set mapred.output.compression.codec
+=org.apache.hadoop.io.compress.GzipCodec;
+hive&gt; CREATE TABLE final_comp_on_gz
+&gt; ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;\t&#39;
+&gt; AS SELECT * FROM a;
+Moving data to: file:/user/hive/warehouse/final_comp_on_gz
+Table default.final_comp_on_gz stats:
+[num_partitions: 0, num_files: 1, num_rows: 2, total_size: 28, raw_data_size: 6]
+
+hive&gt; dfs -ls /user/hive/warehouse/final_comp_on_gz;
+Found 1 items
+/user/hive/warehouse/final_comp_on_gz/000000_0.gz
+</code></pre><p>最终输出了<code>.gz</code>文件，使用<code>zcat</code>命令查看:</p>
+<pre><code>hive&gt; ! /bin/zcat /user/hive/warehouse/final_comp_on_gz/000000_0.gz;
+4    5
+3    2
+
+hive&gt; SELECT * FROM final_comp_on_gz;
+OK
+4    5
+3    2
+Time taken: 0.159 seconds
+</code></pre><p>使用<code>sequence</code>文件格式</p>
+<pre><code>hive&gt; set mapred.output.compression.type=BLOCK;
+hive&gt; set hive.exec.compress.output=true;
+hive&gt; set mapred.output.compression.codec=org.apache.hadoop.io.compress.GzipCodec;
+
+hive&gt; CREATE TABLE final_comp_on_gz_seq
+&gt; ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;\t&#39;
+&gt; STORED AS SEQUENCEFILE
+&gt; AS SELECT * FROM a;
+Moving data to: file:/user/hive/warehouse/final_comp_on_gz_seq
+Table default.final_comp_on_gz_seq stats:
+[num_partitions: 0, num_files: 1, num_rows: 2, total_size: 199, raw_data_size: 6]
+hive&gt; dfs -ls /user/hive/warehouse/final_comp_on_gz_seq;
+Found 1 items
+/user/hive/warehouse/final_comp_on_gz_seq/000000_0
+</code></pre><pre><code class="lang-sequence```文件是二进制格式的。查询文件头:">
+
+</code></pre>
+<p>hive&gt; dfs -cat /user/hive/warehouse/final_comp_on_gz_seq/000000_0;
+SEQ[]org.apache.hadoop.io.BytesWritable[]org.apache.hadoop.io.BytesWritable[]
+org.apache.hadoop.io.compress.GzipCodec[]</p>
+<pre><code>
+使用hadoop```dfs -text```命令去除```sequence```文件头和压缩。
+</code></pre><p>hive&gt; dfs -text /user/hive/warehouse/final_comp_on_gz_seq/000000_0;
+4 5
+3 2</p>
+<p>hive&gt; select * from final_comp_on_gz_seq;
+OK
+4 5
+3 2</p>
+<pre><code>
+直接使用数据压缩和最终输出压缩数据
+</code></pre><p>hive&gt; set mapred.map.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
+hive&gt; set hive.exec.compress.intermediate=true;
+hive&gt; set mapred.output.compression.type=BLOCK;
+hive&gt; set hive.exec.compress.output=true;
+hive&gt; set mapred.output.compression.codec=org.apache.hadoop.io.compress.GzipCodec;</p>
+<p>hive&gt; CREATE TABLE final_comp_on_gz_int_compress_snappy_seq</p>
+<blockquote>
+<p>ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;\t&#39;
+STORED AS SEQUENCEFILE AS SELECT * FROM a;
+```</p>
+</blockquote>
+<h2 id="11-7-">11.7 存档分区</h2>
+<p>Hadoop中有一种存储格式为<code>HAR</code>，即<code>Hadoop Archive(Hadoop归档文件)</code>。一个<code>HAR</code>文件类似与HDFS文件系统中的一个<code>TAR</code>文件，<code>HAR</code>查询效率不高，并非是压缩的。不会节约存储空间，仅仅是减轻<code>NameNode</code>压力。</p>
+<pre><code>hive&gt; CREATE TABLE hive_text (line STRING) PARTITIONED BY (folder STRING);
+
+hive&gt; ! ls $HIVE_HOME;
+LICENSE
+README.txt
+RELEASE_NOTES.txt
+
+hive&gt; ALTER TABLE hive_text ADD PARTITION (folder=&#39;docs&#39;);
+
+hive&gt; LOAD DATA INPATH &#39;${env:HIVE_HOME}/README.txt&#39;
+&gt; INTO TABLE hive_text PARTITION (folder=&#39;docs&#39;);
+Loading data to table default.hive_text partition (folder=docs)
+
+hive&gt; LOAD DATA INPATH &#39;${env:HIVE_HOME}/RELEASE_NOTES.txt&#39;
+&gt; INTO TABLE hive_text PARTITION (folder=&#39;docs&#39;);
+Loading data to table default.hive_text partition (folder=docs)
+
+hive&gt; SELECT * FROM hive_text WHERE line LIKE &#39;%hive%&#39; LIMIT 2;
+http://hive.apache.org/ docs
+- Hive 0.8.0 ignores the hive-default.xml file, though we continue docs
+</code></pre><p><code>ALTER TABLE ... ARCHIVE PARTITION</code> 语句将表转化成一个归档表。如:</p>
+<pre><code>hive&gt; SET hive.archive.enabled=true;
+hive&gt; ALTER TABLE hive_text ARCHIVE PARTITION (folder=&#39;docs&#39;);
+intermediate.archived is
+file:/user/hive/warehouse/hive_text/folder=docs_INTERMEDIATE_ARCHIVED
+intermediate.original is
+file:/user/hive/warehouse/hive_text/folder=docs_INTERMEDIATE_ORIGINAL
+Creating data.har for file:/user/hive/warehouse/hive_text/folder=docs
+in file:/tmp/hive-edward/hive_..._3862901820512961909/-ext-10000/partlevel
+Please wait... (this may take a while)
+Moving file:/tmp/hive-edward/hive_..._3862901820512961909/-ext-10000/partlevel
+to file:/user/hive/warehouse/hive_text/folder=docs_INTERMEDIATE_ARCHIVED
+Moving file:/user/hive/warehouse/hive_text/folder=docs
+to file:/user/hive/warehouse/hive_text/folder=docs_INTERMEDIATE_ORIGINAL
+Moving file:/user/hive/warehouse/hive_text/folder=docs_INTERMEDIATE_ARCHIVED
+to file:/user/hive/warehouse/hive_text/folder=docs
+</code></pre><pre><code>hive&gt; dfs -ls /user/hive/warehouse/hive_text/folder=docs;
+Found 1 items
+/user/hive/warehouse/hive_text/folder=docs/data.har
+</code></pre><p><code>ALTER TABLE ... UNARCHIVE PARTITION</code>解压<code>HAR</code>中的文件到HDFS</p>
+<pre><code>ALTER TABLE hive_text UNARCHIVE PARTITION (folder=&#39;docs&#39;);
+</code></pre><h2 id="11-8-">11.8 压缩</h2>
 
                     
                     </section>
@@ -465,10 +671,10 @@ ARRAY
         </div>
 
         
-        <a href="../chapter-2/0.html" class="navigation navigation-prev " aria-label="Previous page: 第二章 基础操作"><i class="fa fa-angle-left"></i></a>
+        <a href="../chapter-10/0.html" class="navigation navigation-prev " aria-label="Previous page: 第十章 调优"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../chapter-4/0.html" class="navigation navigation-next " aria-label="Next page: 第四章 HiveQL:数据定义"><i class="fa fa-angle-right"></i></a>
+        <a href="../chapter-12/0.html" class="navigation navigation-next " aria-label="Next page: 第十二章 开发"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>

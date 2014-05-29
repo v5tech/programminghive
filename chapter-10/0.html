@@ -5,7 +5,7 @@
         
         
         <meta charset="UTF-8">
-        <title>第三章 数据类型和文件格式 | Programming Hive 读书笔记</title>
+        <title>第十章 调优 | Programming Hive 读书笔记</title>
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="robots" content="index, follow">
@@ -15,13 +15,13 @@
         <meta name="generator" content="www.gitbook.io">
 
         
-        <link rel="next" href="../chapter-4/0.html" />
+        <link rel="next" href="../chapter-11/0.html" />
         
         
-        <link rel="prev" href="../chapter-2/0.html" />
+        <link rel="prev" href="../chapter-9/0.html" />
         
 
-        <meta property="og:title" content="第三章 数据类型和文件格式 | Programming Hive 读书笔记">
+        <meta property="og:title" content="第十章 调优 | Programming Hive 读书笔记">
         <meta property="og:site_name" content="Programming Hive 读书笔记">
         <meta property="og:type" content="book">
         <meta property="og:locale" content="en_US">
@@ -46,7 +46,7 @@
 
 
         
-    <div class="book" data-github="sxyx2008/programminghive" data-level="4" data-basepath=".." data-revision="1401350425248">
+    <div class="book" data-github="sxyx2008/programminghive" data-level="11" data-basepath=".." data-revision="1401350425248">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -130,7 +130,7 @@
         
         
         <li>
-            <a href="https://github.com/sxyx2008/programminghive/edit/master/chapter-3/0.md" target="blank" class="contribute-link">Edit and Contribute</a>
+            <a href="https://github.com/sxyx2008/programminghive/edit/master/chapter-10/0.md" target="blank" class="contribute-link">Edit and Contribute</a>
         </li>
         
 
@@ -375,7 +375,7 @@
             <div class="page-wrapper" tabindex="-1">
                 <div class="book-progress">
     <div class="bar">
-        <div class="inner" style="width: 13.043478260869565%;min-width: 8.695652173913043%;"></div>
+        <div class="inner" style="width: 43.47826086956522%;min-width: 39.130434782608695%;"></div>
     </div>
     <div class="chapters">
     
@@ -387,19 +387,19 @@
     
         <a href="../chapter-3/0.html" title="第三章 数据类型和文件格式" class="chapter done new-chapter" data-progress="4" style="left: 13.043478260869565%;"></a>
     
-        <a href="../chapter-4/0.html" title="第四章 HiveQL:数据定义" class="chapter  new-chapter" data-progress="5" style="left: 17.391304347826086%;"></a>
+        <a href="../chapter-4/0.html" title="第四章 HiveQL:数据定义" class="chapter done new-chapter" data-progress="5" style="left: 17.391304347826086%;"></a>
     
-        <a href="../chapter-5/0.html" title="第五章 HiveQL:数据操作" class="chapter  new-chapter" data-progress="6" style="left: 21.73913043478261%;"></a>
+        <a href="../chapter-5/0.html" title="第五章 HiveQL:数据操作" class="chapter done new-chapter" data-progress="6" style="left: 21.73913043478261%;"></a>
     
-        <a href="../chapter-6/0.html" title="第六章 HiveQL:查询" class="chapter  new-chapter" data-progress="7" style="left: 26.08695652173913%;"></a>
+        <a href="../chapter-6/0.html" title="第六章 HiveQL:查询" class="chapter done new-chapter" data-progress="7" style="left: 26.08695652173913%;"></a>
     
-        <a href="../chapter-7/0.html" title="第七章 HiveQL:视图" class="chapter  new-chapter" data-progress="8" style="left: 30.434782608695652%;"></a>
+        <a href="../chapter-7/0.html" title="第七章 HiveQL:视图" class="chapter done new-chapter" data-progress="8" style="left: 30.434782608695652%;"></a>
     
-        <a href="../chapter-8/0.html" title="第八章 HiveQL:索引" class="chapter  new-chapter" data-progress="9" style="left: 34.78260869565217%;"></a>
+        <a href="../chapter-8/0.html" title="第八章 HiveQL:索引" class="chapter done new-chapter" data-progress="9" style="left: 34.78260869565217%;"></a>
     
-        <a href="../chapter-9/0.html" title="第九章 模式设计" class="chapter  " data-progress="10" style="left: 39.130434782608695%;"></a>
+        <a href="../chapter-9/0.html" title="第九章 模式设计" class="chapter done " data-progress="10" style="left: 39.130434782608695%;"></a>
     
-        <a href="../chapter-10/0.html" title="第十章 调优" class="chapter  " data-progress="11" style="left: 43.47826086956522%;"></a>
+        <a href="../chapter-10/0.html" title="第十章 调优" class="chapter done " data-progress="11" style="left: 43.47826086956522%;"></a>
     
         <a href="../chapter-11/0.html" title="第十一章 其他文件格式和压缩方法" class="chapter  " data-progress="12" style="left: 47.82608695652174%;"></a>
     
@@ -432,30 +432,120 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_4">
+                    <section class="normal" id="section-gitbook_1">
                     
-                        <h1 id="-">第三章 数据类型和文件格式</h1>
-<h2 id="3-1-">3.1 基本数据类型</h2>
-<pre><code>TINYINT
-SMALLINT
-INT
-BIGINT
-BOOLEAN
-FLOAT
-DOUBLE
-STRING
-TIMESTAMP 
-BINARY
-</code></pre><h2 id="3-2-">3.2 集合数据类型</h2>
-<pre><code>STRUCT
-MAP
-ARRAY
-</code></pre><h2 id="3-3-">3.3 文本数据编码</h2>
-<pre><code>\n  文本文件,分隔行
-^A (“control” A) 列分隔字符,用八进制\001表示
-^B 用于分隔```Array```或```Struct```中的元素或者```Map```中的键值对,用八进制\002表示
-^C 用于```Map```中键和值之间的分隔,用八进制\003表示
-</code></pre><h2 id="3-4-">3.4 读时模式</h2>
+                        <h1 id="-">第十章 调优</h1>
+<h2 id="10-1-explain">10.1 使用EXPLAIN</h2>
+<pre><code>hive&gt; DESCRIBE onecol;
+number int
+
+hive&gt; SELECT * FROM onecol;
+554
+
+hive&gt; SELECT SUM(number) FROM onecol;
+14
+</code></pre><p>使用<code>EXPLAIN</code></p>
+<pre><code>hive&gt; EXPLAIN SELECT SUM(number) FROM onecol;
+</code></pre><h2 id="10-2-explain-extended">10.2 EXPLAIN EXTENDED</h2>
+<p>使用<code>EXPLAIN EXTENDED</code>将会输出更加完整的信息。</p>
+<h2 id="10-3-">10.3 限制调整</h2>
+<p><code>LIMIT</code> 语句需要执行整个查询，然后返回部分结果。</p>
+<p>在Hive中有如下配置</p>
+<pre><code>&lt;property&gt;
+&lt;name&gt;hive.limit.optimize.enable&lt;/name&gt;
+&lt;value&gt;true&lt;/value&gt;
+&lt;description&gt;Whether to enable to optimization to
+try a smaller subset of data for simple LIMIT first.&lt;/description&gt;
+&lt;/property&gt;
+</code></pre><p>若<code>hive.limit.optimize.enable</code>属性的值为<code>true</code>，还会有两个属性控制<code>LIMIT</code></p>
+<ul>
+<li><code>hive.limit.row.max.size</code></li>
+</ul>
+<pre><code>&lt;property&gt;
+&lt;name&gt;hive.limit.row.max.size&lt;/name&gt;
+&lt;value&gt;100000&lt;/value&gt;
+&lt;description&gt;When trying a smaller subset of data for simple LIMIT,
+how much size we need to guarantee each row to have at least.
+&lt;/description&gt;
+&lt;/property&gt;
+</code></pre><ul>
+<li><code>hive.limit.optimize.limit.file</code></li>
+</ul>
+<pre><code>&lt;property&gt;
+&lt;name&gt;hive.limit.optimize.limit.file&lt;/name&gt;
+&lt;value&gt;10&lt;/value&gt;
+&lt;description&gt;When trying a smaller subset of data for simple LIMIT,
+maximum number of files we can sample.&lt;/description&gt;
+&lt;/property&gt;
+</code></pre><h2 id="10-4-join-">10.4 Join优化</h2>
+<p>将数据集大的表放在<code>JOIN</code>语句的右边。</p>
+<h2 id="10-5-">10.5 本地模式</h2>
+<pre><code>hive&gt; set mapred.job.tracker=local;
+
+hive&gt; set mapred.tmp.dir=/home/edward/tmp;
+
+hive&gt; SELECT * from people WHERE firstname=bob;
+</code></pre><p>也可以设置<code>hive.exec.mode.local.auto</code>属性值为<code>true</code>，让Hive处于本地模式运行。通常将这个配置写在<code>$HOME/.hiverc</code></p>
+<p>若要全局生效的话，将这个配置添加到<code>$HIVE_HOME/conf/hive-site.xml</code>中</p>
+<pre><code>&lt;property&gt;
+&lt;name&gt;hive.exec.mode.local.auto&lt;/name&gt;
+&lt;value&gt;true&lt;/value&gt;
+&lt;description&gt;
+Let hive determine whether to run in local mode automatically
+&lt;/description&gt;
+&lt;/property&gt;
+</code></pre><h2 id="10-6-">10.6 并行执行</h2>
+<p>Hive默认一次执行一个阶段。可以通过设置参数<code>hive.exec.parallel</code>值为<code>true</code>开启并发执行。</p>
+<pre><code>&lt;property&gt;
+&lt;name&gt;hive.exec.parallel&lt;/name&gt;
+&lt;value&gt;true&lt;/value&gt;
+&lt;description&gt;Whether to execute jobs in parallel&lt;/description&gt;
+&lt;/property&gt;
+</code></pre><h2 id="10-7-">10.7 严格模式</h2>
+<p>Hive提供严格模式，防止用户执行一些意想不到或不良的查询。</p>
+<p>通过设置属性<code>hive.mapred.mode</code>值为<code>strict</code>禁止3中类型的查询</p>
+<ul>
+<li>分区表</li>
+</ul>
+<p>除非<code>WHERE</code>语句中含有分区字段过滤条件。否则不允许查询。即，不允许扫描所有分区。如:</p>
+<pre><code>hive&gt; SELECT DISTINCT(planner_id) FROM fracture_ins WHERE planner_id=5;
+FAILED: Error in semantic analysis: No Partition Predicate Found for
+Alias &quot;fracture_ins&quot; Table &quot;fracture_ins&quot;
+</code></pre><p>修改为以下的语句则正常输出</p>
+<pre><code>hive&gt; SELECT DISTINCT(planner_id) FROM fracture_ins
+&gt; WHERE planner_id=5 AND hit_date=20120101;
+</code></pre><ul>
+<li>使用<code>ORDER BY</code>的查询</li>
+</ul>
+<p>使用<code>ORDER BY</code>查询，要求必须使用<code>LIMIT</code>语句。如:</p>
+<pre><code>hive&gt; SELECT * FROM fracture_ins WHERE hit_date&gt;2012 ORDER BY planner_id;
+FAILED: Error in semantic analysis: line 1:56 In strict mode,
+limit must be specified if ORDER BY is present planner_id
+</code></pre><p>修改为以下的语句则正常输出：</p>
+<pre><code>hive&gt; SELECT * FROM fracture_ins WHERE hit_date&gt;2012 ORDER BY planner_id
+&gt; LIMIT 100000;
+</code></pre><ul>
+<li>限制笛卡尔积</li>
+</ul>
+<pre><code>hive&gt; SELECT * FROM fracture_act JOIN fracture_ads
+&gt; WHERE fracture_act.planner_id = fracture_ads.planner_id;
+FAILED: Error in semantic analysis: In strict mode, cartesian product
+is not allowed. If you really want to perform the operation,
++set hive.mapred.mode=nonstrict+
+</code></pre><p>修改为以下的语句则正常输出：</p>
+<pre><code>hive&gt; SELECT * FROM fracture_act JOIN fracture_ads
+&gt; ON (fracture_act.planner_id = fracture_ads.planner_id);
+</code></pre><h2 id="10-8-mapper-reducer-">10.8 调整mapper和reducer个数</h2>
+<p>通过设置<code>hive.exec.reducers.max</code>阻止查询消耗太多的<code>reduce</code>资源。有必要将该属性配置到<code>$HIVE_HOME/conf/hive-site.xml</code>中。对该属性值大小计算的公式如下:</p>
+<p>(集群总Reduce槽位个数*1.5)/(执行中查询的平均个数)</p>
+<p>在集群环境中</p>
+<h2 id="10-9-jvm-">10.9 JVM重用</h2>
+<h2 id="10-10-">10.10 索引</h2>
+<p>索引用来加快<code>GROUP BY</code>语句的查询速度。</p>
+<h2 id="10-11-">10.11 动态分区调整</h2>
+<h2 id="10-12-">10.12 推测执行</h2>
+<h2 id="10-13-mapreduce-group-by">10.13 耽搁MapReduce中多个Group By</h2>
+<h2 id="10-14-">10.14 虚拟列</h2>
 
                     
                     </section>
@@ -465,10 +555,10 @@ ARRAY
         </div>
 
         
-        <a href="../chapter-2/0.html" class="navigation navigation-prev " aria-label="Previous page: 第二章 基础操作"><i class="fa fa-angle-left"></i></a>
+        <a href="../chapter-9/0.html" class="navigation navigation-prev " aria-label="Previous page: 第九章 模式设计"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../chapter-4/0.html" class="navigation navigation-next " aria-label="Next page: 第四章 HiveQL:数据定义"><i class="fa fa-angle-right"></i></a>
+        <a href="../chapter-11/0.html" class="navigation navigation-next " aria-label="Next page: 第十一章 其他文件格式和压缩方法"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
