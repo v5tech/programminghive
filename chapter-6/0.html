@@ -46,7 +46,7 @@
 
 
         
-    <div class="book" data-github="sxyx2008/programminghive" data-level="7" data-basepath=".." data-revision="1401290084403">
+    <div class="book" data-github="sxyx2008/programminghive" data-level="7" data-basepath=".." data-revision="1401330330087">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -520,9 +520,9 @@ A | B    Numbers
 A ^ B    Numbers
 ~A    Numbers
 </code></pre><h3 id="6-1-4-">6.1.4 使用函数</h3>
-<ol>
+<ul>
 <li>数学函数</li>
-</ol>
+</ul>
 <pre><code>BIGINT        round(d)            
 DOUBLE        round(d, N)            
 BIGINT        floor(d)            
@@ -559,9 +559,9 @@ DOUBLE        negative(d)
 FLOAT        sign(d)                
 DOUBLE        e()                
 DOUBLE        pi()
-</code></pre><ol>
+</code></pre><ul>
 <li>聚合函数</li>
-</ol>
+</ul>
 <pre><code>BIGINT        count(*)            
 BIGINT        count(expr)            
 BIGINT        count(DISTINCT expr[, expr_.])    
@@ -588,9 +588,9 @@ ARRAY        collect_set(col)
 <pre><code>hive&gt; SET hive.map.aggr=true;
 
 hive&gt; SELECT count(*), avg(salary) FROM employees;
-</code></pre><ol>
+</code></pre><ul>
 <li>表生成函数</li>
-</ol>
+</ul>
 <pre><code>hive&gt; SELECT explode(subordinates) AS sub FROM employees;
 Mary Smith
 Todd Jones
@@ -602,9 +602,9 @@ tuple        parse_url_tuple(url, partname1, partname2, …, partnameN) where N 
 N ows        stack(n, col1, …, colM)
 </code></pre><pre><code>SELECT parse_url_tuple(url, &#39;HOST&#39;, &#39;PATH&#39;, &#39;QUERY&#39;) as (host, path, query)
 FROM url_table;
-</code></pre><ol>
+</code></pre><ul>
 <li>其他内置函数</li>
-</ol>
+</ul>
 <pre><code>BOOLEAN        test in(val1, val2, …)
 INT        length(s) 
 STRING        reverse(s)
@@ -773,6 +773,7 @@ Todd Jones 200 Chicago Ave.
 1987 53.88968399108163
 </code></pre><h2 id="6-4-join-">6.4 join语句</h2>
 <h3 id="6-4-1-inner-join">6.4.1 inner join</h3>
+<p>取连接的两个表中都存在与连接标准匹配的数据。</p>
 <pre><code>hive&gt; SELECT a.ymd, a.price_close, b.price_close
 &gt; FROM stocks a JOIN stocks b ON a.ymd = b.ymd
 &gt; WHERE a.symbol = &#39;AAPL&#39; AND b.symbol = &#39;IBM&#39;;
@@ -787,8 +788,10 @@ Todd Jones 200 Chicago Ave.
 FROM stocks a JOIN stocks b
 ON a.ymd &lt;= b.ymd
 WHERE a.symbol = &#39;AAPL&#39; AND b.symbol = &#39;IBM&#39;;
-</code></pre><h3 id="6-4-2-join-">6.4.2 join优化</h3>
+</code></pre><p>Hive不支持<code>ON</code>子句中使用<code>OR</code>.</p>
+<h3 id="6-4-2-join-">6.4.2 join优化</h3>
 <h3 id="6-4-3-left-outer-join">6.4.3 left outer join</h3>
+<p>左外连接(<code>LEFT OUTER JOIN</code>)左边符合<code>WHERE</code>条件的语句会返回,右表中匹配不到的字段值用<code>NULL</code>代替.</p>
 <pre><code>hive&gt; SELECT s.ymd, s.symbol, s.price_close, d.dividend
 &gt; FROM stocks s LEFT OUTER JOIN dividends d ON s.ymd = d.ymd AND s.symbol = d.symbol
 &gt; WHERE s.symbol = &#39;AAPL&#39;;
@@ -807,6 +810,7 @@ WHERE a.symbol = &#39;AAPL&#39; AND b.symbol = &#39;IBM&#39;;
 1987-05-19 AAPL 73.25 NULL
 1987-05-20 AAPL 74.5 NULL
 </code></pre><h3 id="6-4-4-outer-join">6.4.4 outer join</h3>
+<p>对于外连接(<code>OUTER JOIN</code>)会忽略掉分区过滤条件,对于内链接(<code>INNER JOIN</code>)则不会忽略掉过滤条件.</p>
 <pre><code>hive&gt; SELECT s.ymd, s.symbol, s.price_close, d.dividend
 &gt; FROM stocks s LEFT OUTER JOIN dividends d ON s.ymd = d.ymd AND s.symbol = d.symbol
 &gt; WHERE s.symbol = &#39;AAPL&#39;
@@ -817,6 +821,7 @@ WHERE a.symbol = &#39;AAPL&#39; AND b.symbol = &#39;IBM&#39;;
 1988-02-12 AAPL 41.0 0.02
 1988-05-16 AAPL 41.25 0.02
 </code></pre><h3 id="6-4-5-right-outer-join">6.4.5 right outer join</h3>
+<p>右外连接(<code>RIGHT OUTER JOIN</code>)返回右边表符合<code>WHERE</code>语句的记录.左表中匹配不到的字段值用<code>NULL</code>代替.</p>
 <pre><code>hive&gt; SELECT s.ymd, s.symbol, s.price_close, d.dividend
 &gt; FROM dividends d RIGHT OUTER JOIN stocks s ON d.ymd = s.ymd AND d.symbol = s.symbol
 &gt; WHERE s.symbol = &#39;AAPL&#39;;
@@ -826,6 +831,7 @@ WHERE a.symbol = &#39;AAPL&#39; AND b.symbol = &#39;IBM&#39;;
 1987-05-12 AAPL 75.5 NULL
 1987-05-13 AAPL 78.5 NULL
 </code></pre><h3 id="6-4-6-full-outer-join">6.4.6 full outer join</h3>
+<p>完全外连接(<code>FULL OUTER JOIN</code>)返回所有表中符合<code>WHERE</code>语句条件的所有记录.</p>
 <pre><code>hive&gt; SELECT s.ymd, s.symbol, s.price_close, d.dividend
 &gt; FROM dividends d FULL OUTER JOIN stocks s ON d.ymd = s.ymd AND d.symbol = s.symbol
 &gt; WHERE s.symbol = &#39;AAPL&#39;;
@@ -835,6 +841,7 @@ WHERE a.symbol = &#39;AAPL&#39; AND b.symbol = &#39;IBM&#39;;
 1987-05-12 AAPL 75.5 NULL
 1987-05-13 AAPL 78.5 NULL
 </code></pre><h3 id="6-4-7-left-semi-join">6.4.7 left semi-join</h3>
+<p>左半开连接(<code>LEFT SEMI JOIN</code>)，在满足右边表中<code>ON</code>语句的条件判定的前提下,返回左边表中的记录。</p>
 <p>Hive中不支持的查询</p>
 <pre><code>SELECT s.ymd, s.symbol, s.price_close FROM stocks s
 WHERE s.ymd, s.symbol IN
@@ -846,18 +853,113 @@ WHERE s.ymd, s.symbol IN
 1962-08-07 IBM 373.25
 1962-05-08 IBM 459.5
 1962-02-06 IBM 551.5
-</code></pre><h3 id="6-4-8-join">6.4.8 笛卡尔积join</h3>
+</code></pre><p>注意:<code>SELECT</code>和<code>WHERE</code>语句中不能引用到右边表中的字段.Hive不支持右半开连接.</p>
+<h3 id="6-4-8-join">6.4.8 笛卡尔积join</h3>
+<p>笛卡尔积，返回左边表中的行数乘以右边表中的行数。</p>
 <pre><code>SELECTS * FROM stocks JOIN dividends;
 </code></pre><h3 id="6-4-9-map-side-join">6.4.9 map-side join</h3>
 <h2 id="6-5-order-by-sort-by">6.5 order by和sort by</h2>
-<h2 id="6-6-sort-by-distribute-by">6.6 含有sort by 的distribute by</h2>
-<h2 id="6-7-cluster-by">6.7 cluster by</h2>
-<h2 id="6-8-">6.8 类型转换</h2>
-<h2 id="6-9-">6.9 抽样查询</h2>
-<h3 id="6-9-1-">6.9.1 数据块抽样</h3>
-<h3 id="6-9-2-">6.9.2 分桶表的输入裁剪</h3>
-<h2 id="6-10-union-all">6.10 union all</h2>
+<p>在Hive中提供<code>ORDER BY</code>和<code>SORT BY</code>来对数据进行排序。其区别是:</p>
+<ul>
+<li><p><code>ORDER BY</code>用来对结果进行全局排序</p>
+</li>
+<li><p><code>SORT BY</code>只会在每个<code>reducer</code>中对数据排序。是局部排序。只保证每个<code>reducer</code>的输出是有序的。</p>
+</li>
+</ul>
+<p><code>ORDER BY</code>是全局排序。运行时间会较长。若属性<code>hive.mapred.mode</code>的值是<code>strict</code>，Hive要求必须使用<code>LIMIT</code>限制输出.默认是<code>nonstrict</code>。</p>
+<ul>
+<li>ORDER BY</li>
+</ul>
+<pre><code>SELECT s.ymd, s.symbol, s.price_close
+FROM stocks s
+ORDER BY s.ymd ASC, s.symbol DESC;
+</code></pre><ul>
+<li>SORT BY</li>
+</ul>
+<pre><code>SELECT s.ymd, s.symbol, s.price_close
+FROM stocks s
+SORT BY s.ymd ASC, s.symbol DESC;
+</code></pre><h2 id="6-6-sort-by-distribute-by">6.6 含有sort by 的distribute by</h2>
+<p><code>DISTRIBUTE BY</code>控制<code>map</code>的输出在<code>reducer</code>中是如何划分的。<code>MapReduce</code>中传输的所有数据都是键值对。默认情况下，<code>MapReduce</code>计算框架依据<code>map</code>输入的键计算其哈希值，然后按得到的哈希值将键值分发到多个<code>reducer</code>中。
+<code>DISTRIBUTE BY</code>和<code>GROUP BY</code>在其控制着<code>reducer</code>是如何接受一行行数据进行处理这方面是类似的。而<code>SORT BY</code>控制着<code>reducer</code>内的数据是如何排序的。
+<code>DISTRIBUTE BY</code>语句位于<code>SORT BY</code>语句之前。</p>
+<pre><code>hive&gt; SELECT s.ymd, s.symbol, s.price_close
+&gt; FROM stocks s
+&gt; DISTRIBUTE BY s.symbol
+&gt; SORT BY s.symbol ASC, s.ymd ASC;
+1984-09-07 AAPL 26.5
+1984-09-10 AAPL 26.37
+1984-09-11 AAPL 26.87
+1984-09-12 AAPL 26.12
+1984-09-13 AAPL 27.5
+1984-09-14 AAPL 27.87
+1984-09-17 AAPL 28.62
+1984-09-18 AAPL 27.62
+1984-09-19 AAPL 27.0
+1984-09-20 AAPL 27.12
+</code></pre><h2 id="6-7-cluster-by">6.7 cluster by</h2>
+<pre><code>hive&gt; SELECT s.ymd, s.symbol, s.price_close
+&gt; FROM stocks s
+&gt; CLUSTER BY s.symbol;
+2010-02-08 AAPL 194.12
+2010-02-05 AAPL 195.46
+2010-02-04 AAPL 192.05
+2010-02-03 AAPL 199.23
+2010-02-02 AAPL 195.86
+2010-02-01 AAPL 194.73
+2010-01-29 AAPL 192.06
+2010-01-28 AAPL 199.29
+2010-01-27 AAPL 207.88
+</code></pre><h2 id="6-8-">6.8 类型转换</h2>
+<p>Hive使用<code>cast</code>进行数据类型转换。</p>
+<pre><code>SELECT name, salary FROM employees
+WHERE cast(salary AS FLOAT) &lt; 100000.0;
+</code></pre><p>若<code>cast</code>中的数据类型不合法为返回为<code>NULL</code>。</p>
+<p>需要注意的是将浮点数转化为整形推荐使用<code>round()</code> 或 <code>floor()</code>。</p>
+<p>类型转换<code>BINARY</code>值</p>
+<pre><code>SELECT (2.0*cast(cast(b as string) as double)) from src;
+</code></pre><h2 id="6-9-">6.9 抽样查询</h2>
+<p>使用<code>rand()</code>函数进行抽样。</p>
+<pre><code>hive&gt; SELECT * from numbers TABLESAMPLE(BUCKET 3 OUT OF 10 ON rand()) s;
+2
+4
 
+hive&gt; SELECT * from numbers TABLESAMPLE(BUCKET 3 OUT OF 10 ON rand()) s;
+7
+10
+</code></pre><pre><code>hive&gt; SELECT * from numbers TABLESAMPLE(BUCKET 3 OUT OF 10 ON number) s;
+2
+
+hive&gt; SELECT * from numbers TABLESAMPLE(BUCKET 5 OUT OF 10 ON number) s;
+4
+
+hive&gt; SELECT * from numbers TABLESAMPLE(BUCKET 3 OUT OF 10 ON number) s;
+2
+</code></pre><h3 id="6-9-1-">6.9.1 数据块抽样</h3>
+<p>基于百分比的数据抽样</p>
+<pre><code>hive&gt; SELECT * FROM numbersflat TABLESAMPLE(0.1 PERCENT) s;
+</code></pre><h3 id="6-9-2-">6.9.2 分桶表的输入裁剪</h3>
+<h2 id="6-10-union-all">6.10 union all</h2>
+<p><code>UNION ALL</code>将两个或多个表进行合并。每一个<code>union</code>子查询都必须具有相同的列。且对应的每个字段类型必须一致。</p>
+<pre><code>SELECT log.ymd, log.level, log.message
+FROM (
+  SELECT l1.ymd, l1.level,
+     l1.message, &#39;Log1&#39; AS source
+  FROM log1 l1
+UNION ALL
+  SELECT l2.ymd, l2.level,
+     l2.message, &#39;Log2&#39; AS source
+FROM log1 l2
+) log
+SORT BY log.ymd ASC;
+</code></pre><p>使用<code>UNION</code>对同一个源表的数据进行合并。如:</p>
+<pre><code>FROM (
+FROM src SELECT src.key, src.value WHERE src.key &lt; 100
+UNION ALL
+FROM src SELECT src.* WHERE src.key &gt; 110
+) unioninput
+INSERT OVERWRITE DIRECTORY &#39;/tmp/union.out&#39; SELECT unioninput.*
+</code></pre>
                     
                     </section>
                 
