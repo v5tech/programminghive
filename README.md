@@ -29,7 +29,6 @@ $ cd programminghive
 
 ```
 $ gitbook serve .
-
 ```
 
 如:
