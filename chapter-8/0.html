@@ -5,7 +5,7 @@
         
         
         <meta charset="UTF-8">
-        <title>第五章 HiveQL:数据操作 | Programming Hive 读书笔记</title>
+        <title>第八章 HiveQL:索引 | Programming Hive 读书笔记</title>
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="robots" content="index, follow">
@@ -15,13 +15,13 @@
         <meta name="generator" content="www.gitbook.io">
 
         
-        <link rel="next" href="../chapter-6/0.html" />
+        <link rel="next" href="../chapter-9/0.html" />
         
         
-        <link rel="prev" href="../chapter-4/0.html" />
+        <link rel="prev" href="../chapter-7/0.html" />
         
 
-        <meta property="og:title" content="第五章 HiveQL:数据操作 | Programming Hive 读书笔记">
+        <meta property="og:title" content="第八章 HiveQL:索引 | Programming Hive 读书笔记">
         <meta property="og:site_name" content="Programming Hive 读书笔记">
         <meta property="og:type" content="book">
         <meta property="og:locale" content="en_US">
@@ -46,7 +46,7 @@
 
 
         
-    <div class="book" data-github="sxyx2008/programminghive" data-level="6" data-basepath=".." data-revision="1401338166693">
+    <div class="book" data-github="sxyx2008/programminghive" data-level="9" data-basepath=".." data-revision="1401338166693">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -130,7 +130,7 @@
         
         
         <li>
-            <a href="https://github.com/sxyx2008/programminghive/edit/master/chapter-5/0.md" target="blank" class="contribute-link">Edit and Contribute</a>
+            <a href="https://github.com/sxyx2008/programminghive/edit/master/chapter-8/0.md" target="blank" class="contribute-link">Edit and Contribute</a>
         </li>
         
 
@@ -375,7 +375,7 @@
             <div class="page-wrapper" tabindex="-1">
                 <div class="book-progress">
     <div class="bar">
-        <div class="inner" style="width: 21.73913043478261%;min-width: 17.391304347826086%;"></div>
+        <div class="inner" style="width: 34.78260869565217%;min-width: 30.434782608695652%;"></div>
     </div>
     <div class="chapters">
     
@@ -391,11 +391,11 @@
     
         <a href="../chapter-5/0.html" title="第五章 HiveQL:数据操作" class="chapter done new-chapter" data-progress="6" style="left: 21.73913043478261%;"></a>
     
-        <a href="../chapter-6/0.html" title="第六章 HiveQL:查询" class="chapter  new-chapter" data-progress="7" style="left: 26.08695652173913%;"></a>
+        <a href="../chapter-6/0.html" title="第六章 HiveQL:查询" class="chapter done new-chapter" data-progress="7" style="left: 26.08695652173913%;"></a>
     
-        <a href="../chapter-7/0.html" title="第七章 HiveQL:视图" class="chapter  new-chapter" data-progress="8" style="left: 30.434782608695652%;"></a>
+        <a href="../chapter-7/0.html" title="第七章 HiveQL:视图" class="chapter done new-chapter" data-progress="8" style="left: 30.434782608695652%;"></a>
     
-        <a href="../chapter-8/0.html" title="第八章 HiveQL:索引" class="chapter  new-chapter" data-progress="9" style="left: 34.78260869565217%;"></a>
+        <a href="../chapter-8/0.html" title="第八章 HiveQL:索引" class="chapter done new-chapter" data-progress="9" style="left: 34.78260869565217%;"></a>
     
         <a href="../chapter-9/0.html" title="第九章 模式设计" class="chapter  " data-progress="10" style="left: 39.130434782608695%;"></a>
     
@@ -432,70 +432,62 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_5">
+                    <section class="normal" id="section-gitbook_8">
                     
-                        <h1 id="-hiveql-">第五章 HiveQL:数据操作</h1>
-<h2 id="5-1-">5.1 向管理表中装载数据</h2>
-<pre><code>LOAD DATA LOCAL INPATH &#39;${env:HOME}/california-employees&#39;
-OVERWRITE INTO TABLE employees
-PARTITION (country = &#39;US&#39;, state = &#39;CA&#39;);
-</code></pre><p>在上述例子中,如果分区目录不存在的话,会先创建分区目录。然后再将数据拷贝到该目录下.</p>
-<p>如果目标表是非分区表，省略掉<code>PARTITION</code>子句.</p>
-<p>通常情况下指定的路径应该是一个目录，而不是独立的文件。</p>
-<p>使用<code>LOCAL</code>关键字表示数据从本地文件系统路径拷贝数据。省略掉<code>LOCAL</code>表示从分布式文件系统中拷贝。</p>
-<p><code>LOAD DATA LOCAL</code> 拷贝本地数据文件到分布式文件系统上的目标位置</p>
-<p><code>LOAD DATA</code> 移动数据到目标位置</p>
-<p>指定全路径具有良好的可读性。同样支持相对路径。在本地模式执行时,相对路径是指当前Hive CLI启动时用户的工作目录。对于分布式或者伪分布式，该路径相对于分布式文件系统中用户的根目录。</p>
-<p>若指定了<code>OVERWRITE</code>，目标文件中存在的数据将会被删除。否则仅仅将把新增的文件增加到目标文件夹中而不会删除之前的数据。</p>
-<p>如果目标表是分区表，需要使用<code>PARTITION</code>,且必须为每个分区的键指定一个值</p>
-<h2 id="5-2-">5.2 通过查询语句向表中插入数据</h2>
-<p>关键字<code>INSERT</code>允许通过查询语句向目标表中插入数据.</p>
-<pre><code>INSERT OVERWRITE TABLE employees
-PARTITION (country = &#39;US&#39;, state = &#39;OR&#39;)
-SELECT * FROM staged_employees se
-WHERE se.cnty = &#39;US&#39; AND se.st = &#39;OR&#39;;
-</code></pre><p>不使用<code>OVERWRITE</code>或者使用<code>INTO</code>替换<code>OVERWRITE</code>的话，Hive将会以追加的方式写入数据而不会覆盖之前的内容。</p>
-<p>动态分区插入</p>
-<pre><code>INSERT OVERWRITE TABLE employees
-PARTITION (country, state)
-SELECT ..., se.cnty, se.st
-FROM staged_employees se;
-</code></pre><p>混合使用动态和静态分区</p>
-<pre><code>INSERT OVERWRITE TABLE employees
-PARTITION (country = &#39;US&#39;, state)
-SELECT ..., se.cnty, se.st
-FROM staged_employees se
-WHERE se.cnty = &#39;US&#39;;
-</code></pre><p>静态分区键必须出现在动态分区键之前。动态分区默认没有开启。默认以&quot;严格&quot;模式执行。该模式下要求至少有一列分区字段是静态的。</p>
-<p>动态分区属性</p>
-<pre><code>hive.exec.dynamic.partition 默认false，设置成true表示开启动态分区功能
-
-hive.exec.dynamic.partition.mode 默认strict 设置成nonstrict表示允许所有分区都是动态的
-
-hive.exec.max.dynamic.partitions.pernode 默认100 每个mapper或reducer可创建的最大动态分区个数
-
-hive.exec.max.dynamic.partitions 默认1000 一个动态分区创建语句可创建的最大动态分区个数
-
-hive.exec.max.created.files 默认100000 全局可以创建的最大文件个数
-</code></pre><pre><code>hive&gt; set hive.exec.dynamic.partition=true;
-hive&gt; set hive.exec.dynamic.partition.mode=nonstrict;
-hive&gt; set hive.exec.max.dynamic.partitions.pernode=1000;
-</code></pre><h2 id="5-3-">5.3 单个查询语句中创建表并加载数据</h2>
-<pre><code>CREATE TABLE ca_employees
-AS SELECT name, salary, address
-FROM employees
-WHERE se.state = &#39;CA&#39;;
-</code></pre><h2 id="5-4-">5.4 导出数据</h2>
-<pre><code>INSERT OVERWRITE LOCAL DIRECTORY &#39;/tmp/ca_employees&#39;
-SELECT name, salary, address
-FROM employees
-WHERE se.state = &#39;CA&#39;;
-</code></pre><div>
+                        <h1 id="-hiveql-">第八章 HiveQL:索引</h1>
+<p>Hive只有有限的索引功能。没有关系型数据库中键的概念。</p>
+<h2 id="8-1-">8.1 创建索引</h2>
+<p>对如下管理分区表建立索引</p>
+<pre><code>CREATE TABLE employees (
+name STRING,
+salary FLOAT,
+subordinates ARRAY&lt;STRING&gt;,
+deductions MAP&lt;STRING, FLOAT&gt;,
+address STRUCT&lt;street:STRING, city:STRING, state:STRING, zip:INT&gt;
+)
+PARTITIONED BY (country STRING, state STRING);
+</code></pre><pre><code>CREATE INDEX employees_index
+ON TABLE employees (country)
+AS &#39;org.apache.hadoop.hive.ql.index.compact.CompactIndexHandler&#39;
+WITH DEFERRED REBUILD
+IDXPROPERTIES (&#39;creator = &#39;me&#39;, &#39;created_at&#39; = &#39;some_time&#39;)
+IN TABLE employees_index_table
+PARTITIONED BY (country, name)
+COMMENT &#39;Employees indexed by country and name.&#39;;
+</code></pre><p><code>AS ...</code> 指定了索引处理器(一个实现了索引接口的Java类)，Hive本身提供了一些典型的索引实现。</p>
+<h2 id="bitmap-">Bitmap索引</h2>
+<p><code>bitmap</code> 创建索引，用于排重后值较少的列。如:</p>
+<pre><code>CREATE INDEX employees_index
+ON TABLE employees (country)
+AS &#39;BITMAP&#39;
+WITH DEFERRED REBUILD
+IDXPROPERTIES (&#39;creator = &#39;me&#39;, &#39;created_at&#39; = &#39;some_time&#39;)
+IN TABLE employees_index_table
+PARTITIONED BY (country, name)
+COMMENT &#39;Employees indexed by country and name.&#39;;
+</code></pre><h2 id="8-2-">8.2 重建索引</h2>
+<p>若指定了<code>WITH DEFERRED REBUILD</code>，新索引将是空的。随时可以进行第一次索引创建或者使用<code>ALTER INDEX</code>重建索引。</p>
+<pre><code>ALTER INDEX employees_index
+ON TABLE employees
+PARTITION (country = &#39;US&#39;)
+REBUILD;
+</code></pre><p>若省略掉<code>PARTITION</code>将会对所有分区进行索引重建。</p>
+<h2 id="8-3-">8.3 显示索引</h2>
+<pre><code>SHOW FORMATTED INDEX ON employees;
+</code></pre><p><code>FORMATTED</code> 是可选的。增加这个关键字可以使输出中包含有列名。可以替换为<code>INDEX</code>或<code>INDEXES</code>，可以输出更多的索引信息。</p>
+<h2 id="8-4-">8.4 删除索引</h2>
+<pre><code>DROP INDEX IF EXISTS employees_index ON TABLE employees;
+</code></pre><p>删除索引将会删除索引表。</p>
+<p>Hive不允许使用<code>DROP TABLES</code>删除索引表。</p>
+<p>如果被索引的表被删除了，索引和索引表也会被删除。</p>
+<p>如果表的某个分区被删除了，那么这个分区对应的分区索引也会同时被删除掉。</p>
+<h2 id="8-5-">8.5 实现一个定制化的索引处理器</h2>
+<div>
   <div style="float:left;">
-     <a href="/chapter-4/0.html" style="text-decoration:none;">第四章 HiveQL:数据定义</a>
+     <a href="/chapter-7/0.html" style="text-decoration:none;">第七章 HiveQL:视图</a>
   </div>
   <div style="float:right;">
-     <a href="/chapter-6/0.html" style="text-decoration:none;">第六章 HiveQL:查询</a>
+     <a href="/chapter-9/0.html" style="text-decoration:none;">第九章 模式设计</a>
   </div>
 </div>
                     
@@ -506,10 +498,10 @@ WHERE se.state = &#39;CA&#39;;
         </div>
 
         
-        <a href="../chapter-4/0.html" class="navigation navigation-prev " aria-label="Previous page: 第四章 HiveQL:数据定义"><i class="fa fa-angle-left"></i></a>
+        <a href="../chapter-7/0.html" class="navigation navigation-prev " aria-label="Previous page: 第七章 HiveQL:视图"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../chapter-6/0.html" class="navigation navigation-next " aria-label="Next page: 第六章 HiveQL:查询"><i class="fa fa-angle-right"></i></a>
+        <a href="../chapter-9/0.html" class="navigation navigation-next " aria-label="Next page: 第九章 模式设计"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
