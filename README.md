@@ -12,7 +12,7 @@
 $ git clone https://github.com/sxyx2008/programminghive.git
 ```
 
-* 使用npm安装```gitbook```
+* 使用```npm```安装```gitbook```
 
 ```
 $ npm install gitbook -g
@@ -20,7 +20,7 @@ $ npm install gitbook -g
 
 注意```-g```选项。将```gitbook```安装为全局。
 
-* 切换到programminghive的目录
+* 切换到```programminghive```目录
 
 ```
 $ cd programminghive

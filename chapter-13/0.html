@@ -46,7 +46,7 @@
 
 
         
-    <div class="book" data-github="sxyx2008/programminghive" data-level="14" data-basepath=".." data-revision="1401354615232">
+    <div class="book" data-github="sxyx2008/programminghive" data-level="14" data-basepath=".." data-revision="1401357905673">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -436,7 +436,146 @@
                     
                         <h1 id="-">第十三章 函数</h1>
 <h2 id="13-1-">13.1 发现和描述函数</h2>
-<h2 id="13-2-">13.2 调用函数</h2>
+<p><code>SHOW FUNCTIONS</code>列举当前Hive会话中所加载的所有函数名。包括内置的和用户自定义的函数。</p>
+<pre><code>hive&gt; SHOW FUNCTIONS;
+abs
+acos
+and
+array
+</code></pre><p>使用<code>DESCRIBE FUNCTION</code>显示函数的简短描述信息。</p>
+<pre><code>hive&gt; DESCRIBE FUNCTION concat;
+concat(str1, str2, ... strN) - returns the concatenation of str1, str2, ... strN
+</code></pre><p>使用<code>DESCRIBE FUNCTION EXTENDED</code>查看更详细的描述。</p>
+<pre><code>hive&gt; DESCRIBE FUNCTION EXTENDED concat;
+concat(str1, str2, ... strN) - returns the concatenation of str1, str2, ... strN
+Returns NULL if any argument is NULL.
+Example:
+&gt; SELECT concat(&#39;abc&#39;, &#39;def&#39;) FROM src LIMIT 1;
+&#39;abcdef&#39;
+</code></pre><h2 id="13-2-">13.2 调用函数</h2>
+<pre><code>SELECT concat(column1,column2) AS x FROM table;
+</code></pre><h2 id="13-3-">13.3 标准函数</h2>
+<h2 id="13-4-">13.4 聚合函数</h2>
+<p>所有的聚合函数、用户自定义函数和内置函数，都统称为用户自定义聚合函数(UDAF)。</p>
+<p>聚合函数接受从零行到多行的零个到多个的列，返回一个单一的值。如:</p>
+<pre><code>hive&gt; SELECT avg(price_close)
+&gt; FROM stocks
+&gt; WHERE exchange = &#39;NASDAQ&#39; AND symbol = &#39;AAPL&#39;;
+</code></pre><p>聚合函数通常和<code>GROUP BY</code>一起使用。如:</p>
+<pre><code>hive&gt; SELECT year(ymd), avg(price_close) FROM stocks
+&gt; WHERE exchange = &#39;NASDAQ&#39; AND symbol = &#39;AAPL&#39;
+&gt; GROUP BY year(ymd);
+1984 25.578625440597534
+1985 20.193676221040867
+1986 32.46102808021274
+</code></pre><h2 id="13-5-">13.5 表生成函数</h2>
+<p>所有的表生成函数，包括用户自定义的和内置的都统称为用户自定义表生成函数(UDTF)。</p>
+<p>表生成函数，接受零个或多个输入，产生多列或多好输出。</p>
+<pre><code>hive&gt; SELECT array(1,2,3) FROM dual;
+[1,2,3]
+</code></pre><p><code>explode()</code> 函数以<code>array</code>类型作为输入，然后对数组中的元素进行迭代，返回多行结果，一行一个数组元素值。</p>
+<pre><code>hive&gt; SELECT explode(array(1,2,3)) AS element FROM src;
+1
+2
+3
+</code></pre><p><code>explode()</code> 函数的错误使用方式:</p>
+<pre><code>hive&gt; SELECT name, explode(subordinates) FROM employees;
+FAILED: Error in semantic analysis: UDTF&#39;s are not supported outside
+the SELECT clause, nor nested in expressions
+</code></pre><p>Hive提供了<code>LATERAL VIEW</code>功能来实现这种查询：</p>
+<pre><code>hive&gt; SELECT name, sub
+&gt; FROM employees
+&gt; LATERAL VIEW explode(subordinates) subView AS sub;
+John Doe    Mary Smith
+John Doe    Todd Jones
+Mary Smith  Bill King
+</code></pre><p><code>LATERAL VIEW</code> 将<code>explode</code>函数得到的行转列的结果集合在一起。使用<code>LATERAL VIEW</code>需要指定视图别名和生成的新列的别名。在该例子中分别是<code>subView</code>和<code>sub</code>。</p>
+<h2 id="13-6-udf">13.6 一个通过日期计算其星座的UDF</h2>
+<p>样本数据集为:</p>
+<pre><code>edward capriolo,edward@media6degrees.com,2-12-1981,209.191.139.200,M,10
+bob,bob@test.net,10-10-2004,10.10.10.1,M,50
+sara connor,sara@sky.net,4-5-1974,64.64.5.1,F,2
+</code></pre><p>创建表，且将数据载入到表中</p>
+<pre><code>hive &gt; CREATE TABLE IF NOT EXISTS littlebigdata(
+&gt; name STRING,
+&gt; email STRING,
+&gt; bday STRING,
+&gt; ip STRING,
+&gt; gender STRING,
+&gt; anum INT)
+&gt; ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;,&#39;;
+
+hive&gt; LOAD DATA LOCAL INPATH &#39;${env:HOME}/littlebigdata.txt&#39;
+&gt; INTO TABLE littlebigdata;
+</code></pre><p>函数的输入是一个日期，输出期望标识为该用户星座的字符串。</p>
+<p>Java Code</p>
+<pre><code class="lang-java"><span class="hljs-keyword">package</span> org.apache.hadoop.hive.contrib.udf.example;
+
+<span class="hljs-keyword">import</span> java.util.Date;
+<span class="hljs-keyword">import</span> java.text.SimpleDateFormat;
+<span class="hljs-keyword">import</span> org.apache.hadoop.hive.ql.exec.UDF;
+
+<span class="hljs-annotation">@Description</span>(name = <span class="hljs-string">"zodiac"</span>,
+value = <span class="hljs-string">"_FUNC_(date) - from the input date string "</span>+<span class="hljs-string">"or separate month and day arguments, returns the sign of the Zodiac."</span>,
+extended = <span class="hljs-string">"Example:\n"</span> + <span class="hljs-string">" &gt; SELECT _FUNC_(date_string) FROM src;\n"</span>+ <span class="hljs-string">" &gt; SELECT _FUNC_(month, day) FROM src;"</span>)
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UDFZodiacSign</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">UDF</span>{</span>
+
+    <span class="hljs-keyword">private</span> SimpleDateFormat df;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title">UDFZodiacSign</span>(){
+        df = <span class="hljs-keyword">new</span> SimpleDateFormat(<span class="hljs-string">"MM-dd-yyyy"</span>);
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title">evaluate</span>( Date bday ){
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.evaluate( bday.getMonth(), bday.getDay() );
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title">evaluate</span>(String bday){
+        Date date = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">try</span> {
+            date = df.parse(bday);
+        } <span class="hljs-keyword">catch</span> (Exception ex) {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.evaluate( date.getMonth()+<span class="hljs-number">1</span>, date.getDay() );
+    }
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title">evaluate</span>( Integer month, Integer day ){
+        <span class="hljs-keyword">if</span> (month==<span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">if</span> (day &lt; <span class="hljs-number">20</span> ){
+                <span class="hljs-keyword">return</span> <span class="hljs-string">"Capricorn"</span>;
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">return</span> <span class="hljs-string">"Aquarius"</span>;
+            }
+        }
+        <span class="hljs-keyword">if</span> (month==<span class="hljs-number">2</span>){
+            <span class="hljs-keyword">if</span> (day &lt; <span class="hljs-number">19</span> ){
+                <span class="hljs-keyword">return</span> <span class="hljs-string">"Aquarius"</span>;
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">return</span> <span class="hljs-string">"Pisces"</span>;
+            }
+        }
+        <span class="hljs-comment">/* ...other months here */</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    }
+
+}
+</code></pre>
+<p>编写<code>UDF</code>,需要继承<code>UDF</code>类，并实现<code>evaluate()</code>方法。</p>
+<h2 id="13-7-udf-genericudf">13.7 UDF与GenericUDF</h2>
+<h2 id="13-8-">13.8 不变函数</h2>
+<h2 id="13-9-">13.9 用户自定义函数</h2>
+<h2 id="13-10-">13.10 用户自定义表生成函数</h2>
+<h3 id="13-10-1-udtf">13.10.1 可以产生多行数据的UDTF</h3>
+<h3 id="13-10-2-udtf">13.10.2 可以产生具有多个字段的单行数据的UDTF</h3>
+<h3 id="13-10-3-udtf">13.10.3 可以模拟更复杂数据类型的UDTF</h3>
+<h2 id="13-11-udf-">13.11 在UDF中访问分布式缓存</h2>
+<h2 id="13-12-">13.12 以函数的方式使用注解</h2>
+<h3 id="13-12-1-deterministic-">13.12.1 定数性(deterministic)标注</h3>
+<h3 id="13-12-2-stateful-">13.12.2 状态性(stateful)标注</h3>
+<h3 id="13-12-3-">13.12.3 唯一性</h3>
+<h2 id="13-13-">13.13 宏命令</h2>
 
                     
                     </section>
