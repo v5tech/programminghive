@@ -1,6 +1,5 @@
-# Summary
+# 目 录
 
-* [README](README.md)
 * [第一章 基础知识](chapter-1/0.md)
 * [第二章 基础操作](chapter-2/0.md)
 * [第三章 数据类型和文件格式](chapter-3/0.md)
