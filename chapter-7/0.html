@@ -5,7 +5,7 @@
         
         
         <meta charset="UTF-8">
-        <title>第三章 数据类型和文件格式 | Programming Hive 读书笔记</title>
+        <title>第七章 HiveQL:视图 | Programming Hive 读书笔记</title>
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="robots" content="index, follow">
@@ -15,13 +15,13 @@
         <meta name="generator" content="www.gitbook.io">
 
         
-        <link rel="next" href="../chapter-4/0.html" />
+        <link rel="next" href="../chapter-8/0.html" />
         
         
-        <link rel="prev" href="../chapter-2/0.html" />
+        <link rel="prev" href="../chapter-6/0.html" />
         
 
-        <meta property="og:title" content="第三章 数据类型和文件格式 | Programming Hive 读书笔记">
+        <meta property="og:title" content="第七章 HiveQL:视图 | Programming Hive 读书笔记">
         <meta property="og:site_name" content="Programming Hive 读书笔记">
         <meta property="og:type" content="book">
         <meta property="og:locale" content="en_US">
@@ -46,7 +46,7 @@
 
 
         
-    <div class="book" data-github="sxyx2008/programminghive" data-level="4" data-basepath=".." data-revision="1401334368986">
+    <div class="book" data-github="sxyx2008/programminghive" data-level="8" data-basepath=".." data-revision="1401334368986">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -130,7 +130,7 @@
         
         
         <li>
-            <a href="https://github.com/sxyx2008/programminghive/edit/master/chapter-3/0.md" target="blank" class="contribute-link">Edit and Contribute</a>
+            <a href="https://github.com/sxyx2008/programminghive/edit/master/chapter-7/0.md" target="blank" class="contribute-link">Edit and Contribute</a>
         </li>
         
 
@@ -375,7 +375,7 @@
             <div class="page-wrapper" tabindex="-1">
                 <div class="book-progress">
     <div class="bar">
-        <div class="inner" style="width: 13.043478260869565%;min-width: 8.695652173913043%;"></div>
+        <div class="inner" style="width: 30.434782608695652%;min-width: 26.08695652173913%;"></div>
     </div>
     <div class="chapters">
     
@@ -387,13 +387,13 @@
     
         <a href="../chapter-3/0.html" title="第三章 数据类型和文件格式" class="chapter done new-chapter" data-progress="4" style="left: 13.043478260869565%;"></a>
     
-        <a href="../chapter-4/0.html" title="第四章 HiveQL:数据定义" class="chapter  new-chapter" data-progress="5" style="left: 17.391304347826086%;"></a>
+        <a href="../chapter-4/0.html" title="第四章 HiveQL:数据定义" class="chapter done new-chapter" data-progress="5" style="left: 17.391304347826086%;"></a>
     
-        <a href="../chapter-5/0.html" title="第五章 HiveQL:数据操作" class="chapter  new-chapter" data-progress="6" style="left: 21.73913043478261%;"></a>
+        <a href="../chapter-5/0.html" title="第五章 HiveQL:数据操作" class="chapter done new-chapter" data-progress="6" style="left: 21.73913043478261%;"></a>
     
-        <a href="../chapter-6/0.html" title="第六章 HiveQL:查询" class="chapter  new-chapter" data-progress="7" style="left: 26.08695652173913%;"></a>
+        <a href="../chapter-6/0.html" title="第六章 HiveQL:查询" class="chapter done new-chapter" data-progress="7" style="left: 26.08695652173913%;"></a>
     
-        <a href="../chapter-7/0.html" title="第七章 HiveQL:视图" class="chapter  new-chapter" data-progress="8" style="left: 30.434782608695652%;"></a>
+        <a href="../chapter-7/0.html" title="第七章 HiveQL:视图" class="chapter done new-chapter" data-progress="8" style="left: 30.434782608695652%;"></a>
     
         <a href="../chapter-8/0.html" title="第八章 HiveQL:索引" class="chapter  new-chapter" data-progress="9" style="left: 34.78260869565217%;"></a>
     
@@ -432,36 +432,73 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_3">
+                    <section class="normal" id="section-gitbook_7">
                     
-                        <h1 id="-">第三章 数据类型和文件格式</h1>
-<h2 id="3-1-">3.1 基本数据类型</h2>
-<pre><code>TINYINT
-SMALLINT
-INT
-BIGINT
-BOOLEAN
-FLOAT
-DOUBLE
-STRING
-TIMESTAMP 
-BINARY
-</code></pre><h2 id="3-2-">3.2 集合数据类型</h2>
-<pre><code>STRUCT
-MAP
-ARRAY
-</code></pre><h2 id="3-3-">3.3 文本数据编码</h2>
-<pre><code>\n  文本文件,分隔行
-^A (“control” A) 列分隔字符,用八进制\001表示
-^B 用于分隔```Array```或```Struct```中的元素或者```Map```中的键值对,用八进制\002表示
-^C 用于```Map```中键和值之间的分隔,用八进制\003表示
-</code></pre><h2 id="3-4-">3.4 读时模式</h2>
-<div>
+                        <h1 id="-hiveql-">第七章 HiveQL:视图</h1>
+<p>视图是一个逻辑结构。不像表会存储真实的数据。目前暂不支持物化视图。</p>
+<h2 id="7-1-">7.1 使用视图来降低查询复杂度</h2>
+<p>假若有如下的嵌套子查询:</p>
+<pre><code>FROM (
+SELECT * FROM people JOIN cart
+ON (cart.people_id=people.id) WHERE firstname=&#39;john&#39;
+) a SELECT a.lastname WHERE a.id=3;
+</code></pre><p>创建视图</p>
+<pre><code>CREATE VIEW shorter_join AS
+SELECT * FROM people JOIN cart
+ON (cart.people_id=people.id) WHERE firstname=&#39;john&#39;;
+</code></pre><p>像使用表一样使用视图来查询.</p>
+<pre><code>SELECT lastname FROM shorter_join WHERE id=3;
+</code></pre><h2 id="7-2-">7.2 使用视图来限制基于条件过滤的数据</h2>
+<pre><code>hive&gt; CREATE TABLE userinfo (
+&gt; firstname string, lastname string, ssn string, password string);
+
+hive&gt; CREATE VIEW safer_user_info AS
+&gt; SELECT firstname,lastname FROM userinfo;
+</code></pre><pre><code>hive&gt; CREATE TABLE employee (firstname string, lastname string,
+&gt; ssn string, password string, department string);
+
+hive&gt; CREATE VIEW techops_employee AS
+&gt; SELECT firstname,lastname,ssn FROM userinfo WERE department=&#39;techops&#39;;
+</code></pre><h2 id="7-3-map-">7.3 动态分区中的视图和map类型</h2>
+<pre><code>CREATE EXTERNAL TABLE dynamictable(cols map&lt;string,string&gt;)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY &#39;\004&#39;
+COLLECTION ITEMS TERMINATED BY &#39;\001&#39;
+MAP KEYS TERMINATED BY &#39;\002&#39;
+STORED AS TEXTFILE;
+</code></pre><pre><code>CREATE VIEW orders(state, city, part) AS
+SELECT cols[&quot;state&quot;], cols[&quot;city&quot;], cols[&quot;part&quot;]
+FROM dynamictable
+WHERE cols[&quot;type&quot;] = &quot;request&quot;;
+</code></pre><pre><code>CREATE VIEW shipments(time, part) AS
+SELECT cols[&quot;time&quot;], cols[&quot;parts&quot;]
+FROM dynamictable
+WHERE cols[&quot;type&quot;] = &quot;response&quot;;
+</code></pre><h2 id="7-4-">7.4 视图零零碎碎相关的事情</h2>
+<p>创建视图时可以使用<code>IF NOT EXISTS</code>和<code>COMMENT</code>。如:</p>
+<pre><code>CREATE VIEW IF NOT EXISTS shipments(time, part)
+COMMENT &#39;Time and parts for shipments.&#39;
+TBLPROPERTIES (&#39;creator&#39; = &#39;me&#39;)
+AS SELECT ...;
+</code></pre><p>视图的名称不能和表的名称重名。可以为视图中的新列使用<code>COMMENT</code>写注释，与原表中的列的注释不同。
+在<code>AS SELECT</code>语句中若没有指定别名默认Hive将使用<code>_CN</code>作为别名。其中<code>N</code>从0开始。在<code>AS SELECT</code>语句之前可以使用<code>TBLPROPERTIES</code>定义表的属性。
+<code>CREATE TABLE … LIKE</code>结构同样适用于复制视图。只需要在<code>LIKE</code>关键字后面跟视图名即可。如:</p>
+<pre><code>CREATE TABLE clone_shipments
+LIKE shipments;
+</code></pre><p>同样可以使用<code>EXTERNAL</code>和<code>LOCATION</code>。</p>
+<p>删除视图的方式和删除表方式类似</p>
+<pre><code>DROP VIEW IF EXISTS shipments;
+</code></pre><p>使用<code>SHOW TABLES(没有SHOW VIEWS)</code>语句同样可以查看视图。不能使用<code>DROP TABLES</code>删除视图。</p>
+<p>可以使用<code>DESCRIBE</code>或<code>DESCRIBE EXTENDED</code>查看视图的元数据信息，使用<code>DESCRIBE EXTENDED</code>命令的话在输出信息中<code>Detailed Table Information</code>部分<code>tableType</code>的值为<code>VIRTUAL_VIEW</code>。</p>
+<p>视图中不能使用<code>INSERT</code>或<code>LOAD</code>语句。</p>
+<p>视图是只读的，只允许修改元数据<code>TBLPROPERTIES</code>中的信息。如:</p>
+<pre><code>ALTER VIEW shipments SET TBLPROPERTIES (&#39;created_at&#39; = &#39;some_timestamp&#39;);
+</code></pre><div>
   <div style="float:left;">
-     <a href="/chapter-2/0.html" style="text-decoration:none;">第二章 基础操作</a>
+     <a href="/chapter-6/0.html" style="text-decoration:none;">第六章 HiveQL:查询</a>
   </div>
   <div style="float:right;">
-     <a href="/chapter-4/0.html" style="text-decoration:none;">第四章 HiveQL:数据定义</a>
+     <a href="/chapter-8/0.html" style="text-decoration:none;">第八章 HiveQL:索引</a>
   </div>
 </div>
                     
@@ -472,10 +509,10 @@ ARRAY
         </div>
 
         
-        <a href="../chapter-2/0.html" class="navigation navigation-prev " aria-label="Previous page: 第二章 基础操作"><i class="fa fa-angle-left"></i></a>
+        <a href="../chapter-6/0.html" class="navigation navigation-prev " aria-label="Previous page: 第六章 HiveQL:查询"><i class="fa fa-angle-left"></i></a>
         
         
-        <a href="../chapter-4/0.html" class="navigation navigation-next " aria-label="Next page: 第四章 HiveQL:数据定义"><i class="fa fa-angle-right"></i></a>
+        <a href="../chapter-8/0.html" class="navigation navigation-next " aria-label="Next page: 第八章 HiveQL:索引"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
