@@ -46,7 +46,7 @@
 
 
         
-    <div class="book" data-github="sxyx2008/programminghive" data-level="12" data-basepath=".." data-revision="1401350425248">
+    <div class="book" data-github="sxyx2008/programminghive" data-level="12" data-basepath=".." data-revision="1401352506485">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -432,7 +432,7 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_2">
+                    <section class="normal" id="section-gitbook_4">
                     
                         <h1 id="-">第十一章 其他文件格式和压缩方法</h1>
 <h2 id="11-1-">11.1 确定安装编解码器</h2>
@@ -482,7 +482,7 @@ mapred.output.compress* &lt;/description&gt;
 </code></pre><h2 id="11-5-sequence-">11.5 Sequence格式</h2>
 <p>在Hive中使用<code>sequence</code>需要在<code>CREATE TABLE</code>语句中使用<code>STORED AS SEQUENCEFILE</code>来指定。</p>
 <pre><code>CREATE TABLE a_sequence_file_table STORED AS SEQUENCEFILE;
-</code></pre><p><code>SEQUENCEFILE</code>提供了三种压缩方式。<code>NONE</code>, <code>RECORD</code>和<code>BLOCK</code>。默认<code>RECORD</code>，而通常<code>BLOCK</code>级别压缩性能是最好的。可以在Hadoop的<code>mapred-site.xml</code>文件或Hive的<code>hive-site.xml</code>文件中指定。</p>
+</code></pre><p><code>SEQUENCEFILE</code> 提供了三种压缩方式。<code>NONE</code>, <code>RECORD</code>和<code>BLOCK</code>。默认<code>RECORD</code>，而通常<code>BLOCK</code>级别压缩性能是最好的。可以在Hadoop的<code>mapred-site.xml</code>文件或Hive的<code>hive-site.xml</code>文件中指定。</p>
 <pre><code>&lt;property&gt;
 &lt;name&gt;mapred.output.compression.type&lt;/name&gt;
 &lt;value&gt;BLOCK&lt;/value&gt;
@@ -590,35 +590,30 @@ Table default.final_comp_on_gz_seq stats:
 hive&gt; dfs -ls /user/hive/warehouse/final_comp_on_gz_seq;
 Found 1 items
 /user/hive/warehouse/final_comp_on_gz_seq/000000_0
-</code></pre><pre><code class="lang-sequence```文件是二进制格式的。查询文件头:">
-
-</code></pre>
-<p>hive&gt; dfs -cat /user/hive/warehouse/final_comp_on_gz_seq/000000_0;
+</code></pre><p><code>sequence</code> 文件是二进制格式的。查询文件头:</p>
+<pre><code>hive&gt; dfs -cat /user/hive/warehouse/final_comp_on_gz_seq/000000_0;
 SEQ[]org.apache.hadoop.io.BytesWritable[]org.apache.hadoop.io.BytesWritable[]
-org.apache.hadoop.io.compress.GzipCodec[]</p>
-<pre><code>
-使用hadoop```dfs -text```命令去除```sequence```文件头和压缩。
-</code></pre><p>hive&gt; dfs -text /user/hive/warehouse/final_comp_on_gz_seq/000000_0;
+org.apache.hadoop.io.compress.GzipCodec[]
+</code></pre><p>使用hadoop<code>dfs -text</code>命令去除<code>sequence</code>文件头和压缩。</p>
+<pre><code>hive&gt; dfs -text /user/hive/warehouse/final_comp_on_gz_seq/000000_0;
 4 5
-3 2</p>
-<p>hive&gt; select * from final_comp_on_gz_seq;
+3 2
+
+hive&gt; select * from final_comp_on_gz_seq;
 OK
 4 5
-3 2</p>
-<pre><code>
-直接使用数据压缩和最终输出压缩数据
-</code></pre><p>hive&gt; set mapred.map.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
+3 2
+</code></pre><p>直接使用数据压缩和最终输出压缩数据</p>
+<pre><code>hive&gt; set mapred.map.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 hive&gt; set hive.exec.compress.intermediate=true;
 hive&gt; set mapred.output.compression.type=BLOCK;
 hive&gt; set hive.exec.compress.output=true;
-hive&gt; set mapred.output.compression.codec=org.apache.hadoop.io.compress.GzipCodec;</p>
-<p>hive&gt; CREATE TABLE final_comp_on_gz_int_compress_snappy_seq</p>
-<blockquote>
-<p>ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;\t&#39;
-STORED AS SEQUENCEFILE AS SELECT * FROM a;
-```</p>
-</blockquote>
-<h2 id="11-7-">11.7 存档分区</h2>
+hive&gt; set mapred.output.compression.codec=org.apache.hadoop.io.compress.GzipCodec;
+
+hive&gt; CREATE TABLE final_comp_on_gz_int_compress_snappy_seq
+&gt; ROW FORMAT DELIMITED FIELDS TERMINATED BY &#39;\t&#39;
+&gt; STORED AS SEQUENCEFILE AS SELECT * FROM a;
+</code></pre><h2 id="11-7-">11.7 存档分区</h2>
 <p>Hadoop中有一种存储格式为<code>HAR</code>，即<code>Hadoop Archive(Hadoop归档文件)</code>。一个<code>HAR</code>文件类似与HDFS文件系统中的一个<code>TAR</code>文件，<code>HAR</code>查询效率不高，并非是压缩的。不会节约存储空间，仅仅是减轻<code>NameNode</code>压力。</p>
 <pre><code>hive&gt; CREATE TABLE hive_text (line STRING) PARTITIONED BY (folder STRING);
 
